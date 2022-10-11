@@ -1,0 +1,60 @@
+Arguments: 
+  /Users/thejoaov/.nvm/versions/node/v16.17.0/bin/node /Users/thejoaov/.nvm/versions/node/v16.17.0/bin/yarnpkg install
+
+PATH: 
+  /var/folders/69/342lfbpj4tv0f_n48rgn9pmw0000gn/T/yarn--1665529653987-0.2706586436499083:/Users/thejoaov/.config/yarn/global/node_modules/.bin:/Users/thejoaov/.config/yarn/link/node_modules/.bin:/Users/thejoaov/.nvm/versions/node/v16.17.0/libexec/lib/node_modules/npm/bin/node-gyp-bin:/Users/thejoaov/.nvm/versions/node/v16.17.0/lib/node_modules/npm/bin/node-gyp-bin:/Users/thejoaov/.nvm/versions/node/v16.17.0/bin/node_modules/npm/bin/node-gyp-bin:/Users/thejoaov/.rbenv/shims:/Users/thejoaov/.nvm/versions/node/v16.17.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/thejoaov/.rbenv/shims:/Users/thejoaov/.nvm/versions/node/v16.17.0/bin:/Users/thejoaov/.zinit/polaris/bin:/node_modules/.bin:/Applications/VS Tray.app/Contents/MacOS:/Users/thejoaov/Library/Android/sdk/emulator:/Users/thejoaov/Library/Android/sdk/tools:/Users/thejoaov/Library/Android/sdk/tools/bin:/Users/thejoaov/Library/Android/sdk/platform-tools://flutter/bin:/Users/thejoaov/Library/Android/sdk/emulator:/Users/thejoaov/Library/Android/sdk/tools:/Users/thejoaov/Library/Android/sdk/tools/bin:/Users/thejoaov/Library/Android/sdk/platform-tools:/Users/thejoaov/Documents/Github/it-manager-app/flutter/bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  16.17.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/react-native/-/react-native-0.69.6.tgz: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (/Users/thejoaov/.nvm/versions/node/v16.17.0/lib/node_modules/yarn/lib/cli.js:141517:19)
+      at Object.onceWrapper (node:events:627:28)
+      at ClientRequest.emit (node:events:513:28)
+      at TLSSocket.emitRequestTimeout (node:_http_client:814:9)
+      at Object.onceWrapper (node:events:627:28)
+      at TLSSocket.emit (node:events:525:35)
+      at TLSSocket.Socket._onTimeout (node:net:526:8)
+      at listOnTimeout (node:internal/timers:559:17)
+      at processTimers (node:internal/timers:502:7)
+
+npm manifest: 
+  {
+    "name": "it-manager-app",
+    "version": "1.0.0",
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+      "start": "expo start",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "web": "expo start --web"
+    },
+    "dependencies": {
+      "expo": "~46.0.13",
+      "expo-status-bar": "~1.4.0",
+      "react": "18.0.0",
+      "react-dom": "18.0.0",
+      "react-native": "0.69.6",
+      "react-native-web": "~0.18.7"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.12.9",
+      "@types/react": "~18.0.14",
+      "@types/react-native": "~0.69.1",
+      "typescript": "~4.3.5"
+    },
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
