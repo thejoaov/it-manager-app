@@ -31,6 +31,9 @@ export default function App() {
         label="Login"
         placeholder="Email or Username"
         onChangeText={setLogin}
+        autoCapitalize="none"
+        autoComplete="email"
+        keyboardType="email-address"
       />
 
       <TextInput
@@ -38,6 +41,8 @@ export default function App() {
         label="Password"
         // secureTextEntry
         onChangeText={setPassword}
+        autoCapitalize="none"
+        autoComplete="password"
       />
 
       <Button
