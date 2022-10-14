@@ -1,30 +1,9 @@
-import * as React from "react";
-import { StyleSheet, View } from "react-native";
-import {
-  MD3LightTheme as DefaultTheme,
-  Provider as PaperProvider,
-} from "react-native-paper";
+import "react-native-gesture-handler";
+import { registerRootComponent } from "expo";
+import { AppRegistry } from "react-native";
+
 import App from "./src";
 
-const theme = {
-  ...DefaultTheme,
-  roundness: 2,
-  version: 3,
-  colors: {
-    ...DefaultTheme.colors,
-  },
-};
+registerRootComponent(App);
 
-export default function Main() {
-  return (
-    <PaperProvider theme={theme}>
-      <View style={styles.container}>
-        <App />
-      </View>
-    </PaperProvider>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#FFF" },
-});
+export default App;
