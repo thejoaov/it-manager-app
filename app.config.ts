@@ -31,7 +31,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   version,
   orientation: "portrait",
   icon: "./assets/icon.png",
-  platforms: ["ios", "android"],
+  platforms: ["ios", "android", "web"],
   userInterfaceStyle: "automatic",
   assetBundlePatterns: ["**/*"],
 });

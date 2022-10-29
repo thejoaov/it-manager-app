@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { RequestLogin, ResponseLogin } from "./types";
 
 export const BASE_URL = "http://localhost:3333";
 
@@ -16,15 +17,10 @@ HTTPClient.interceptors.response.use(
 );
 
 const api = {
-  login: async (data: {
-    login: string;
-    password: string;
-  }): Promise<AxiosResponse | null> => {
-    return HTTPClient.post("login", data);
+  login: async (data: RequestLogin): Promise<AxiosResponse<ResponseLogin>> => {
+    return HTTPClient.post<ResponseLogin>("login", data);
   },
-  getProfile: async (data: {
-    userId: string;
-  }): Promise<AxiosResponse | null> => {
+  getProfile: async (data: { userId: string }): Promise<AxiosResponse> => {
     return HTTPClient.get(`profile/${data.userId}`);
   },
 };

@@ -5,7 +5,7 @@ import Container from "../../components/atoms/Container";
 import Input from "../../components/atoms/Input";
 import api, { HTTPClient } from "../../services/api";
 
-export const Login: React.FC = () => {
+const Login: React.FC = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
@@ -80,3 +80,4 @@ export const Login: React.FC = () => {
     </Container>
   );
 };
+export default Login;
