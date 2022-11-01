@@ -2,13 +2,14 @@ import * as React from "react";
 
 import Container from "@components/atoms/Container";
 import AppContextProvider from "@contexts/appContext";
-import Login from "@pages/Login";
+
+import Router from "@routes";
 
 const App = () => {
   return (
     <AppContextProvider>
       <Container flex={1} backgroundColor="#e3e3e3">
-        <Login />
+        <Router />
       </Container>
     </AppContextProvider>
   );

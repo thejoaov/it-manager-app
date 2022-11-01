@@ -17,7 +17,7 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <PaperProvider theme={theme}>
-      <AuthProvider>{children}</AuthProvider>;
+      <AuthProvider>{children}</AuthProvider>
     </PaperProvider>
   );
 };

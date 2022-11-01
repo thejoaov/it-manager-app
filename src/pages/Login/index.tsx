@@ -35,7 +35,7 @@ const Login: React.FC = () => {
 
   return (
     <Container flex={1} justifyContent="center" p={20} testID="login">
-      {loggedIn && <Text variant="bodyMedium">Logged in!</Text>}
+      {/* {loggedIn && <Text variant="bodyMedium">Logged in!</Text>} */}
 
       <Container my="5px">
         <Input
