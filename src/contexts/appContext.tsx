@@ -4,6 +4,7 @@ import {
   MD3LightTheme as DefaultTheme,
   Provider as PaperProvider,
 } from "react-native-paper";
+import { ToastProvider } from "./toast";
 
 const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
   const theme = {
@@ -17,7 +18,9 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <PaperProvider theme={theme}>
-      <AuthProvider>{children}</AuthProvider>
+      <ToastProvider>
+        <AuthProvider>{children}</AuthProvider>
+      </ToastProvider>
     </PaperProvider>
   );
 };

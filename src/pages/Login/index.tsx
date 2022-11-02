@@ -1,3 +1,4 @@
+import { useToastContext } from "@contexts/toast";
 import React, { useState, useCallback } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Text } from "react-native-paper";
@@ -10,6 +11,7 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { showToast } = useToastContext();
 
   const handleLogin = useCallback(async () => {
     try {
@@ -22,8 +24,18 @@ const Login: React.FC = () => {
       }
 
       setLoggedIn(true);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (__DEV__ && error.errors[0].message) {
+        showToast({
+          text: error.errors[0].message,
+          type: "error",
+        });
+      } else {
+        showToast({
+          text: "Erro ao fazer login",
+          type: "error",
+        });
+      }
     } finally {
       setLoading(false);
     }
