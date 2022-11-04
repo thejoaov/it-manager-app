@@ -7,18 +7,24 @@ import React, {
   useState,
 } from "react";
 import { TextInput as RNTextInput } from "react-native";
-import { TextInput, TextInputProps, Theme } from "react-native-paper";
+import {
+  HelperText,
+  TextInput,
+  TextInputProps,
+  Theme,
+} from "react-native-paper";
 import { IconSource } from "react-native-paper/lib/typescript/components/Icon";
 
 export type InputProps = {
   theme?: Partial<Theme>;
   showSecureButton?: boolean;
-} & Omit<TextInputProps, "theme">;
+  error?: string;
+} & Omit<Omit<TextInputProps, "theme">, "error">;
 
 export type InputRefProps = RNTextInput;
 
 const Input: React.ForwardRefRenderFunction<unknown, InputProps> = (
-  { showSecureButton = false, ...props },
+  { showSecureButton = false, error, ...props },
   ref
 ) => {
   const [securePassword, setSecurePassword] = useState(showSecureButton);
@@ -42,21 +48,29 @@ const Input: React.ForwardRefRenderFunction<unknown, InputProps> = (
   }, [securePassword, showSecureButton]);
 
   return (
-    <TextInput
-      testID="input-outlined"
-      mode="outlined"
-      ref={inputRef}
-      {...props}
-      secureTextEntry={securePassword}
-      right={
-        showSecureButton && (
-          <TextInput.Icon
-            icon={getRigthIcon}
-            onPress={handlePasswordVisibility}
-          />
-        )
-      }
-    />
+    <>
+      <TextInput
+        testID="input-outlined"
+        mode="outlined"
+        ref={inputRef}
+        {...props}
+        error={!!error}
+        secureTextEntry={securePassword}
+        right={
+          showSecureButton && (
+            <TextInput.Icon
+              icon={getRigthIcon}
+              onPress={handlePasswordVisibility}
+            />
+          )
+        }
+      />
+      {error && (
+        <HelperText type="error" visible={!!error}>
+          {error}
+        </HelperText>
+      )}
+    </>
   );
 };
 

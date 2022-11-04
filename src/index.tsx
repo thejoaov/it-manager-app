@@ -8,7 +8,7 @@ import Router from "@routes";
 const App = () => {
   return (
     <AppContextProvider>
-      <Container flex={1} backgroundColor="#e3e3e3">
+      <Container flex={1} backgroundColor="#e3e3e3" testID="app-container">
         <Router />
       </Container>
     </AppContextProvider>

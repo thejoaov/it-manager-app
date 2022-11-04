@@ -1,5 +1,10 @@
 import axios, { AxiosResponse } from "axios";
-import { RequestLogin, ResponseLogin } from "./types";
+import {
+  RequestLogin,
+  RequestRegister,
+  ResponseLogin,
+  ResponseRegister,
+} from "./types";
 
 export const BASE_URL = "http://localhost:3333";
 
@@ -45,6 +50,11 @@ const api = {
   },
   getProfile: async (data: { userId: string }): Promise<AxiosResponse> => {
     return HTTPClient.get(`profile/${data.userId}`);
+  },
+  register: async (
+    data: RequestRegister
+  ): Promise<AxiosResponse<ResponseRegister>> => {
+    return HTTPClient.post<ResponseRegister>("users", data);
   },
 };
 

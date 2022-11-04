@@ -1,4 +1,4 @@
-import { User } from "@types/user";
+import { User } from "@/types/user";
 
 export type RequestLogin = {
   login: string;
@@ -12,3 +12,12 @@ export type ResponseLogin = {
   updated_at: string;
   username: string;
 };
+
+export type RequestRegister = {
+  username: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+};
+
+export type ResponseRegister = User;

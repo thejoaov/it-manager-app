@@ -1,29 +1,29 @@
 import { useToastContext } from "@contexts/toast";
 import React, { useState, useCallback } from "react";
-import { StyleSheet, View } from "react-native";
-import { Button, Text } from "react-native-paper";
-import Container from "../../components/atoms/Container";
-import Input from "../../components/atoms/Input";
-import api, { HTTPClient } from "../../services/api";
+import { Button } from "react-native-paper";
+import Container from "@components/atoms/Container";
+import Input from "@components/atoms/Input";
+import { useAuthContext } from "@contexts/auth";
+import { AuthStackScreenProps } from "@routes/types";
 
-const Login: React.FC = () => {
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
+const Login: React.FC<AuthStackScreenProps<"Login">> = ({
+  navigation,
+  route,
+}) => {
+  const [login, setLogin] = useState(route.params?.login || "");
+  const [password, setPassword] = useState(route.params?.password || "");
   const [loading, setLoading] = useState(false);
   const { showToast } = useToastContext();
+  const { login: requestLogin } = useAuthContext();
 
   const handleLogin = useCallback(async () => {
     try {
-      setLoggedIn(false);
       setLoading(true);
-      const authResponse = await api.login({ login, password });
 
-      if (authResponse?.status === 200) {
-        HTTPClient.defaults.headers.common.Authorization = `Bearer ${authResponse.data.token}`;
-      }
-
-      setLoggedIn(true);
+      await requestLogin({
+        login,
+        password,
+      });
     } catch (error: any) {
       if (__DEV__ && error.errors[0].message) {
         showToast({
@@ -41,20 +41,20 @@ const Login: React.FC = () => {
     }
   }, [login, password]);
 
-  const handleRegister = useCallback(() => {
-    // TO-DO
+  const navigateToRegister = useCallback(() => {
+    navigation.navigate("Register");
   }, []);
 
   return (
     <Container flex={1} justifyContent="center" p={20} testID="login">
-      {/* {loggedIn && <Text variant="bodyMedium">Logged in!</Text>} */}
-
       <Container my="5px">
         <Input
           mode="outlined"
           label="Login"
+          value={login}
           placeholder="Email or Username"
           onChangeText={setLogin}
+          defaultValue={route.params?.login}
           autoCapitalize="none"
           autoComplete="email"
           keyboardType="email-address"
@@ -67,6 +67,8 @@ const Login: React.FC = () => {
           label="Password"
           secureTextEntry
           showSecureButton
+          value={password}
+          defaultValue={route.params?.password}
           onChangeText={setPassword}
           autoCapitalize="none"
           autoComplete="password"
@@ -86,7 +88,7 @@ const Login: React.FC = () => {
         </Container>
 
         <Container mt={10}>
-          <Button onPress={handleRegister}>Register</Button>
+          <Button onPress={navigateToRegister}>Register</Button>
         </Container>
       </Container>
     </Container>

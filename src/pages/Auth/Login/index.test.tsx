@@ -1,6 +1,8 @@
 import React from "react";
 import { render, waitFor, RenderAPI } from "@testing-library/react-native";
 import Login from "./index";
+import AppContextProvider from "@contexts/appContext";
+import { navigationMock, routeMock } from "@utils/testUtils";
 
 let wrapper: RenderAPI;
 const onChangeText = jest.fn();
@@ -8,7 +10,11 @@ const onChangeText = jest.fn();
 describe("Login", () => {
   beforeEach(async () => {
     await waitFor(() => {
-      wrapper = render(<Login />);
+      wrapper = render(
+        <AppContextProvider>
+          <Login navigation={navigationMock()} route={routeMock()} />
+        </AppContextProvider>
+      );
     });
   });
 
