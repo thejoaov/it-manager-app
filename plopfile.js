@@ -9,17 +9,17 @@ module.exports = function (plop) {
    * Generate a feature Page
    */
   plop.setGenerator("Page", {
-    description: "Cria uma nova tela para uma feature existente",
+    description: "Create new page",
     prompts: [
       {
         type: "input",
         name: "featureName",
-        message: "Insira o nome da feature",
+        message: "Feature name",
       },
       {
         type: "input",
         name: "pageName",
-        message: "Insira o nome da tela",
+        message: "Screen name",
       },
     ],
     actions: [
@@ -52,6 +52,48 @@ module.exports = function (plop) {
         path: "src/routes/types.ts",
         pattern: `export type AppStackParamList = {`,
         template: `  {{pascalCase pageName}}: undefined;`,
+      },
+    ],
+  });
+
+  plop.setGenerator("Component", {
+    description: "Create new component",
+    prompts: [
+      {
+        type: "list",
+        name: "componentType",
+        message: "Component type",
+        choices: () =>
+          readdirSync(`${plop.getPlopfilePath()}/src/components`, {
+            withFileTypes: true,
+          })
+            .filter((dirent) => dirent.isDirectory())
+            .map((dirent) => dirent.name),
+      },
+      {
+        type: "input",
+        name: "componentName",
+        message: "Component name",
+      },
+    ],
+    actions: [
+      {
+        type: "add",
+        path: "src/components/{{componentType}}/{{pascalCase componentName}}/index.tsx",
+        templateFile: "templates/component/index.hbs",
+        skipIfExists: true,
+      },
+      {
+        type: "add",
+        path: "src/components/{{componentType}}/{{pascalCase componentName}}/index.test.tsx",
+        templateFile: "templates/component/test.hbs",
+        skipIfExists: true,
+      },
+      {
+        type: "add",
+        path: "src/components/{{componentType}}/{{pascalCase componentName}}/styles.ts",
+        templateFile: "templates/component/styles.hbs",
+        skipIfExists: true,
       },
     ],
   });
