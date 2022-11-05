@@ -9,6 +9,7 @@ export type AuthStackScreenProps<T extends keyof AuthStackParamList> =
   NativeStackScreenProps<AuthStackParamList, T>;
 
 export type AppStackParamList = {
+  TicketList: undefined;
   Dashboard: undefined;
 };
 

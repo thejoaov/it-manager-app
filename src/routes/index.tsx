@@ -8,9 +8,10 @@ import { Snackbar } from "react-native-paper";
 import { AppStackParamList, AuthStackParamList } from "./types";
 
 // Import screens
+import TicketList from "@pages/Home/TicketList";
+import Dashboard from "@pages/Home/Dashboard";
 import Login from "@pages/Auth/Login";
 import Register from "@pages/Auth/Register";
-import Dashboard from "@pages/Dashboard";
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 const AuthRouter = () => {
@@ -35,6 +36,7 @@ const AppRouter = () => {
       }}
     >
       {/* App Routes */}
+      <AppStack.Screen name="TicketList" component={TicketList} />
       <AppStack.Screen name="Dashboard" component={Dashboard} />
     </AppStack.Navigator>
   );
