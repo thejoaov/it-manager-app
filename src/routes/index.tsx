@@ -1,13 +1,16 @@
 import { useAuthContext } from "@contexts/auth";
 import { useToastContext } from "@contexts/toast";
-import Login from "@pages/Auth/Login";
-import Register from "@pages/Auth/Register";
-import Dashboard from "@pages/Dashboard";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { getToastColor } from "@utils/colors";
 import { Snackbar } from "react-native-paper";
+
 import { AppStackParamList, AuthStackParamList } from "./types";
+
+// Import screens
+import Login from "@pages/Auth/Login";
+import Register from "@pages/Auth/Register";
+import Dashboard from "@pages/Dashboard";
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 const AuthRouter = () => {
@@ -31,6 +34,7 @@ const AppRouter = () => {
         headerShown: false,
       }}
     >
+      {/* App Routes */}
       <AppStack.Screen name="Dashboard" component={Dashboard} />
     </AppStack.Navigator>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuthContext } from "@contexts/auth";
-import Container from "../../components/atoms/Container";
+import Container from "@components/atoms/Container";
 import { Button, Text } from "react-native-paper";
 import { AppStackScreenProps } from "@routes/types";
 
