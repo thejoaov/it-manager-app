@@ -1,3 +1,4 @@
+import { View } from "react-native";
 import styled from "styled-components/native";
 import {
   space,
@@ -7,7 +8,7 @@ import {
   borders,
 } from "styled-system";
 
-export const ContainerStyled = styled.View<{
+export const ContainerStyled = styled(View)<{
   centralize?: boolean;
 }>`
   ${({ centralize }) =>
