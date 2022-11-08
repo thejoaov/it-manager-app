@@ -8,54 +8,72 @@ import {
 
 export const BASE_URL = "http://localhost:3333";
 
-export const HTTPClient = axios.create({
+export const apiInstance = axios.create({
   baseURL: BASE_URL,
 });
 
-HTTPClient.interceptors.request.use((request) => {
-  console.log(
-    `[${request.method?.toUpperCase()}]: ${request.url}`,
-    JSON.stringify(request.data)
-  );
+export const apiLogger = (config: {
+  url?: string;
+  method?: string;
+  status?: number;
+  data?: any;
+  type: "request" | "response";
+}) => {
+  const requestLogByType = {
+    request: `[${config.method?.toUpperCase()}]: ${config.url}`,
+    response: `[${config.status} ${config.method?.toUpperCase()}] [${
+      config.url
+    }/${config.url}]`,
+  };
+
+  console.log(requestLogByType[config.type], JSON.stringify(config.data));
+};
+
+apiInstance.interceptors.request.use((request) => {
+  apiLogger({
+    url: request.url,
+    method: request.method,
+    data: request.data,
+    type: "request",
+  });
   return request;
 });
 
-HTTPClient.interceptors.response.use(
+apiInstance.interceptors.response.use(
   (response: AxiosResponse) => {
-    console.log(
-      `[${response.status} ${response.config.method?.toUpperCase()}] [${
-        response.config.baseURL
-      }/${response.config.url}]`,
-      JSON.stringify(response.data)
-    );
+    apiLogger({
+      type: "response",
+      status: response.status,
+      url: response.config.url,
+      method: response.config.method,
+      data: response.data,
+    });
     return response;
   },
   (error) => {
-    console.log(error.response.config);
-    console.log(
-      `[${
-        error.response.status
-      } ${error.response.config.method?.toUpperCase()}] [${
-        error.response.config.baseURL
-      }/${error.response.config.url}]`,
-      JSON.stringify(error.response.data)
-    );
+    apiLogger({
+      type: "response",
+      status: error.response.status,
+      url: error.response.config.url,
+      method: error.response.config.method,
+      data: error.response.data,
+    });
     return Promise.reject(error.response.data);
   }
 );
 
-const api = {
+const apiService = {
   login: async (data: RequestLogin): Promise<AxiosResponse<ResponseLogin>> => {
-    return HTTPClient.post<ResponseLogin>("login", data);
+    return apiInstance.post<ResponseLogin>("login", data);
   },
   getProfile: async (data: { userId: string }): Promise<AxiosResponse> => {
-    return HTTPClient.get(`profile/${data.userId}`);
+    return apiInstance.get(`profile/${data.userId}`);
   },
   register: async (
     data: RequestRegister
   ): Promise<AxiosResponse<ResponseRegister>> => {
-    return HTTPClient.post<ResponseRegister>("users", data);
+    return apiInstance.post<ResponseRegister>("users", data);
   },
 };
 
-export default api;
+export default apiService;
