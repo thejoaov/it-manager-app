@@ -5,6 +5,7 @@ import {
   Provider as PaperProvider,
 } from "react-native-paper";
 import { ToastProvider } from "./toast";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
   const theme = {
@@ -17,11 +18,13 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <PaperProvider theme={theme}>
-      <ToastProvider>
-        <AuthProvider>{children}</AuthProvider>
-      </ToastProvider>
-    </PaperProvider>
+    <SafeAreaProvider>
+      <PaperProvider theme={theme}>
+        <ToastProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </ToastProvider>
+      </PaperProvider>
+    </SafeAreaProvider>
   );
 };
 
