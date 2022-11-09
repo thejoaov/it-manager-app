@@ -1,16 +1,23 @@
 import { useAuthContext } from "@contexts/auth";
 import { useToastContext } from "@contexts/toast";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { getToastColor } from "@utils/colors";
 import { Snackbar } from "react-native-paper";
 
-import { AppStackParamList, AuthStackParamList } from "./types";
+import {
+  AppStackParamList,
+  AuthStackParamList,
+  HomeTabParamList,
+} from "./types";
 
 // Import screens
+import TicketList from "@pages/Home/TicketList";
 import Dashboard from "@pages/Home/Dashboard";
 import Login from "@pages/Auth/Login";
 import Register from "@pages/Auth/Register";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import useTheme, { useNavigationTheme } from "@hooks/useTheme";
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 const AuthRouter = () => {
@@ -26,6 +33,40 @@ const AuthRouter = () => {
   );
 };
 
+const HomeBottomTab = createMaterialBottomTabNavigator<HomeTabParamList>();
+const HomeBottomTabRouter = () => {
+  const theme = useTheme();
+  return (
+    <HomeBottomTab.Navigator
+      initialRouteName="Dashboard"
+      // shifting
+      sceneAnimationEnabled
+      inactiveColor={theme.colors.backdrop}
+      activeColor={theme.colors.backdrop}
+      barStyle={{
+        backgroundColor: theme.colors.inversePrimary,
+        height: 80,
+      }}
+      labeled={false}
+    >
+      <HomeBottomTab.Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={{
+          tabBarIcon: "home",
+        }}
+      />
+      <HomeBottomTab.Screen
+        name="TicketList"
+        component={TicketList}
+        options={{
+          tabBarIcon: "format-list-bulleted",
+        }}
+      />
+    </HomeBottomTab.Navigator>
+  );
+};
+
 const AppStack = createNativeStackNavigator<AppStackParamList>();
 const AppRouter = () => {
   return (
@@ -33,9 +74,12 @@ const AppRouter = () => {
       screenOptions={{
         headerShown: false,
       }}
+      initialRouteName="Home"
     >
       {/* App Routes */}
-      <AppStack.Screen name="Dashboard" component={Dashboard} />
+      <AppStack.Group>
+        <AppStack.Screen name="Home" component={HomeBottomTabRouter} />
+      </AppStack.Group>
     </AppStack.Navigator>
   );
 };
@@ -43,9 +87,11 @@ const AppRouter = () => {
 const Router = () => {
   const { closeToast, isToastVisible, toast } = useToastContext();
   const { token, user } = useAuthContext();
+  const navigationTheme = useNavigationTheme();
+
   return (
     <>
-      <NavigationContainer>
+      <NavigationContainer theme={navigationTheme}>
         {token && user ? <AppRouter /> : <AuthRouter />}
       </NavigationContainer>
 

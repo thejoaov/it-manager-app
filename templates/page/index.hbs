@@ -1,16 +1,16 @@
 import React from "react";
 import { Button, Text } from "react-native-paper";
 // import { useAuthContext } from "@contexts/auth";
-import Container from "@components/atoms/Container";
+import Flexbox from "@components/atoms/Flexbox";
 import { AppStackScreenProps } from "@routes/types";
 
 const {{pascalCase pageName}}: React.FC<AppStackScreenProps<"{{pascalCase pageName}}">> = () => {
   // const { user, logout } = useAuthContext();
 
   return (
-    <Container flex={1} justifyContent="center" p={20} testID="{{camelCase pageName}}">
+    <Flexbox p={20} testID="{{camelCase pageName}}">
       <Text variant="bodyMedium">{{pascalCase pageName}}</Text>
-    </Container>
+    </Flexbox>
   );
 };
 

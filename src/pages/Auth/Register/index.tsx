@@ -6,6 +6,7 @@ import Input from "@components/atoms/Input";
 import apiService from "@services/api";
 import { AuthStackScreenProps } from "@routes/types";
 import { ApiError } from "@services/api/errors";
+import Flexbox from "@components/atoms/Flexbox";
 
 const Register: React.FC<AuthStackScreenProps<"Register">> = ({
   navigation,
@@ -84,7 +85,7 @@ const Register: React.FC<AuthStackScreenProps<"Register">> = ({
   }, []);
 
   return (
-    <Container flex={1} justifyContent="center" p={20} testID="login">
+    <Flexbox justifyContent="center" p={20} testID="login">
       <Container my="5px">
         <Input
           mode="outlined"
@@ -164,7 +165,7 @@ const Register: React.FC<AuthStackScreenProps<"Register">> = ({
           <Button onPress={navigateToLogin}>Login</Button>
         </Container>
       </Container>
-    </Container>
+    </Flexbox>
   );
 };
 export default Register;

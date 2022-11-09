@@ -5,6 +5,7 @@ import Container from "@components/atoms/Container";
 import Input from "@components/atoms/Input";
 import { useAuthContext } from "@contexts/auth";
 import { AuthStackScreenProps } from "@routes/types";
+import Flexbox from "@components/atoms/Flexbox";
 
 const Login: React.FC<AuthStackScreenProps<"Login">> = ({
   navigation,
@@ -46,7 +47,7 @@ const Login: React.FC<AuthStackScreenProps<"Login">> = ({
   }, []);
 
   return (
-    <Container flex={1} justifyContent="center" p={20} testID="login">
+    <Flexbox justifyContent="center" p={20} testID="login">
       <Container my="5px">
         <Input
           mode="outlined"
@@ -91,7 +92,7 @@ const Login: React.FC<AuthStackScreenProps<"Login">> = ({
           <Button onPress={navigateToRegister}>Register</Button>
         </Container>
       </Container>
-    </Container>
+    </Flexbox>
   );
 };
 export default Login;
