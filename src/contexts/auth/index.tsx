@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import apiService from "@services/api";
 import { User } from "@models/user";
 import * as localStorage from "@services/localStorage";
+import { apiInstance } from "@services/api/config";
 
 export type AuthContextType = {
   user: User | null;
@@ -27,6 +28,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     if (storedToken && storedUser) {
       setToken(storedToken);
+      apiInstance.defaults.headers.common.authorization = `Bearer ${storedToken}`;
       setUser(JSON.parse(storedUser));
     }
 
@@ -47,6 +49,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         const { token, user: signedUser } = data;
 
+        apiInstance.defaults.headers.common.authorization = `Bearer ${token}`;
         await localStorage.setItem("token", token);
         await localStorage.setItem("user", JSON.stringify(signedUser));
 

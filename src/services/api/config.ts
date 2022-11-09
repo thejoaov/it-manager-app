@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 export const BASE_URL = "http://localhost:3333";
 
@@ -7,54 +7,53 @@ export const apiInstance = axios.create({
 });
 
 export const apiLogger = (config: {
-  url?: string;
-  method?: string;
-  status?: number;
-  data?: any;
-  type: "request" | "response";
+  request?: AxiosRequestConfig;
+  response?: AxiosResponse;
+  error?: any;
 }) => {
-  const requestLogByType = {
-    request: `[${config.method?.toUpperCase()}]: ${config.url}`,
-    response: `[${config.status} ${config.method?.toUpperCase()}] [${
-      config.url
-    }/${config.url}]`,
-  };
-
-  console.log(requestLogByType[config.type], JSON.stringify(config.data));
+  if (config.request) {
+    console.log(
+      `Request: [${config.request.method?.toUpperCase()}]`,
+      JSON.stringify(config.request)
+    );
+  }
+  if (config.response) {
+    console.log(
+      `Response: [${config.response.config.method?.toUpperCase()} ${
+        config.response.status
+      } ${config.response.config?.baseURL}/${config.response.config.url}]`,
+      JSON.stringify(config.response.data)
+    );
+  }
+  if (config.error) {
+    console.log(
+      `Error: [${config.error.status}]`,
+      JSON.stringify(config.error)
+    );
+  }
 };
 
-apiInstance.interceptors.request.use((request) => {
-  apiLogger({
-    url: request.url,
-    method: request.method,
-    data: request.data,
-    type: "request",
-  });
-  return request;
-});
-
 apiInstance.interceptors.response.use(
-  (response: AxiosResponse) => {
+  (response) => {
     apiLogger({
-      type: "response",
-      status: response.status,
-      url: response.config.url,
-      method: response.config.method,
-      data: response.data,
+      response,
     });
     return response;
   },
   (error) => {
     apiLogger({
-      type: "response",
-      status: error.response.status,
-      url: error.response.config.url,
-      method: error.response.config.method,
-      data: error.response.data,
+      error,
     });
     return Promise.reject(error.response.data);
   }
 );
+
+apiInstance.interceptors.request.use((request) => {
+  apiLogger({
+    request,
+  });
+  return request;
+});
 
 export const parseQueryString = (data: Record<string, any>): string => {
   return `?${new URLSearchParams(data).toString()}`;

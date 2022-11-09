@@ -1,14 +1,31 @@
+import { Ticket } from "@models/tickets";
+import { RequestWithPagination } from "@services/api/types";
 import React from "react";
+import { FlatList } from "react-native";
+import { Text } from "react-native-paper";
 import { TicketListTemplateContainer } from "./styles";
 
 export type TicketListTemplateProps = {
-  // text?: string;
+  tickets: Ticket[];
+  loading: boolean;
+  error: Error | null;
+  meta: RequestWithPagination<{}> | null;
 };
 
-const TicketListTemplate: React.FC<TicketListTemplateProps> = () => {
+const TicketListTemplate: React.FC<TicketListTemplateProps> = ({
+  error,
+  loading,
+  meta,
+  tickets,
+}) => {
   return (
     <TicketListTemplateContainer testID="ticketListTemplate-container">
-      {/* TicketListTemplate component */}
+      <FlatList
+        data={tickets}
+        keyExtractor={(item) => item.id.toString()}
+        refreshing={loading}
+        renderItem={({ item }) => <Text>{item.title}</Text>}
+      />
     </TicketListTemplateContainer>
   );
 };

@@ -1,14 +1,15 @@
 import * as React from "react";
 
-import AppContextProvider from "@contexts/appContext";
-
 import Router from "@routes";
+import AppContextProvider from "@contexts/appContext";
 import SafeContainer from "@components/atoms/SafeContainer";
+import useTheme from "@hooks/useTheme";
 
 const App = () => {
+  const { colors } = useTheme();
   return (
     <AppContextProvider>
-      <SafeContainer backgroundColor="#e3e3e3" testID="app-container">
+      <SafeContainer backgroundColor={colors.background} testID="app-container">
         <Router />
       </SafeContainer>
     </AppContextProvider>

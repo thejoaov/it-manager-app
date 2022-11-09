@@ -1,4 +1,5 @@
 import { AxiosResponse } from "axios";
+import lodash from "lodash";
 import { apiInstance, parseQueryString } from "./config";
 import {
   RequestDeleteTicketById,
@@ -27,7 +28,6 @@ import {
   ResponsePutProfileByUserId,
   ResponsePutUserById,
 } from "./types";
-import lodash from "lodash";
 
 const apiService = {
   postLogin: async (
