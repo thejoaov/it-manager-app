@@ -11,12 +11,12 @@ import {
   HelperText,
   TextInput,
   TextInputProps,
-  Theme,
+  MD3Theme,
 } from "react-native-paper";
 import { IconSource } from "react-native-paper/lib/typescript/components/Icon";
 
 export type InputProps = {
-  theme?: Partial<Theme>;
+  theme?: Partial<MD3Theme>;
   showSecureButton?: boolean;
   error?: string;
 } & Omit<Omit<TextInputProps, "theme">, "error">;

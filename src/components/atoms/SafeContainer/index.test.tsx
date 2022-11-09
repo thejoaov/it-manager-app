@@ -1,14 +1,18 @@
 import React from "react";
 import { render, waitFor, RenderAPI } from "@testing-library/react-native";
 import SafeContainer from "./index";
+import AppContextProvider from "@contexts/appContext";
 
 let wrapper: RenderAPI;
-const onChangeText = jest.fn();
 
 describe("SafeContainer", () => {
   beforeEach(async () => {
     await waitFor(() => {
-      wrapper = render(<SafeContainer testID="component" />);
+      wrapper = render(
+        <AppContextProvider>
+          <SafeContainer testID="component" />
+        </AppContextProvider>
+      );
     });
   });
 

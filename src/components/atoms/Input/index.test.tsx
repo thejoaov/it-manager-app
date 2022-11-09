@@ -1,30 +1,22 @@
 import React from "react";
 import { render, waitFor, RenderAPI } from "@testing-library/react-native";
-import {
-  MD3LightTheme as DefaultTheme,
-  Provider as PaperProvider,
-} from "react-native-paper";
+import AppContextProvider from "@contexts/appContext";
 import Input from "./index";
 
 let wrapper: RenderAPI;
 const onChangeText = jest.fn();
 
-const theme = {
-  ...DefaultTheme,
-  roundness: 2,
-  version: 3,
-  colors: {
-    ...DefaultTheme.colors,
-  },
-};
-
 describe("Input", () => {
   beforeEach(async () => {
     await waitFor(() => {
       wrapper = render(
-        <PaperProvider theme={theme}>
-          <Input onChangeText={onChangeText} testID="input" />
-        </PaperProvider>
+        <AppContextProvider>
+          <Input
+            ref={React.createRef()}
+            onChangeText={onChangeText}
+            testID="input-outlined"
+          />
+        </AppContextProvider>
       );
     });
   });
@@ -45,7 +37,7 @@ describe("Input", () => {
           onChangeText={onChangeText}
           secureTextEntry
           showSecureButton
-          testID="input"
+          testID="input-outlined"
         />
       );
     });
