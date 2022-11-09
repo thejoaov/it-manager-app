@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import apiService from "@services/api";
-import { User } from "@/types/user";
+import { User } from "@models/user";
 import * as localStorage from "@services/localStorage";
 
 export type AuthContextType = {
@@ -8,8 +8,8 @@ export type AuthContextType = {
   token: string | null;
   loading: boolean;
   error: string | null;
-  login: (data: { login: string; password: string }) => Promise<void>;
-  logout: () => Promise<void>;
+  requestLogin: (data: { login: string; password: string }) => Promise<void>;
+  requestLogout: () => Promise<void>;
 };
 
 export const AuthContext = React.createContext({} as AuthContextType);
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     loadStorageData();
   }, [loadStorageData]);
 
-  const login = useCallback(
+  const requestLogin = useCallback(
     async (ctx: { login: string; password: string }) => {
       try {
         setLoading(true);
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     []
   );
 
-  const logout = useCallback(async () => {
+  const requestLogout = useCallback(async () => {
     try {
       setLoading(true);
       await localStorage.removeItem("token");
@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, token, loading, login, logout, error }}
+      value={{ user, token, loading, requestLogin, requestLogout, error }}
     >
       {children}
     </AuthContext.Provider>

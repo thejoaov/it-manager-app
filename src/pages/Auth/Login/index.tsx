@@ -15,7 +15,7 @@ const Login: React.FC<AuthStackScreenProps<"Login">> = ({
   const [password, setPassword] = useState(route.params?.password || "");
   const [loading, setLoading] = useState(false);
   const { showToast } = useToastContext();
-  const { login: requestLogin } = useAuthContext();
+  const { requestLogin } = useAuthContext();
 
   const handleLogin = useCallback(async () => {
     try {

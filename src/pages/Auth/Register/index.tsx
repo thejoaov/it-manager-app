@@ -5,7 +5,7 @@ import Container from "@components/atoms/Container";
 import Input from "@components/atoms/Input";
 import apiService from "@services/api";
 import { AuthStackScreenProps } from "@routes/types";
-import { ApiError } from "@services/api/errors";
+import { ApiError } from "@models/errors";
 import Flexbox from "@components/atoms/Flexbox";
 
 const Register: React.FC<AuthStackScreenProps<"Register">> = ({
@@ -28,7 +28,7 @@ const Register: React.FC<AuthStackScreenProps<"Register">> = ({
   const handleSubmit = useCallback(async () => {
     try {
       setLoading(true);
-      await apiService.postRegister({
+      await apiService.postUsers({
         email,
         username,
         password,

@@ -6,12 +6,12 @@ import Flexbox from "@components/atoms/Flexbox";
 import { useAuthContext } from "@contexts/auth";
 
 const Dashboard: React.FC<AppStackScreenProps<"Dashboard">> = () => {
-  const { logout } = useAuthContext();
+  const { requestLogout } = useAuthContext();
 
   return (
     <Flexbox p={20} testID="dashboard">
       <Text>Dashboard</Text>
-      <Button onPress={logout}>
+      <Button mode="contained-tonal" onPress={requestLogout}>
         <Text>Logout</Text>
       </Button>
     </Flexbox>
