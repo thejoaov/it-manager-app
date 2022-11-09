@@ -3,7 +3,7 @@ import { useToastContext } from "@contexts/toast";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { getToastColor } from "@utils/colors";
-import { Snackbar } from "react-native-paper";
+import { Snackbar, TouchableRipple } from "react-native-paper";
 
 import {
   AppStackParamList,
@@ -12,6 +12,7 @@ import {
 } from "./types";
 
 // Import screens
+import Profile from "@pages/Home/Profile";
 import TicketList from "@pages/Home/TicketList";
 import Dashboard from "@pages/Home/Dashboard";
 import Login from "@pages/Auth/Login";
@@ -50,6 +51,13 @@ const HomeBottomTabRouter = () => {
       labeled={false}
     >
       <HomeBottomTab.Screen
+        name="TicketList"
+        component={TicketList}
+        options={{
+          tabBarIcon: "format-list-bulleted",
+        }}
+      />
+      <HomeBottomTab.Screen
         name="Dashboard"
         component={Dashboard}
         options={{
@@ -57,10 +65,10 @@ const HomeBottomTabRouter = () => {
         }}
       />
       <HomeBottomTab.Screen
-        name="TicketList"
-        component={TicketList}
+        name="Profile"
+        component={Profile}
         options={{
-          tabBarIcon: "format-list-bulleted",
+          tabBarIcon: "account",
         }}
       />
     </HomeBottomTab.Navigator>

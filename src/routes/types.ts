@@ -3,6 +3,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 export type HomeTabParamList = {
   Dashboard: undefined;
   TicketList: undefined;
+  Profile: undefined;
 };
 
 export type HomeTabScreenProps<T extends keyof HomeTabParamList> =
@@ -17,6 +18,7 @@ export type AuthStackScreenProps<T extends keyof AuthStackParamList> =
   NativeStackScreenProps<AuthStackParamList, T>;
 
 export type AppStackParamList = {
+  Profile: undefined;
   TicketList: undefined;
   Dashboard: undefined;
   Home: undefined;
