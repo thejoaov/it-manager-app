@@ -3,7 +3,7 @@ import React, { useState, useCallback } from "react";
 import { Button } from "react-native-paper";
 import Container from "@components/atoms/Container";
 import Input from "@components/atoms/Input";
-import api from "@services/api";
+import apiService from "@services/api";
 import { AuthStackScreenProps } from "@routes/types";
 import { ApiError } from "@services/api/errors";
 
@@ -27,7 +27,7 @@ const Register: React.FC<AuthStackScreenProps<"Register">> = ({
   const handleSubmit = useCallback(async () => {
     try {
       setLoading(true);
-      await api.register({
+      await apiService.postRegister({
         email,
         username,
         password,

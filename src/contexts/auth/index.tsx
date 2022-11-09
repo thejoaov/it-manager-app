@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import api from "@services/api";
+import apiService from "@services/api";
 import { User } from "@/types/user";
 import * as localStorage from "@services/localStorage";
 
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setLoading(true);
         const { login, password } = ctx;
 
-        const { data } = await api.login({ login, password });
+        const { data } = await apiService.postLogin({ login, password });
 
         const { token, user: signedUser } = data;
 

@@ -63,13 +63,15 @@ apiInstance.interceptors.response.use(
 );
 
 const apiService = {
-  login: async (data: RequestLogin): Promise<AxiosResponse<ResponseLogin>> => {
+  postLogin: async (
+    data: RequestLogin
+  ): Promise<AxiosResponse<ResponseLogin>> => {
     return apiInstance.post<ResponseLogin>("login", data);
   },
   getProfile: async (data: { userId: string }): Promise<AxiosResponse> => {
     return apiInstance.get(`profile/${data.userId}`);
   },
-  register: async (
+  postRegister: async (
     data: RequestRegister
   ): Promise<AxiosResponse<ResponseRegister>> => {
     return apiInstance.post<ResponseRegister>("users", data);
