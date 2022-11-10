@@ -6,6 +6,7 @@ import {
   flexbox,
   backgroundColor,
   borders,
+  position,
 } from "styled-system";
 
 export const ContainerStyled = styled(View)<{
@@ -23,4 +24,5 @@ export const ContainerStyled = styled(View)<{
   ${flexbox};
   ${backgroundColor};
   ${borders};
+  ${position};
 `;

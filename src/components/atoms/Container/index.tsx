@@ -7,6 +7,7 @@ import {
   FlexboxProps,
   BackgroundColorProps,
   BordersProps,
+  PositionProps,
 } from "styled-system";
 
 import { ContainerStyled } from "./styles";
@@ -19,6 +20,7 @@ export type ContainerProps = {
   FlexboxProps &
   BackgroundColorProps &
   BordersProps &
+  PositionProps &
   ViewProps;
 
 function Container({ centralize = false, ...otherProps }: ContainerProps) {
