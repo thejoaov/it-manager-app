@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
-import apiService from "@services/api";
-import { User } from "@models/user";
-import * as localStorage from "@services/localStorage";
-import { apiInstance } from "@services/api/config";
+import React, { useCallback, useEffect, useState } from 'react';
+import apiService from '@services/api';
+import { User } from '@models/user';
+import * as localStorage from '@services/localStorage';
+import { apiInstance } from '@services/api/config';
 
 export type AuthContextType = {
   user: User | null;
@@ -23,8 +23,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const loadStorageData = useCallback(async () => {
     setLoading(true);
-    const storedToken = await localStorage.getItem("token");
-    const storedUser = await localStorage.getItem("user");
+    const storedToken = await localStorage.getItem('token');
+    const storedUser = await localStorage.getItem('user');
 
     if (storedToken && storedUser) {
       setToken(storedToken);
@@ -47,16 +47,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         const { data } = await apiService.postLogin({ login, password });
 
-        const { token, user: signedUser } = data;
+        const { token: requestToken, user: signedUser } = data;
 
-        apiInstance.defaults.headers.common.authorization = `Bearer ${token}`;
-        await localStorage.setItem("token", token);
-        await localStorage.setItem("user", JSON.stringify(signedUser));
+        apiInstance.defaults.headers.common.authorization = `Bearer ${requestToken}`;
+        await localStorage.setItem('token', requestToken);
+        await localStorage.setItem('user', JSON.stringify(signedUser));
 
-        setToken(token);
+        setToken(requestToken);
         setUser(signedUser);
-      } catch (error: any) {
-        setError(error.message);
+      } catch (err: any) {
+        setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -67,13 +67,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const requestLogout = useCallback(async () => {
     try {
       setLoading(true);
-      await localStorage.removeItem("token");
-      await localStorage.removeItem("user");
+      await localStorage.removeItem('token');
+      await localStorage.removeItem('user');
 
       setToken(null);
       setUser(null);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     } finally {
       setLoading(false);
     }
@@ -92,7 +92,7 @@ export const useAuthContext = () => {
   const context = React.useContext(AuthContext);
 
   if (context === undefined) {
-    throw new Error("useAuthContext must be used within a AuthProvider");
+    throw new Error('useAuthContext must be used within a AuthProvider');
   }
 
   return context;

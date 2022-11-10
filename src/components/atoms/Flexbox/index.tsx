@@ -1,5 +1,5 @@
-import React from "react";
-import { ViewProps } from "react-native";
+import React from 'react';
+import { ViewProps } from 'react-native';
 
 import {
   SpaceProps,
@@ -7,9 +7,9 @@ import {
   FlexboxProps,
   BackgroundColorProps,
   BordersProps,
-} from "styled-system";
+} from 'styled-system';
 
-import { FlexboxStyled } from "./styles";
+import { FlexboxStyled } from './styles';
 
 export type FlexboxContainerProps = {
   as?: React.ElementType;

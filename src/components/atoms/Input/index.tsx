@@ -5,21 +5,21 @@ import React, {
   useMemo,
   useRef,
   useState,
-} from "react";
-import { TextInput as RNTextInput } from "react-native";
+} from 'react';
+import { TextInput as RNTextInput } from 'react-native';
 import {
   HelperText,
   TextInput,
   TextInputProps,
   MD3Theme,
-} from "react-native-paper";
-import { IconSource } from "react-native-paper/lib/typescript/components/Icon";
+} from 'react-native-paper';
+import { IconSource } from 'react-native-paper/lib/typescript/components/Icon';
 
 export type InputProps = {
   theme?: Partial<MD3Theme>;
   showSecureButton?: boolean;
   error?: string;
-} & Omit<Omit<TextInputProps, "theme">, "error">;
+} & Omit<Omit<TextInputProps, 'theme'>, 'error'>;
 
 export type InputRefProps = RNTextInput;
 
@@ -42,9 +42,9 @@ const Input: React.ForwardRefRenderFunction<unknown, InputProps> = (
 
   const getRigthIcon = useMemo((): IconSource => {
     if (showSecureButton) {
-      return securePassword ? "eye-off" : "eye";
+      return securePassword ? 'eye-off' : 'eye';
     }
-    return "";
+    return '';
   }, [securePassword, showSecureButton]);
 
   return (

@@ -1,17 +1,17 @@
-import React from "react";
-import { Avatar, Button, Card, Chip, Divider } from "react-native-paper";
-import { useAuthContext } from "@contexts/auth";
-import Flexbox from "@components/atoms/Flexbox";
-import { AppStackScreenProps } from "@routes/types";
-import Container from "@components/atoms/Container";
-import { ScrollView } from "react-native";
-import { format } from "date-fns";
+import React from 'react';
+import { Avatar, Button, Card, Chip, Divider } from 'react-native-paper';
+import { useAuthContext } from '@contexts/auth';
+import Flexbox from '@components/atoms/Flexbox';
+import { AppStackScreenProps } from '@routes/types';
+import Container from '@components/atoms/Container';
+import { ScrollView } from 'react-native';
+import { format } from 'date-fns';
 
-const Profile: React.FC<AppStackScreenProps<"Profile">> = () => {
+const Profile: React.FC<AppStackScreenProps<'Profile'>> = () => {
   const { user, requestLogout } = useAuthContext();
 
   const getFirstTwoLetters = (name: string) => {
-    const [firstName, lastName] = name.split(" ");
+    const [firstName, lastName] = name.split(' ');
     if (firstName && lastName) {
       return `${firstName[0]}${lastName[0]}`;
     }
@@ -19,7 +19,7 @@ const Profile: React.FC<AppStackScreenProps<"Profile">> = () => {
   };
 
   const onPressEdit = () => {
-    console.log("Edit");
+    console.log('Edit');
   };
 
   return (
@@ -27,7 +27,7 @@ const Profile: React.FC<AppStackScreenProps<"Profile">> = () => {
       <Container width="100%" p={20}>
         <Avatar.Text
           size={100}
-          label={getFirstTwoLetters(user?.profile?.name ?? "")}
+          label={getFirstTwoLetters(user?.profile?.name ?? '')}
           testID="profile-avatar"
         />
       </Container>
@@ -72,7 +72,7 @@ const Profile: React.FC<AppStackScreenProps<"Profile">> = () => {
                   icon="cake-variant-outline"
                   testID="profile-info-chip-birthdate"
                 >
-                  {format(new Date(user?.profile.birthdate), "dd/MM/yyyy")}
+                  {format(new Date(user?.profile.birthdate), 'dd/MM/yyyy')}
                 </Chip>
               </Container>
             )}
@@ -84,7 +84,7 @@ const Profile: React.FC<AppStackScreenProps<"Profile">> = () => {
                   icon="party-popper"
                   testID="profile-info-chip-start-date"
                 >
-                  {format(new Date(user?.profile.start_date), "dd/MM/yyyy")}
+                  {format(new Date(user?.profile.start_date), 'dd/MM/yyyy')}
                 </Chip>
               </Container>
             )}
@@ -115,7 +115,7 @@ const Profile: React.FC<AppStackScreenProps<"Profile">> = () => {
       <Divider />
 
       <Container testID="profile-username">
-        <Card.Title title="Nome de usuário" subtitle={user?.username ?? ""} />
+        <Card.Title title="Nome de usuário" subtitle={user?.username ?? ''} />
       </Container>
 
       {user?.profile?.name && (

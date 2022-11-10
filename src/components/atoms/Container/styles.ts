@@ -1,5 +1,5 @@
-import { View } from "react-native";
-import styled from "styled-components/native";
+import { View } from 'react-native';
+import styled from 'styled-components/native';
 import {
   space,
   layout,
@@ -7,7 +7,7 @@ import {
   backgroundColor,
   borders,
   position,
-} from "styled-system";
+} from 'styled-system';
 
 export const ContainerStyled = styled(View)<{
   centralize?: boolean;

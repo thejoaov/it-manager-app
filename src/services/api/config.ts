@@ -1,6 +1,6 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-export const BASE_URL = "http://localhost:3333";
+export const BASE_URL = 'http://localhost:3333';
 
 export const apiInstance = axios.create({
   baseURL: BASE_URL,

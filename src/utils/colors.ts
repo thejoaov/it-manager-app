@@ -1,8 +1,8 @@
-import { semantic } from "@constants/colors";
+import { semantic } from '@constants/colors';
 
-type ToastType = "error" | "info" | "success" | "warning";
+type ToastType = 'error' | 'info' | 'success' | 'warning';
 
-export const getToastColor = (toastType: ToastType = "info"): string => {
+export const getToastColor = (toastType: ToastType = 'info'): string => {
   const colors: Record<ToastType, string> = {
     error: semantic.error,
     info: semantic.info,
@@ -10,5 +10,5 @@ export const getToastColor = (toastType: ToastType = "info"): string => {
     warning: semantic.warning,
   };
 
-  return colors[toastType || "info"];
+  return colors[toastType || 'info'];
 };

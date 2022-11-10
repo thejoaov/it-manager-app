@@ -1,5 +1,5 @@
-import React from "react";
-import { ViewProps } from "react-native";
+import React from 'react';
+import { ViewProps } from 'react-native';
 
 import {
   SpaceProps,
@@ -8,9 +8,9 @@ import {
   BackgroundColorProps,
   BordersProps,
   PositionProps,
-} from "styled-system";
+} from 'styled-system';
 
-import { ContainerStyled } from "./styles";
+import { ContainerStyled } from './styles';
 
 export type ContainerProps = {
   centralize?: boolean;

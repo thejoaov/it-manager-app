@@ -1,11 +1,11 @@
-import React from "react";
-import { render, waitFor, RenderAPI } from "@testing-library/react-native";
-import TicketListTemplate from "./index";
-import AppContextProvider from "@contexts/appContext";
+import React from 'react';
+import { render, waitFor, RenderAPI } from '@testing-library/react-native';
+import TicketListTemplate from './index';
+import AppContextProvider from '@contexts/appContext';
 
 let wrapper: RenderAPI;
 
-describe("TicketListTemplate", () => {
+describe('TicketListTemplate', () => {
   beforeEach(async () => {
     await waitFor(() => {
       wrapper = render(
@@ -16,9 +16,9 @@ describe("TicketListTemplate", () => {
     });
   });
 
-  it("should render", () => {
+  it('should render', () => {
     const { getByTestId } = wrapper;
 
-    expect(getByTestId("ticketListTemplate-container")).toBeTruthy();
+    expect(getByTestId('ticketListTemplate-container')).toBeTruthy();
   });
 });

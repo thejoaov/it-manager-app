@@ -1,13 +1,12 @@
-import React from "react";
-import { render, waitFor, RenderAPI } from "@testing-library/react-native";
-import Dashboard from "./index";
-import AppContextProvider from "@contexts/appContext";
-import { navigationMock, routeMock } from "@utils/testUtils";
+import React from 'react';
+import { render, waitFor, RenderAPI } from '@testing-library/react-native';
+import Dashboard from './index';
+import AppContextProvider from '@contexts/appContext';
+import { navigationMock, routeMock } from '@utils/testUtils';
 
 let wrapper: RenderAPI;
-const onChangeText = jest.fn();
 
-describe("Dashboard", () => {
+describe('Dashboard', () => {
   beforeEach(async () => {
     await waitFor(() => {
       wrapper = render(
@@ -18,9 +17,9 @@ describe("Dashboard", () => {
     });
   });
 
-  it("should render", () => {
+  it('should render', () => {
     const { getByTestId } = wrapper;
 
-    expect(getByTestId("dashboard")).toBeTruthy();
+    expect(getByTestId('dashboard')).toBeTruthy();
   });
 });

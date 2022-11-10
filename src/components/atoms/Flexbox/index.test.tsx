@@ -1,11 +1,11 @@
-import React from "react";
-import { render, waitFor, RenderAPI } from "@testing-library/react-native";
-import Flexbox from "./index";
-import AppContextProvider from "@contexts/appContext";
+import React from 'react';
+import { render, waitFor, RenderAPI } from '@testing-library/react-native';
+import Flexbox from './index';
+import AppContextProvider from '@contexts/appContext';
 
 let wrapper: RenderAPI;
 
-describe("Flexbox", () => {
+describe('Flexbox', () => {
   beforeEach(async () => {
     await waitFor(() => {
       wrapper = render(
@@ -16,9 +16,9 @@ describe("Flexbox", () => {
     });
   });
 
-  it("should render", () => {
+  it('should render', () => {
     const { getByTestId } = wrapper;
 
-    expect(getByTestId("component")).toBeTruthy();
+    expect(getByTestId('component')).toBeTruthy();
   });
 });

@@ -1,5 +1,5 @@
-import React from "react";
-import { TicketCardContainer } from "./styles";
+import React from 'react';
+import { TicketCardContainer } from './styles';
 
 export type TicketCardProps = {
   // text?: string;

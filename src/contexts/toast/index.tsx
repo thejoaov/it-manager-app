@@ -1,13 +1,13 @@
-import { createContext, useCallback, useContext, useState } from "react";
-import { Button } from "react-native-paper";
+import { createContext, useCallback, useContext, useState } from 'react';
+import { Button } from 'react-native-paper';
 
 export type Toast = {
   duration?: number;
   onDismiss?: () => void;
-  type?: "success" | "error" | "info" | "warning";
+  type?: 'success' | 'error' | 'info' | 'warning';
   // icon?: keyof typeof Feather.glyphMap;
   text: string;
-  action?: Omit<React.ComponentProps<typeof Button>, "children"> & {
+  action?: Omit<React.ComponentProps<typeof Button>, 'children'> & {
     label: string;
   };
 };
@@ -52,7 +52,7 @@ export const useToastContext = (): ToastContextData => {
   const context = useContext(ToastContext);
 
   if (!context) {
-    throw new Error("useToastContext must be used within an config Provider");
+    throw new Error('useToastContext must be used within an config Provider');
   }
 
   return context;

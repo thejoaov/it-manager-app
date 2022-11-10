@@ -1,5 +1,5 @@
 // service for asyncStorage
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const setItem = async (key: string, value: string) => {
   try {

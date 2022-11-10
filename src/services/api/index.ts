@@ -1,6 +1,6 @@
-import { AxiosResponse } from "axios";
-import lodash from "lodash";
-import { apiInstance, parseQueryString } from "./config";
+import { AxiosResponse } from 'axios';
+import lodash from 'lodash';
+import { apiInstance, parseQueryString } from './config';
 import {
   RequestDeleteTicketById,
   RequestDeleteUserById,
@@ -27,18 +27,18 @@ import {
   ResponsePostUsers,
   ResponsePutProfileByUserId,
   ResponsePutUserById,
-} from "./types";
+} from './types';
 
 const apiService = {
   postLogin: async (
     data: RequestPostLogin
   ): Promise<AxiosResponse<ResponsePostLogin>> => {
-    return apiInstance.post<ResponsePostLogin>("login", data);
+    return apiInstance.post<ResponsePostLogin>('login', data);
   },
   postUsers: async (
     data: RequestPostUsers
   ): Promise<AxiosResponse<ResponsePostUsers>> => {
-    return apiInstance.post<ResponsePostUsers>("users", data);
+    return apiInstance.post<ResponsePostUsers>('users', data);
   },
   getUserById: async (
     data: RequestGetUserById
@@ -69,13 +69,13 @@ const apiService = {
   putProfileByUserId: async (
     data: RequestPutProfileByUserId
   ): Promise<AxiosResponse<ResponsePutProfileByUserId>> => {
-    const body = lodash.omit(data, ["id", "created_at", "updated_at"]);
+    const body = lodash.omit(data, ['id', 'created_at', 'updated_at']);
     return apiInstance.put(`profile/${data.userId}`, body);
   },
   getTickets: async (
     data?: RequestGetTickets
   ): Promise<AxiosResponse<ResponseGetTickets>> => {
-    return apiInstance.get(`tickets/${data ? parseQueryString(data) : ""}`);
+    return apiInstance.get(`tickets/${data ? parseQueryString(data) : ''}`);
   },
   getTicketById: async (
     data: RequestGetTicketById
@@ -85,13 +85,13 @@ const apiService = {
   putTicketById: async (
     data: RequestPutTicketById
   ): Promise<AxiosResponse<ResponseGetTicketById>> => {
-    const body = lodash.omit(data, ["id", "created_at", "updated_at"]);
+    const body = lodash.omit(data, ['id', 'created_at', 'updated_at']);
     return apiInstance.put(`tickets/${data.id}`, body);
   },
   postTicket: async (
     data: RequestPostTicket
   ): Promise<AxiosResponse<ResponsePostTicket>> => {
-    return apiInstance.post("tickets", data);
+    return apiInstance.post('tickets', data);
   },
   deleteTicketById: async (
     data: RequestDeleteTicketById

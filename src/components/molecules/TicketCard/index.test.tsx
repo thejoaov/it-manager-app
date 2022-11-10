@@ -1,11 +1,11 @@
-import React from "react";
-import { render, waitFor, RenderAPI } from "@testing-library/react-native";
-import TicketCard from "./index";
-import AppContextProvider from "@contexts/appContext";
+import React from 'react';
+import { render, waitFor, RenderAPI } from '@testing-library/react-native';
+import TicketCard from './index';
+import AppContextProvider from '@contexts/appContext';
 
 let wrapper: RenderAPI;
 
-describe("TicketCard", () => {
+describe('TicketCard', () => {
   beforeEach(async () => {
     await waitFor(() => {
       wrapper = render(
@@ -16,9 +16,9 @@ describe("TicketCard", () => {
     });
   });
 
-  it("should render", () => {
+  it('should render', () => {
     const { getByTestId } = wrapper;
 
-    expect(getByTestId("ticketCard-container")).toBeTruthy();
+    expect(getByTestId('ticketCard-container')).toBeTruthy();
   });
 });

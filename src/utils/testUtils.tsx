@@ -1,4 +1,4 @@
-export const navigationMock = (screenName = "Root", params: any = {}) => ({
+export const navigationMock = (screenName = 'Root', params: any = {}) => ({
   reset: jest.fn(),
   canGoBack: jest.fn(),
   getId: jest.fn(),
@@ -30,11 +30,11 @@ export const navigationMock = (screenName = "Root", params: any = {}) => ({
   },
 });
 
-export const routeMock = (screenName = "Default", params: any = {}): any => ({
+export const routeMock = (screenName = 'Default', params: any = {}): any => ({
   route: {
     params,
   },
-  key: "0",
+  key: '0',
   name: screenName,
   path: screenName,
 });

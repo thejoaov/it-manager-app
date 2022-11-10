@@ -1,18 +1,18 @@
-import { useToastContext } from "@contexts/toast";
-import React, { useState, useCallback } from "react";
-import { Button } from "react-native-paper";
-import Container from "@components/atoms/Container";
-import Input from "@components/atoms/Input";
-import { useAuthContext } from "@contexts/auth";
-import { AuthStackScreenProps } from "@routes/types";
-import Flexbox from "@components/atoms/Flexbox";
+import { useToastContext } from '@contexts/toast';
+import React, { useState, useCallback } from 'react';
+import { Button } from 'react-native-paper';
+import Container from '@components/atoms/Container';
+import Input from '@components/atoms/Input';
+import { useAuthContext } from '@contexts/auth';
+import { AuthStackScreenProps } from '@routes/types';
+import Flexbox from '@components/atoms/Flexbox';
 
-const Login: React.FC<AuthStackScreenProps<"Login">> = ({
+const Login: React.FC<AuthStackScreenProps<'Login'>> = ({
   navigation,
   route,
 }) => {
-  const [login, setLogin] = useState(route.params?.login || "");
-  const [password, setPassword] = useState(route.params?.password || "");
+  const [login, setLogin] = useState(route.params?.login || '');
+  const [password, setPassword] = useState(route.params?.password || '');
   const [loading, setLoading] = useState(false);
   const { showToast } = useToastContext();
   const { requestLogin } = useAuthContext();
@@ -29,22 +29,22 @@ const Login: React.FC<AuthStackScreenProps<"Login">> = ({
       if (__DEV__ && error.errors[0].message) {
         showToast({
           text: error.errors[0].message,
-          type: "error",
+          type: 'error',
         });
       } else {
         showToast({
-          text: "Erro ao fazer login",
-          type: "error",
+          text: 'Erro ao fazer login',
+          type: 'error',
         });
       }
     } finally {
       setLoading(false);
     }
-  }, [login, password]);
+  }, [login, password, requestLogin, showToast]);
 
   const navigateToRegister = useCallback(() => {
-    navigation.navigate("Register");
-  }, []);
+    navigation.navigate('Register');
+  }, [navigation]);
 
   return (
     <Flexbox justifyContent="center" p={20} testID="login">

@@ -1,9 +1,9 @@
-import * as React from "react";
+import * as React from 'react';
 
-import Router from "@routes";
-import AppContextProvider from "@contexts/appContext";
-import SafeContainer from "@components/atoms/SafeContainer";
-import useTheme from "@hooks/useTheme";
+import Router from '@routes';
+import AppContextProvider from '@contexts/appContext';
+import SafeContainer from '@components/atoms/SafeContainer';
+import useTheme from '@hooks/useTheme';
 
 const App = () => {
   const { colors } = useTheme();

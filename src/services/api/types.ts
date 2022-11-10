@@ -1,5 +1,5 @@
-import { Profile, User } from "@models/user";
-import { Ticket } from "@models/tickets";
+import { Profile, User } from '@models/user';
+import { Ticket } from '@models/tickets';
 
 export type ResponseWithPagination<T> = {
   meta: {
@@ -66,8 +66,8 @@ export type RequestDeleteUserById = {
 export type ResponseDeleteUserById = void;
 
 export type RequestGetTickets = RequestWithPagination<{
-  status?: "open" | "closed" | "solving";
-  priority?: "low" | "medium" | "high";
+  status?: 'open' | 'closed' | 'solving';
+  priority?: 'low' | 'medium' | 'high';
 }>;
 export type ResponseGetTickets = ResponseWithPagination<Ticket[]>;
 
@@ -77,13 +77,13 @@ export type RequestGetTicketById = {
 export type ResponseGetTicketById = Ticket;
 
 export type RequestPutTicketById = Partial<
-  Omit<Ticket, "id" | "created_at" | "updated_at">
+  Omit<Ticket, 'id' | 'created_at' | 'updated_at'>
 > & { id: number };
 export type ResponsePutTicketById = Ticket;
 
 export type RequestPostTicket = Omit<
   Ticket,
-  "id" | "created_at" | "updated_at"
+  'id' | 'created_at' | 'updated_at'
 >;
 export type ResponsePostTicket = Ticket;
 
@@ -99,12 +99,12 @@ export type ResponseGetProfileByUserId = Profile;
 
 export type RequestPostProfileByUserId = {
   userId: string;
-  body: Omit<Profile, "id" | "created_at" | "updated_at">;
+  body: Omit<Profile, 'id' | 'created_at' | 'updated_at'>;
 };
 export type ResponsePostProfileByUserId = Profile;
 
 export type RequestPutProfileByUserId = {
   userId: string;
-  body: Partial<Omit<Profile, "id" | "created_at" | "updated_at">>;
+  body: Partial<Omit<Profile, 'id' | 'created_at' | 'updated_at'>>;
 };
 export type ResponsePutProfileByUserId = Profile;

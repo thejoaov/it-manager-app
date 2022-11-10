@@ -1,12 +1,11 @@
-import React from "react";
-import { render, waitFor, RenderAPI } from "@testing-library/react-native";
-import Container from "./index";
-import AppContextProvider from "@contexts/appContext";
+import React from 'react';
+import { render, waitFor, RenderAPI } from '@testing-library/react-native';
+import Container from './index';
+import AppContextProvider from '@contexts/appContext';
 
 let wrapper: RenderAPI;
-const onChangeText = jest.fn();
 
-describe("Container", () => {
+describe('Container', () => {
   beforeEach(async () => {
     await waitFor(() => {
       wrapper = render(
@@ -17,9 +16,9 @@ describe("Container", () => {
     });
   });
 
-  it("should render", () => {
+  it('should render', () => {
     const { getByTestId } = wrapper;
 
-    expect(getByTestId("component")).toBeTruthy();
+    expect(getByTestId('component')).toBeTruthy();
   });
 });

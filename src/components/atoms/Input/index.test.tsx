@@ -1,12 +1,12 @@
-import React from "react";
-import { render, waitFor, RenderAPI } from "@testing-library/react-native";
-import AppContextProvider from "@contexts/appContext";
-import Input from "./index";
+import React from 'react';
+import { render, waitFor, RenderAPI } from '@testing-library/react-native';
+import AppContextProvider from '@contexts/appContext';
+import Input from './index';
 
 let wrapper: RenderAPI;
 const onChangeText = jest.fn();
 
-describe("Input", () => {
+describe('Input', () => {
   beforeEach(async () => {
     await waitFor(() => {
       wrapper = render(
@@ -21,15 +21,15 @@ describe("Input", () => {
     });
   });
 
-  it("should render", async () => {
+  it('should render', async () => {
     const { getByTestId } = wrapper;
 
     await waitFor(() => {
-      expect(getByTestId("input-outlined")).toBeTruthy();
+      expect(getByTestId('input-outlined')).toBeTruthy();
     });
   });
 
-  it("should render with secureTextEntry", async () => {
+  it('should render with secureTextEntry', async () => {
     await waitFor(() => {
       wrapper = render(
         <Input
@@ -45,7 +45,7 @@ describe("Input", () => {
     const { getByTestId } = wrapper;
 
     await waitFor(() => {
-      expect(getByTestId("input-outlined")).toBeTruthy();
+      expect(getByTestId('input-outlined')).toBeTruthy();
     });
   });
 });

@@ -1,24 +1,24 @@
-import { useAuthContext } from "@contexts/auth";
-import { useToastContext } from "@contexts/toast";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { getToastColor } from "@utils/colors";
-import { Snackbar, TouchableRipple } from "react-native-paper";
+import { useAuthContext } from '@contexts/auth';
+import { useToastContext } from '@contexts/toast';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { getToastColor } from '@utils/colors';
+import { Snackbar } from 'react-native-paper';
 
 import {
   AppStackParamList,
   AuthStackParamList,
   HomeTabParamList,
-} from "./types";
+} from './types';
 
 // Import screens
-import Profile from "@pages/Home/Profile";
-import TicketList from "@pages/Home/TicketList";
-import Dashboard from "@pages/Home/Dashboard";
-import Login from "@pages/Auth/Login";
-import Register from "@pages/Auth/Register";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import useTheme, { useNavigationTheme } from "@hooks/useTheme";
+import Profile from '@pages/Home/Profile';
+import TicketList from '@pages/Home/TicketList';
+import Dashboard from '@pages/Home/Dashboard';
+import Login from '@pages/Auth/Login';
+import Register from '@pages/Auth/Register';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import useTheme, { useNavigationTheme } from '@hooks/useTheme';
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 const AuthRouter = () => {
@@ -44,6 +44,7 @@ const HomeBottomTabRouter = () => {
       sceneAnimationEnabled
       inactiveColor={theme.colors.backdrop}
       activeColor={theme.colors.backdrop}
+      // eslint-disable-next-line react-native/no-inline-styles
       barStyle={{
         backgroundColor: theme.colors.inversePrimary,
         height: 80,
@@ -54,21 +55,21 @@ const HomeBottomTabRouter = () => {
         name="TicketList"
         component={TicketList}
         options={{
-          tabBarIcon: "format-list-bulleted",
+          tabBarIcon: 'format-list-bulleted',
         }}
       />
       <HomeBottomTab.Screen
         name="Dashboard"
         component={Dashboard}
         options={{
-          tabBarIcon: "home",
+          tabBarIcon: 'home',
         }}
       />
       <HomeBottomTab.Screen
         name="Profile"
         component={Profile}
         options={{
-          tabBarIcon: "account",
+          tabBarIcon: 'account',
         }}
       />
     </HomeBottomTab.Navigator>

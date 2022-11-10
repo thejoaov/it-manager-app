@@ -1,20 +1,20 @@
-import { useToastContext } from "@contexts/toast";
-import React, { useState, useCallback } from "react";
-import { Button } from "react-native-paper";
-import Container from "@components/atoms/Container";
-import Input from "@components/atoms/Input";
-import apiService from "@services/api";
-import { AuthStackScreenProps } from "@routes/types";
-import { ApiError } from "@models/errors";
-import Flexbox from "@components/atoms/Flexbox";
+import { useToastContext } from '@contexts/toast';
+import React, { useState, useCallback } from 'react';
+import { Button } from 'react-native-paper';
+import Container from '@components/atoms/Container';
+import Input from '@components/atoms/Input';
+import apiService from '@services/api';
+import { AuthStackScreenProps } from '@routes/types';
+import { ApiError } from '@models/errors';
+import Flexbox from '@components/atoms/Flexbox';
 
-const Register: React.FC<AuthStackScreenProps<"Register">> = ({
+const Register: React.FC<AuthStackScreenProps<'Register'>> = ({
   navigation,
 }) => {
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, ApiError | undefined>>({
     email: undefined,
@@ -41,48 +41,48 @@ const Register: React.FC<AuthStackScreenProps<"Register">> = ({
         passwordConfirmation: undefined,
       });
       showToast({
-        text: "Success! Now login with your new account",
-        type: "success",
+        text: 'Success! Now login with your new account',
+        type: 'success',
         action: {
-          label: "Login",
+          label: 'Login',
           onPress: () => {
-            navigation.navigate("Login", { login: email, password });
+            navigation.navigate('Login', { login: email, password });
           },
         },
         onDismiss: () => {
-          navigation.navigate("Login", { login: email, password });
+          navigation.navigate('Login', { login: email, password });
         },
       });
     } catch (error: any) {
       if (__DEV__ && error.errors[0].message) {
         showToast({
           text: error.errors.map((e: ApiError) => e.message).toString(),
-          type: "error",
+          type: 'error',
         });
         const apiError = error.errors as ApiError[];
 
         setErrors({
-          email: apiError.find((e) => e.field === "email"),
-          username: apiError.find((e) => e.field === "username"),
-          password: apiError.find((e) => e.field === "password"),
+          email: apiError.find((e) => e.field === 'email'),
+          username: apiError.find((e) => e.field === 'username'),
+          password: apiError.find((e) => e.field === 'password'),
           passwordConfirmation: apiError.find(
-            (e) => e.field === "passwordConfirmation"
+            (e) => e.field === 'passwordConfirmation'
           ),
         });
       } else {
         showToast({
-          text: "Erro ao fazer login",
-          type: "error",
+          text: 'Erro ao fazer login',
+          type: 'error',
         });
       }
     } finally {
       setLoading(false);
     }
-  }, [email, username, password]);
+  }, [email, username, password, passwordConfirmation, showToast, navigation]);
 
   const navigateToLogin = useCallback(() => {
-    navigation.navigate("Login");
-  }, []);
+    navigation.navigate('Login');
+  }, [navigation]);
 
   return (
     <Flexbox justifyContent="center" p={20} testID="login">

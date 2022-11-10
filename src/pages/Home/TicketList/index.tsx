@@ -1,25 +1,25 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { AppStackScreenProps } from "@routes/types";
-import Flexbox from "@components/atoms/Flexbox";
-import TicketListTemplate from "@components/templates/TicketListTemplate";
-import { useRequestTickets } from "@hooks/useTickets";
-import { AnimatedFAB } from "react-native-paper";
-import Container from "@components/atoms/Container";
+import React, { useCallback, useEffect, useState } from 'react';
+import { AppStackScreenProps } from '@routes/types';
+import Flexbox from '@components/atoms/Flexbox';
+import TicketListTemplate from '@components/templates/TicketListTemplate';
+import { useRequestTickets } from '@hooks/useTickets';
+import { AnimatedFAB } from 'react-native-paper';
+import Container from '@components/atoms/Container';
 
-const TicketList: React.FC<AppStackScreenProps<"TicketList">> = () => {
+const TicketList: React.FC<AppStackScreenProps<'TicketList'>> = () => {
   const { loading, getAllOpenTickets, meta, error, tickets } =
     useRequestTickets();
   const [isExtended, setIsExtended] = useState(true);
 
   useEffect(() => {
     getAllOpenTickets();
-  }, []);
+  }, [getAllOpenTickets]);
 
   const handlePress = useCallback(() => {
     setIsExtended(!isExtended);
     if (isExtended) {
       // TODO: Add new ticket
-      console.log("Add new ticket");
+      console.log('Add new ticket');
     }
   }, [isExtended]);
 
