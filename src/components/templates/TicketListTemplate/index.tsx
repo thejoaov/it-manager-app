@@ -1,15 +1,16 @@
+import { ApiError } from '@models/errors';
 import { Ticket } from '@models/tickets';
-import { RequestWithPagination } from '@services/api/types';
+import { ResponseWithPagination } from '@services/api/types';
 import React from 'react';
 import { FlatList } from 'react-native';
 import { Text } from 'react-native-paper';
 import { TicketListTemplateContainer } from './styles';
 
 export type TicketListTemplateProps = {
-  tickets: Ticket[];
+  tickets: Ticket[] | null;
   loading: boolean;
-  error: Error | null;
-  meta: RequestWithPagination<unknown> | null;
+  error?: Error | ApiError;
+  meta?: ResponseWithPagination<Ticket[]>;
 };
 
 const TicketListTemplate: React.FC<TicketListTemplateProps> = ({

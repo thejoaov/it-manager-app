@@ -6,28 +6,31 @@ export type HomeTabParamList = {
   Profile: undefined;
 };
 
-export type HomeTabScreenProps<T extends keyof HomeTabParamList> =
-  NativeStackScreenProps<HomeTabParamList, T>;
-
 export type AuthStackParamList = {
   Login: { login: string; password: string } | undefined;
   Register: undefined;
 };
 
-export type AuthStackScreenProps<T extends keyof AuthStackParamList> =
-  NativeStackScreenProps<AuthStackParamList, T>;
-
 export type AppStackParamList = {
+  NewTicket: undefined;
   Profile: undefined;
   TicketList: undefined;
   Dashboard: undefined;
   Home: undefined;
 };
 
-export type AppStackScreenProps<T extends keyof AppStackParamList> =
-  NativeStackScreenProps<AppStackParamList, T>;
+export type GlobalParamList = AuthStackParamList &
+  AppStackParamList &
+  HomeTabParamList;
 
-export type GlobalParamList = AuthStackParamList & AppStackParamList;
+export type HomeTabScreenProps<T extends keyof HomeTabParamList> =
+  NativeStackScreenProps<GlobalParamList, T>;
+
+export type AuthStackScreenProps<T extends keyof AuthStackParamList> =
+  NativeStackScreenProps<GlobalParamList, T>;
+
+export type AppStackScreenProps<T extends keyof AppStackParamList> =
+  NativeStackScreenProps<GlobalParamList, T>;
 
 declare global {
   namespace ReactNavigation {

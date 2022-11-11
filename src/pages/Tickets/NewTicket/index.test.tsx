@@ -1,16 +1,17 @@
 import React from 'react';
 import { render, waitFor, RenderAPI } from '@testing-library/react-native';
-import TicketListTemplate from './index';
+import NewTicket from './index';
 import AppContextProvider from '@contexts/appContext';
+import { navigationMock, routeMock } from '@utils/testUtils';
 
 let wrapper: RenderAPI;
 
-describe('TicketListTemplate', () => {
+describe('NewTicket', () => {
   beforeEach(async () => {
     await waitFor(() => {
       wrapper = render(
         <AppContextProvider>
-          <TicketListTemplate loading={false} tickets={[]} />
+          <NewTicket navigation={navigationMock()} route={routeMock()} />
         </AppContextProvider>
       );
     });
@@ -19,6 +20,6 @@ describe('TicketListTemplate', () => {
   it('should render', () => {
     const { getByTestId } = wrapper;
 
-    expect(getByTestId('ticketListTemplate-container')).toBeTruthy();
+    expect(getByTestId('newTicket')).toBeTruthy();
   });
 });

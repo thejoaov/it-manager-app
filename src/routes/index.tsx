@@ -12,6 +12,7 @@ import {
 } from './types';
 
 // Import screens
+import NewTicket from '@pages/Tickets/NewTicket';
 import Profile from '@pages/Home/Profile';
 import TicketList from '@pages/Home/TicketList';
 import Dashboard from '@pages/Home/Dashboard';
@@ -86,6 +87,13 @@ const AppRouter = () => {
       initialRouteName="Home"
     >
       {/* App Routes */}
+      <AppStack.Group
+        screenOptions={{
+          presentation: 'modal',
+        }}
+      >
+        <AppStack.Screen name="NewTicket" component={NewTicket} />
+      </AppStack.Group>
       <AppStack.Group>
         <AppStack.Screen name="Home" component={HomeBottomTabRouter} />
       </AppStack.Group>

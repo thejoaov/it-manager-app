@@ -1,3 +1,7 @@
+import AppContextProvider from '@contexts/appContext';
+import { NavigationContainer } from '@react-navigation/native';
+import { render } from '@testing-library/react-native';
+
 export const navigationMock = (screenName = 'Root', params: any = {}) => ({
   reset: jest.fn(),
   canGoBack: jest.fn(),
@@ -38,3 +42,11 @@ export const routeMock = (screenName = 'Default', params: any = {}): any => ({
   name: screenName,
   path: screenName,
 });
+
+export const renderWithWrapper = (component: React.ReactElement) => {
+  return render(
+    <AppContextProvider>
+      <NavigationContainer>{component}</NavigationContainer>
+    </AppContextProvider>
+  );
+};
