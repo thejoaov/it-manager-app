@@ -5,12 +5,10 @@ import { ResponseWithPagination } from '@services/api/types';
 import { AxiosPromise } from 'axios';
 
 export default function useRequest<Response = any>() {
-  const [response, setResponse] = useState<Response | null>(null);
+  const [response, setResponse] = useState<Response>();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | ApiError | null>(null);
-  const [meta, setMeta] = useState<ResponseWithPagination<Response> | null>(
-    null
-  );
+  const [error, setError] = useState<Error | ApiError | undefined>();
+  const [meta, setMeta] = useState<ResponseWithPagination<Response>>();
 
   const request = useCallback(async (apiCall: AxiosPromise) => {
     setLoading(true);

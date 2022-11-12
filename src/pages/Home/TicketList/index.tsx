@@ -39,7 +39,7 @@ const TicketList: React.FC<AppStackScreenProps<'TicketList'>> = () => {
         error={error}
         loading={loading}
         meta={meta}
-        tickets={response}
+        tickets={Array.from(response ?? [])}
       />
 
       <Container position="absolute" bottom={90} right={160}>

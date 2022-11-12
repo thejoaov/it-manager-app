@@ -57,7 +57,8 @@
   "ticketlist": {
     "buttons": {
       "new": "Novo Ticket"
-    }
+    },
+    "emptyText": "Nenhum ticket encontrado"
   },
   "newticket": {},
   "profileEdit": {
