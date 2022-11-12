@@ -10,7 +10,8 @@
     "test": "jest",
     "format": "prettier --write './src/**/*.{ts,tsx,json}'",
     "lint": "eslint src",
-    "prepare": "husky install .config/husky"
+    "prepare": "husky install .config/husky",
+    "create": "plop && format"
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",

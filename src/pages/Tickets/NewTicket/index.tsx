@@ -1,19 +1,19 @@
 import React from 'react';
 import { Text } from 'react-native-paper';
-// import { useAuthContext } from "@contexts/auth";
-import Flexbox from '@components/atoms/Flexbox';
 import { AppStackScreenProps } from '@routes/types';
-import useRequest from '@hooks/useRequest';
-// import apiService from '@services/api';
-import { Ticket } from '@models/tickets';
+// import useRequest from '@hooks/useRequest';
+// import { Ticket } from '@models/tickets';
+import ModalTemplate from '@components/templates/ModalTemplate';
 
-const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = () => {
-  const {} = useRequest<Ticket>();
+const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = ({
+  navigation,
+}) => {
+  // const {} = useRequest<Ticket>();
 
   return (
-    <Flexbox p={20} testID="newTicket">
+    <ModalTemplate title="New ticket" onBackPress={navigation.goBack}>
       <Text variant="bodyMedium">NewTicket</Text>
-    </Flexbox>
+    </ModalTemplate>
   );
 };
 
