@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Avatar, Button, Card, Chip, Divider } from 'react-native-paper';
 import { useAuthContext } from '@contexts/auth';
 import Flexbox from '@components/atoms/Flexbox';
@@ -6,28 +6,32 @@ import { AppStackScreenProps } from '@routes/types';
 import Container from '@components/atoms/Container';
 import { ScrollView } from 'react-native';
 import { format } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 const Profile: React.FC<AppStackScreenProps<'Profile'>> = () => {
   const { user, requestLogout } = useAuthContext();
+  const { t } = useTranslation('profile');
 
-  const getFirstTwoLetters = (name: string) => {
+  const getFirstTwoLetters = useCallback((name: string) => {
     const [firstName, lastName] = name.split(' ');
     if (firstName && lastName) {
       return `${firstName[0]}${lastName[0]}`;
     }
-    return name[0];
-  };
+    return `${name[0]}${name[1]}`;
+  }, []);
 
-  const onPressEdit = () => {
+  const onPressEdit = useCallback(() => {
     console.log('Edit');
-  };
+  }, []);
 
   return (
     <Flexbox as={ScrollView} p={10} testID="profile">
       <Container width="100%" p={20}>
         <Avatar.Text
           size={100}
-          label={getFirstTwoLetters(user?.profile?.name ?? '')}
+          label={getFirstTwoLetters(
+            (user?.profile?.name ?? user?.email) as string
+          )}
           testID="profile-avatar"
         />
       </Container>
@@ -115,12 +119,12 @@ const Profile: React.FC<AppStackScreenProps<'Profile'>> = () => {
       <Divider />
 
       <Container testID="profile-username">
-        <Card.Title title="Nome de usuário" subtitle={user?.username ?? ''} />
+        <Card.Title title={t('username')} subtitle={user?.username ?? ''} />
       </Container>
 
       {user?.profile?.name && (
         <Container testID="profile-email">
-          <Card.Title title="Email" subtitle={user?.email} />
+          <Card.Title title={t('email')} subtitle={user?.email} />
         </Container>
       )}
 
@@ -130,14 +134,10 @@ const Profile: React.FC<AppStackScreenProps<'Profile'>> = () => {
           onPress={requestLogout}
           testID="profile-logout-button"
         >
-          Logout
+          {t('buttons.logout')}
         </Button>
-        <Button
-          mode="outlined"
-          onPress={onPressEdit}
-          testID="profile-edit-button"
-        >
-          Edit Profile
+        <Button onPress={onPressEdit} testID="profile-edit-button">
+          {t('buttons.edit')}
         </Button>
       </Card.Actions>
     </Flexbox>

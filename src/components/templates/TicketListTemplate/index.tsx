@@ -1,16 +1,16 @@
+import React from 'react';
+import { FlatList } from 'react-native';
+import TicketCard from '@components/molecules/TicketCard';
 import { ApiError } from '@models/errors';
 import { Ticket } from '@models/tickets';
 import { ResponseWithPagination } from '@services/api/types';
-import React from 'react';
-import { FlatList } from 'react-native';
-import { Text } from 'react-native-paper';
 import { TicketListTemplateContainer } from './styles';
 
 export type TicketListTemplateProps = {
   tickets: Ticket[] | null;
   loading: boolean;
-  error?: Error | ApiError;
-  meta?: ResponseWithPagination<Ticket[]>;
+  error?: Error | ApiError | null;
+  meta?: ResponseWithPagination<Ticket[]> | null;
 };
 
 const TicketListTemplate: React.FC<TicketListTemplateProps> = ({
@@ -23,7 +23,7 @@ const TicketListTemplate: React.FC<TicketListTemplateProps> = ({
         data={tickets}
         keyExtractor={(item) => item.id.toString()}
         refreshing={loading}
-        renderItem={({ item }) => <Text>{item.title}</Text>}
+        renderItem={({ item }) => <TicketCard item={item} />}
       />
     </TicketListTemplateContainer>
   );

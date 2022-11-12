@@ -1,5 +1,5 @@
 import { useToastContext } from '@contexts/toast';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { Button } from 'react-native-paper';
 import Container from '@components/atoms/Container';
 import Input from '@components/atoms/Input';
@@ -7,6 +7,7 @@ import apiService from '@services/api';
 import { AuthStackScreenProps } from '@routes/types';
 import { ApiError } from '@models/errors';
 import Flexbox from '@components/atoms/Flexbox';
+import { useTranslation } from 'react-i18next';
 
 const Register: React.FC<AuthStackScreenProps<'Register'>> = ({
   navigation,
@@ -23,7 +24,18 @@ const Register: React.FC<AuthStackScreenProps<'Register'>> = ({
     passwordConfirmation: undefined,
   });
 
+  const { t } = useTranslation('register');
+
   const { showToast } = useToastContext();
+
+  const getInputError = useCallback(
+    (field: string) => {
+      if (errors[field]) {
+        return t(`errors.${errors[field]?.message}`);
+      }
+    },
+    [errors, t]
+  );
 
   const handleSubmit = useCallback(async () => {
     try {
@@ -41,7 +53,7 @@ const Register: React.FC<AuthStackScreenProps<'Register'>> = ({
         passwordConfirmation: undefined,
       });
       showToast({
-        text: 'Success! Now login with your new account',
+        text: t('messages.registerSuccess'),
         type: 'success',
         action: {
           label: 'Login',
@@ -54,13 +66,8 @@ const Register: React.FC<AuthStackScreenProps<'Register'>> = ({
         },
       });
     } catch (error: any) {
-      if (__DEV__ && error.errors[0].message) {
-        showToast({
-          text: error.errors.map((e: ApiError) => e.message).toString(),
-          type: 'error',
-        });
+      if (error.errors[0].message) {
         const apiError = error.errors as ApiError[];
-
         setErrors({
           email: apiError.find((e) => e.field === 'email'),
           username: apiError.find((e) => e.field === 'username'),
@@ -69,76 +76,96 @@ const Register: React.FC<AuthStackScreenProps<'Register'>> = ({
             (e) => e.field === 'passwordConfirmation'
           ),
         });
-      } else {
-        showToast({
-          text: 'Erro ao fazer login',
-          type: 'error',
-        });
       }
+      showToast({
+        text: t('errors.default'),
+        type: 'error',
+      });
     } finally {
       setLoading(false);
     }
-  }, [email, username, password, passwordConfirmation, showToast, navigation]);
+  }, [
+    email,
+    username,
+    password,
+    passwordConfirmation,
+    showToast,
+    t,
+    navigation,
+  ]);
 
   const navigateToLogin = useCallback(() => {
     navigation.navigate('Login');
   }, [navigation]);
+
+  const disableSubmit = useMemo(() => {
+    return (
+      loading ||
+      !email ||
+      !username ||
+      !passwordConfirmation ||
+      !password ||
+      password !== passwordConfirmation
+    );
+  }, [email, loading, password, passwordConfirmation, username]);
 
   return (
     <Flexbox justifyContent="center" p={20} testID="login">
       <Container my="5px">
         <Input
           mode="outlined"
-          label="Email"
-          placeholder="Email"
+          label={t('inputs.emailLabel') ?? ''}
+          placeholder={t('inputs.emailPlaceholder') ?? ''}
           value={email}
           onChangeText={setEmail}
           autoCapitalize="none"
           autoComplete="email"
           keyboardType="email-address"
-          error={errors.email?.message}
+          error={getInputError('email')}
         />
       </Container>
 
       <Container my="5px">
         <Input
           mode="outlined"
-          label="Username"
-          placeholder="Username"
+          label={t('inputs.usernameLabel') ?? ''}
+          placeholder={t('inputs.usernamePlaceholder') ?? ''}
           value={username}
           onChangeText={setUsername}
           autoCapitalize="none"
           autoComplete="username-new"
           keyboardType="twitter"
-          error={errors.username?.message}
+          error={getInputError('username')}
         />
       </Container>
 
       <Container my="5px">
         <Input
           mode="outlined"
-          label="Password"
+          label={t('inputs.passwordLabel') ?? ''}
+          placeholder={t('inputs.passwordPlaceholder') ?? ''}
           secureTextEntry
           showSecureButton
           value={password}
           onChangeText={setPassword}
           autoCapitalize="none"
           autoComplete="password-new"
-          error={errors.password?.message}
+          error={getInputError('password')}
         />
       </Container>
 
       <Container my="5px">
         <Input
           mode="outlined"
-          label="Password Confirmation"
+          label={t('inputs.confirmPasswordLabel') ?? ''}
+          placeholder={t('inputs.confirmPasswordPlaceholder') ?? ''}
           secureTextEntry
           showSecureButton
           value={passwordConfirmation}
           onChangeText={setPasswordConfirmation}
           autoCapitalize="none"
           autoComplete="password-new"
-          error={errors.passwordConfirmation?.message}
+          error={getInputError('passwordConfirmation')}
         />
       </Container>
 
@@ -148,21 +175,14 @@ const Register: React.FC<AuthStackScreenProps<'Register'>> = ({
             mode="contained"
             onPress={handleSubmit}
             loading={loading}
-            disabled={
-              loading ||
-              !email ||
-              !username ||
-              !passwordConfirmation ||
-              !password ||
-              password !== passwordConfirmation
-            }
+            disabled={disableSubmit}
           >
-            Register
+            {t('buttons.register')}
           </Button>
         </Container>
 
         <Container mt={10}>
-          <Button onPress={navigateToLogin}>Login</Button>
+          <Button onPress={navigateToLogin}>{t('buttons.login')}</Button>
         </Container>
       </Container>
     </Flexbox>

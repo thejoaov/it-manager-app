@@ -1,0 +1,63 @@
+{
+  "common": {
+    "buttons": {}
+  },
+  "login": {
+    "errors": {
+      "default": "Erro ao fazer login, verifique suas credenciais e tente novamente"
+    },
+    "inputs": {
+      "loginLabel": "Email ou nome de usuário",
+      "loginPlaceholder": "Email ou nome de usuário",
+      "passwordLabel": "Senha",
+      "passwordPlaceholder": "Senha"
+    },
+    "buttons": {
+      "login": "Entrar",
+      "register": "Cadastre-se"
+    }
+  },
+  "register": {
+    "errors": {
+      "default": "Erro ao fazer cadastro, verifique suas credenciais e tente novamente",
+      "password_min_length": "A senha deve ter no mínimo 8 caracteres",
+      "email_email": "O email informado não é válido",
+      "username_unique": "O nome de usuário informado já está em uso",
+      "email_unique": "O email informado já está em uso"
+    },
+    "inputs": {
+      "emailLabel": "Email",
+      "emailPlaceholder": "Email",
+      "usernameLabel": "Nome de usuário",
+      "usernamePlaceholder": "Nome de usuário",
+      "passwordLabel": "Senha",
+      "passwordPlaceholder": "Senha",
+      "confirmPasswordLabel": "Confirme sua senha",
+      "confirmPasswordPlaceholder": "Confirme sua senha"
+    },
+    "buttons": {
+      "register": "Criar conta",
+      "login": "Entrar"
+    },
+    "messages": {
+      "registerSuccess": "Cadastro realizado com sucesso!"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard"
+  },
+  "profile": {
+    "username": "Nome de usuário",
+    "email": "Email",
+    "buttons": {
+      "logout": "Sair",
+      "edit": "Editar"
+    }
+  },
+  "ticketlist": {
+    "buttons": {
+      "new": "Novo Ticket"
+    }
+  },
+  "newticket": {}
+}

@@ -1,24 +1,28 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { AppStackScreenProps } from '@routes/types';
 import Flexbox from '@components/atoms/Flexbox';
 import TicketListTemplate from '@components/templates/TicketListTemplate';
 import { AnimatedFAB } from 'react-native-paper';
 import Container from '@components/atoms/Container';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { Ticket } from '@models/tickets';
 import useRequest from '@hooks/useRequest';
 import apiService from '@services/api';
 import Loading from '@components/organisms/Loading';
+import { useTranslation } from 'react-i18next';
 
 const TicketList: React.FC<AppStackScreenProps<'TicketList'>> = () => {
   const { error, loading, request, response, meta } = useRequest<Ticket[]>();
+  const navigation = useNavigation();
+  const { t } = useTranslation('ticketlist');
 
   const [isExtended, setIsExtended] = useState(true);
-  const navigation = useNavigation();
 
-  useEffect(() => {
-    request(apiService.getTickets());
-  }, [request]);
+  useFocusEffect(
+    useCallback(() => {
+      request(apiService.getTickets());
+    }, [request])
+  );
 
   const handlePress = useCallback(() => {
     setIsExtended(!isExtended);
@@ -38,11 +42,11 @@ const TicketList: React.FC<AppStackScreenProps<'TicketList'>> = () => {
         tickets={response}
       />
 
-      <Container position="absolute" bottom={90} right={170}>
+      <Container position="absolute" bottom={90} right={160}>
         <AnimatedFAB
           extended={isExtended}
           icon="plus"
-          label="Create Ticket"
+          label={t('buttons.new')}
           onPress={handlePress}
         />
       </Container>

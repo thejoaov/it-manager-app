@@ -20,6 +20,6 @@ describe('NewTicket', () => {
   it('should render', () => {
     const { getByTestId } = wrapper;
 
-    expect(getByTestId('newTicket')).toBeTruthy();
+    expect(getByTestId('modal-template-container')).toBeTruthy();
   });
 });

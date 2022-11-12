@@ -6,6 +6,7 @@ import Input from '@components/atoms/Input';
 import { useAuthContext } from '@contexts/auth';
 import { AuthStackScreenProps } from '@routes/types';
 import Flexbox from '@components/atoms/Flexbox';
+import { useTranslation } from 'react-i18next';
 
 const Login: React.FC<AuthStackScreenProps<'Login'>> = ({
   navigation,
@@ -16,6 +17,7 @@ const Login: React.FC<AuthStackScreenProps<'Login'>> = ({
   const [loading, setLoading] = useState(false);
   const { showToast } = useToastContext();
   const { requestLogin } = useAuthContext();
+  const { t } = useTranslation('login');
 
   const handleLogin = useCallback(async () => {
     try {
@@ -33,14 +35,14 @@ const Login: React.FC<AuthStackScreenProps<'Login'>> = ({
         });
       } else {
         showToast({
-          text: 'Erro ao fazer login',
+          text: t('error.default'),
           type: 'error',
         });
       }
     } finally {
       setLoading(false);
     }
-  }, [login, password, requestLogin, showToast]);
+  }, [login, password, requestLogin, showToast, t]);
 
   const navigateToRegister = useCallback(() => {
     navigation.navigate('Register');
@@ -51,9 +53,9 @@ const Login: React.FC<AuthStackScreenProps<'Login'>> = ({
       <Container my="5px">
         <Input
           mode="outlined"
-          label="Login"
+          label={t('inputs.loginLabel')!}
+          placeholder={t('inputs.loginPlaceholder')!}
           value={login}
-          placeholder="Email or Username"
           onChangeText={setLogin}
           defaultValue={route.params?.login}
           autoCapitalize="none"
@@ -65,7 +67,8 @@ const Login: React.FC<AuthStackScreenProps<'Login'>> = ({
       <Container my="5px">
         <Input
           mode="outlined"
-          label="Password"
+          label={t('inputs.passwordLabel')!}
+          placeholder={t('inputs.passwordPlaceholder')!}
           secureTextEntry
           showSecureButton
           value={password}
@@ -84,12 +87,12 @@ const Login: React.FC<AuthStackScreenProps<'Login'>> = ({
             loading={loading}
             disabled={loading || !login || !password}
           >
-            Login
+            {t('buttons.login')}
           </Button>
         </Container>
 
         <Container mt={10}>
-          <Button onPress={navigateToRegister}>Register</Button>
+          <Button onPress={navigateToRegister}>{t('buttons.register')}</Button>
         </Container>
       </Container>
     </Flexbox>
