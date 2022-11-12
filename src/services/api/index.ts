@@ -69,8 +69,11 @@ const apiService = {
   putProfileByUserId: async (
     data: RequestPutProfileByUserId
   ): Promise<AxiosResponse<ResponsePutProfileByUserId>> => {
-    const body = lodash.omit(data, ['id', 'created_at', 'updated_at']);
-    return apiInstance.put(`profile/${data.userId}`, body);
+    const body = lodash.omit(data.body, ['id', 'created_at', 'updated_at']);
+    return apiInstance.put(
+      `profile/${data.userId}`,
+      lodash.pickBy(body, (value) => value !== undefined || value !== null)
+    );
   },
   getTickets: async (
     data?: RequestGetTickets

@@ -11,6 +11,7 @@ export type AuthContextType = {
   error: string | null;
   requestLogin: (data: { login: string; password: string }) => Promise<void>;
   requestLogout: () => Promise<void>;
+  requestUserInfo: () => Promise<void>;
 };
 
 export const AuthContext = React.createContext({} as AuthContextType);
@@ -38,6 +39,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     loadStorageData();
   }, [loadStorageData]);
+
+  const requestUserInfo = useCallback(async () => {
+    // const response = await apiService.getUserById({ id: user?.id as number });
+    const response = await apiService.getProfileByUserId({
+      userId: String(user?.id),
+    });
+
+    const newUser = {
+      ...user,
+      profile: response.data,
+    };
+    setUser(newUser as User);
+    await localStorage.setItem('user', JSON.stringify(newUser));
+  }, [user]);
 
   const requestLogin = useCallback(
     async (ctx: { login: string; password: string }) => {
@@ -81,7 +96,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, token, loading, requestLogin, requestLogout, error }}
+      value={{
+        user,
+        token,
+        loading,
+        requestLogin,
+        requestLogout,
+        error,
+        requestUserInfo,
+      }}
     >
       {children}
     </AuthContext.Provider>

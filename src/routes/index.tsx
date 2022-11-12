@@ -12,6 +12,7 @@ import {
 } from './types';
 
 // Import screens
+import ProfileEdit from '@pages/Home/ProfileEdit';
 import NewTicket from '@pages/Tickets/NewTicket';
 import Profile from '@pages/Home/Profile';
 import TicketList from '@pages/Home/TicketList';
@@ -92,6 +93,7 @@ const AppRouter = () => {
           presentation: 'modal',
         }}
       >
+        <AppStack.Screen name="ProfileEdit" component={ProfileEdit} />
         <AppStack.Screen name="NewTicket" component={NewTicket} />
       </AppStack.Group>
       <AppStack.Group>

@@ -12,6 +12,7 @@ export type AuthStackParamList = {
 };
 
 export type AppStackParamList = {
+  ProfileEdit: undefined;
   NewTicket: undefined;
   Profile: undefined;
   TicketList: undefined;

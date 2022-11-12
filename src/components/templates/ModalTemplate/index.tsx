@@ -7,6 +7,7 @@ export type ModalTemplateProps = {
   onBackPress: () => void;
   aditionalActions?: React.ReactNode;
   title?: string;
+  testID?: string;
 };
 
 const ModalTemplate: React.FC<PropsWithChildren<ModalTemplateProps>> = ({
@@ -14,9 +15,10 @@ const ModalTemplate: React.FC<PropsWithChildren<ModalTemplateProps>> = ({
   children,
   title,
   aditionalActions,
+  testID = 'modal-template-container',
 }) => {
   return (
-    <ModalTemplateContainer testID="modal-template-container">
+    <ModalTemplateContainer testID={testID}>
       <Appbar.Header testID="modal-appbar">
         <Appbar.BackAction
           onPress={onBackPress}

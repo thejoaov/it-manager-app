@@ -7,22 +7,15 @@ import Container from '@components/atoms/Container';
 import { ScrollView } from 'react-native';
 import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
+import { getFirstTwoLetters } from '@utils/string';
 
-const Profile: React.FC<AppStackScreenProps<'Profile'>> = () => {
+const Profile: React.FC<AppStackScreenProps<'Profile'>> = ({ navigation }) => {
   const { user, requestLogout } = useAuthContext();
   const { t } = useTranslation('profile');
 
-  const getFirstTwoLetters = useCallback((name: string) => {
-    const [firstName, lastName] = name.split(' ');
-    if (firstName && lastName) {
-      return `${firstName[0]}${lastName[0]}`;
-    }
-    return `${name[0]}${name[1]}`;
-  }, []);
-
   const onPressEdit = useCallback(() => {
-    console.log('Edit');
-  }, []);
+    navigation.navigate('ProfileEdit');
+  }, [navigation]);
 
   return (
     <Flexbox as={ScrollView} p={10} testID="profile">

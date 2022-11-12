@@ -59,5 +59,26 @@
       "new": "Novo Ticket"
     }
   },
-  "newticket": {}
+  "newticket": {},
+  "profileEdit": {
+    "title": "Editar Perfil",
+    "inputs": {
+      "nameLabel": "Nome",
+      "namePlaceholder": "Nome",
+      "birthdateLabel": "Data de nascimento",
+      "birthdatePlaceholder": "Data de nascimento",
+      "telephoneLabel": "Telefone",
+      "telephonePlaceholder": "Telefone",
+      "jobTitleLabel": "Cargo",
+      "jobTitlePlaceholder": "Cargo",
+      "startDateLabel": "Data de início",
+      "startDatePlaceholder": "Data de início"
+    },
+    "buttons": {
+      "save": "Salvar"
+    },
+    "messages": {
+      "success": "Perfil atualizado com sucesso!"
+    }
+  }
 }
