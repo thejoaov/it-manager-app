@@ -42,7 +42,7 @@ const TicketList: React.FC<AppStackScreenProps<'TicketList'>> = () => {
         tickets={Array.from(response ?? [])}
       />
 
-      <Container position="absolute" bottom={90} right={160}>
+      <Container position="absolute" bottom={90} right={180}>
         <AnimatedFAB
           extended={isExtended}
           icon="plus"

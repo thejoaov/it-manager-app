@@ -11,6 +11,7 @@ import { formatPhone, getFirstTwoLetters } from '@utils/string';
 import useRequest from '@hooks/useRequest';
 import apiService from '@services/api';
 import { useToastContext } from '@contexts/toast';
+import DateInput from '@components/molecules/DateInput';
 
 const ProfileEdit: React.FC<AppStackScreenProps<'ProfileEdit'>> = ({
   navigation,
@@ -20,8 +21,12 @@ const ProfileEdit: React.FC<AppStackScreenProps<'ProfileEdit'>> = ({
   const [name, setName] = useState(user?.profile?.name);
   const [jobTitle, setJobTitle] = useState(user?.profile?.job_title);
   const [telephone, setTelephone] = useState(user?.profile?.telephone);
-  // const [birthdate, setBirthdate] = useState(user?.profile?.birthdate);
-  // const [startDate, setStartDate] = useState(user?.profile?.start_date);
+  const [birthdate, setBirthdate] = useState(
+    user?.profile?.birthdate ? new Date(user?.profile?.birthdate) : undefined
+  );
+  const [startDate, setStartDate] = useState(
+    user?.profile?.start_date ? new Date(user?.profile?.start_date) : undefined
+  );
 
   const { loading, request } = useRequest<void>();
 
@@ -35,8 +40,8 @@ const ProfileEdit: React.FC<AppStackScreenProps<'ProfileEdit'>> = ({
           name,
           job_title: jobTitle,
           telephone,
-          // birthdate: birthdate ? new Date(birthdate).toISOString() : undefined,
-          // start_date: startDate ? new Date(startDate).toISOString() : undefined,
+          birthdate: birthdate ? new Date(birthdate).toISOString() : undefined,
+          start_date: startDate ? new Date(startDate).toISOString() : undefined,
         },
       })
     );
@@ -48,14 +53,14 @@ const ProfileEdit: React.FC<AppStackScreenProps<'ProfileEdit'>> = ({
       type: 'success',
     });
   }, [
-    // birthdate,
+    birthdate,
     jobTitle,
     name,
     navigation,
     request,
     requestUserInfo,
     showToast,
-    // startDate,
+    startDate,
     t,
     telephone,
     user?.id,
@@ -75,53 +80,57 @@ const ProfileEdit: React.FC<AppStackScreenProps<'ProfileEdit'>> = ({
       <Input
         disabled={loading}
         label={t('inputs.nameLabel') ?? ''}
-        placeholder={user?.profile?.name ?? t('inputs.namePlaceholder')}
+        placeholder={String(user?.profile?.name ?? t('inputs.namePlaceholder'))}
         value={name}
         onChangeText={setName}
       />
       <Input
         disabled={loading}
         label={t('inputs.telephoneLabel') ?? ''}
-        placeholder={
+        placeholder={String(
           user?.profile?.telephone ?? t('inputs.telephonePlaceholder')
-        }
+        )}
         value={formatPhone(telephone ?? '')}
         keyboardType="number-pad"
         onChangeText={setTelephone}
         textContentType="telephoneNumber"
       />
-      {/* 
-      // TODO: Implement date picker
-      <Input
-        disabled={loading}
-        keyboardType="number-pad"
-        label={t('inputs.birthdateLabel') ?? ''}
-        placeholder={
-          user?.profile?.birthdate ?? t('inputs.birthdatePlaceholder')
-        }
-        value={birthdate}
-        onChangeText={setBirthdate}
-      /> */}
       <Input
         disabled={loading}
         label={t('inputs.jobTitleLabel') ?? ''}
-        placeholder={
+        placeholder={String(
           user?.profile?.job_title ?? t('inputs.jobTitlePlaceholder')
-        }
+        )}
         value={jobTitle}
         onChangeText={setJobTitle}
       />
-      {/* 
-      // TODO: Implement date picker
-      <Input
-        disabled={loading}
+      <DateInput
+        mode="outlined"
+        inputMode="start"
+        label={t('inputs.birthdateLabel') ?? ''}
+        placeholder={t('inputs.birthdatePlaceholder') ?? ''}
+        value={birthdate}
+        onChange={(date) => setBirthdate(date)}
+        withDateFormatInLabel={false}
+        validRange={{
+          startDate: new Date(1850, 0, 1),
+          endDate: new Date(),
+        }}
+      />
+      <DateInput
+        mode="outlined"
+        inputMode="start"
         label={t('inputs.startDateLabel') ?? ''}
-        placeholder={
-          user?.profile?.start_date ?? t('inputs.startDatePlaceholder')
-        }
+        placeholder={t('inputs.startDatePlaceholder') ?? ''}
         value={startDate}
-        onChangeText={setStartDate}
-      /> */}
+        onChange={(date) => setStartDate(date)}
+        withDateFormatInLabel={false}
+        validRange={{
+          startDate: new Date(1850, 0, 1),
+          endDate: new Date(),
+        }}
+      />
+
       <Flexbox justifyContent="flex-end" marginBottom={60}>
         <Button
           loading={loading}

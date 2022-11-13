@@ -8,6 +8,7 @@ import useTheme from '@hooks/useTheme';
 
 const App = () => {
   const { colors } = useTheme();
+
   return (
     <AppContextProvider>
       <SafeContainer backgroundColor={colors.background} testID="app-container">

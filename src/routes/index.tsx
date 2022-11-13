@@ -3,7 +3,7 @@ import { useToastContext } from '@contexts/toast';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getToastColor } from '@utils/colors';
-import { Snackbar } from 'react-native-paper';
+import { Snackbar, useTheme } from 'react-native-paper';
 
 import {
   AppStackParamList,
@@ -20,7 +20,7 @@ import Dashboard from '@pages/Home/Dashboard';
 import Login from '@pages/Auth/Login';
 import Register from '@pages/Auth/Register';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import useTheme, { useNavigationTheme } from '@hooks/useTheme';
+import { useNavigationTheme } from '@hooks/useTheme';
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 const AuthRouter = () => {
@@ -44,20 +44,17 @@ const HomeBottomTabRouter = () => {
       initialRouteName="Dashboard"
       // shifting
       sceneAnimationEnabled
-      inactiveColor={theme.colors.backdrop}
-      activeColor={theme.colors.backdrop}
-      // eslint-disable-next-line react-native/no-inline-styles
-      barStyle={{
-        backgroundColor: theme.colors.inversePrimary,
-        height: 80,
-      }}
       labeled={false}
+      barStyle={{
+        backgroundColor: theme.colors.inverseOnSurface,
+      }}
     >
       <HomeBottomTab.Screen
         name="TicketList"
         component={TicketList}
         options={{
           tabBarIcon: 'format-list-bulleted',
+          // tabBarColor: theme.colors.secondary,
         }}
       />
       <HomeBottomTab.Screen
@@ -65,6 +62,7 @@ const HomeBottomTabRouter = () => {
         component={Dashboard}
         options={{
           tabBarIcon: 'home',
+          // tabBarColor: theme.colors.primary,
         }}
       />
       <HomeBottomTab.Screen
@@ -72,6 +70,7 @@ const HomeBottomTabRouter = () => {
         component={Profile}
         options={{
           tabBarIcon: 'account',
+          // tabBarColor: theme.colors.tertiary,
         }}
       />
     </HomeBottomTab.Navigator>
@@ -106,14 +105,12 @@ const AppRouter = () => {
 const Router = () => {
   const { closeToast, isToastVisible, toast } = useToastContext();
   const { token, user } = useAuthContext();
-  const navigationTheme = useNavigationTheme();
 
   return (
     <>
-      <NavigationContainer theme={navigationTheme}>
+      <NavigationContainer theme={useNavigationTheme()}>
         {token && user ? <AppRouter /> : <AuthRouter />}
       </NavigationContainer>
-
       {isToastVisible && (
         <Snackbar
           visible={isToastVisible}

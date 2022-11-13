@@ -1,6 +1,9 @@
 {
   "common": {
-    "buttons": {}
+    "buttons": {},
+    "datePicker": {
+      "sabeLabel": "Salvar"
+    }
   },
   "login": {
     "errors": {

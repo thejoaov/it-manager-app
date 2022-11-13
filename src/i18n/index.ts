@@ -4,6 +4,33 @@ import { initReactI18next } from 'react-i18next';
 import * as Localization from 'expo-localization';
 import en from './translations/enUS.json';
 import pt from './translations/ptBR.json';
+import {
+  registerTranslation,
+  pt as DatePickerPT,
+  en as DatePickerEN,
+} from 'react-native-paper-dates';
+
+export const getDatePickerLocalization = () => {
+  const locale = Localization.locale;
+  if (locale === 'pt-BR') {
+    return DatePickerPT;
+  }
+  return DatePickerEN;
+};
+
+export const getLocale = () => {
+  const locale = Localization.locale;
+  if (locale === 'pt-BR') {
+    return 'pt';
+  }
+  return 'en';
+};
+
+// registerTranslation(getLocale(), getDatePickerLocalization());
+registerTranslation('pt', DatePickerPT);
+registerTranslation('pt-BR', DatePickerPT);
+registerTranslation('en', DatePickerEN);
+registerTranslation('en-US', DatePickerEN);
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
