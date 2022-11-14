@@ -92,6 +92,13 @@ export type RequestDeleteTicketById = {
 };
 export type ResponseDeleteTicketById = void;
 
+export type RequestGetProfiles = RequestWithPagination<{
+  name?: string;
+  username?: string;
+  email?: string;
+}>;
+export type ResponseGetProfiles = ResponseWithPagination<Profile[]>;
+
 export type RequestGetProfileByUserId = {
   userId: string;
 };

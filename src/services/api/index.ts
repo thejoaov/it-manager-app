@@ -5,6 +5,7 @@ import {
   RequestDeleteTicketById,
   RequestDeleteUserById,
   RequestGetProfileByUserId,
+  RequestGetProfiles,
   RequestGetTicketById,
   RequestGetTickets,
   RequestGetUserById,
@@ -18,6 +19,7 @@ import {
   ResponseDeleteTicketById,
   ResponseDeleteUserById,
   ResponseGetProfileByUserId,
+  ResponseGetProfiles,
   ResponseGetTicketById,
   ResponseGetTickets,
   ResponseGetUserById,
@@ -60,6 +62,11 @@ const apiService = {
     data: RequestGetProfileByUserId
   ): Promise<AxiosResponse<ResponseGetProfileByUserId>> => {
     return apiInstance.get(`profile/${data.userId}`);
+  },
+  getProfiles: async (
+    data?: RequestGetProfiles
+  ): Promise<AxiosResponse<ResponseGetProfiles>> => {
+    return apiInstance.get(`profiles/${data ? parseQueryString(data) : ''}`);
   },
   postProfileByUserId: async (
     data: RequestPostProfileByUserId
