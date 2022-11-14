@@ -4,6 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getToastColor } from '@utils/colors';
 import { Snackbar, useTheme } from 'react-native-paper';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { useNavigationTheme } from '@hooks/useTheme';
 
 import {
   AppStackParamList,
@@ -19,8 +21,10 @@ import TicketList from '@pages/Home/TicketList';
 import Dashboard from '@pages/Home/Dashboard';
 import Login from '@pages/Auth/Login';
 import Register from '@pages/Auth/Register';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { useNavigationTheme } from '@hooks/useTheme';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack';
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 const AuthRouter = () => {
@@ -77,7 +81,7 @@ const HomeBottomTabRouter = () => {
   );
 };
 
-const AppStack = createNativeStackNavigator<AppStackParamList>();
+const AppStack = createStackNavigator<AppStackParamList>();
 const AppRouter = () => {
   return (
     <AppStack.Navigator
@@ -89,7 +93,9 @@ const AppRouter = () => {
       {/* App Routes */}
       <AppStack.Group
         screenOptions={{
-          presentation: 'modal',
+          // presentation: 'modal',
+          animationEnabled: true,
+          cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
         }}
       >
         <AppStack.Screen name="ProfileEdit" component={ProfileEdit} />
