@@ -41,17 +41,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, [loadStorageData]);
 
   const requestUserInfo = useCallback(async () => {
-    // const response = await apiService.getUserById({ id: user?.id as number });
-    const response = await apiService.getProfileByUserId({
-      userId: String(user?.id),
-    });
+    try {
+      setLoading(true);
+      const response = await apiService.getProfileByUserId({
+        userId: String(user?.id),
+      });
 
-    const newUser = {
-      ...user,
-      profile: response.data,
-    };
-    setUser(newUser as User);
-    await localStorage.setItem('user', JSON.stringify(newUser));
+      const newUser = {
+        ...user,
+        profile: response.data,
+      };
+      setUser(newUser as User);
+      await localStorage.setItem('user', JSON.stringify(newUser));
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }, [user]);
 
   const requestLogin = useCallback(

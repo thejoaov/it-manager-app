@@ -5,24 +5,27 @@ import TicketListTemplate from '@components/templates/TicketListTemplate';
 import { AnimatedFAB } from 'react-native-paper';
 import Container from '@components/atoms/Container';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { Ticket } from '@models/tickets';
 import useRequest from '@hooks/useRequest';
 import apiService from '@services/api';
 import Loading from '@components/organisms/Loading';
 import { useTranslation } from 'react-i18next';
+import { ResponseGetTickets } from '@services/api/types';
 
 const TicketList: React.FC<AppStackScreenProps<'TicketList'>> = () => {
-  const { error, loading, request, response, meta } = useRequest<Ticket[]>();
+  const { error, loading, request, response, meta } = useRequest<
+    ResponseGetTickets,
+    ResponseGetTickets['meta']
+  >();
   const navigation = useNavigation();
   const { t } = useTranslation('ticketlist');
 
-  const [isExtended, setIsExtended] = useState(true);
+  const [isExtended, setIsExtended] = useState(false);
 
-  useFocusEffect(
-    useCallback(() => {
-      request(apiService.getTickets());
-    }, [request])
-  );
+  const requestTickets = useCallback(() => {
+    request(apiService.getTickets());
+  }, [request]);
+
+  useFocusEffect(requestTickets);
 
   const handlePress = useCallback(() => {
     setIsExtended(!isExtended);
@@ -31,18 +34,20 @@ const TicketList: React.FC<AppStackScreenProps<'TicketList'>> = () => {
     }
   }, [isExtended, navigation]);
 
-  return loading ? (
-    <Loading />
-  ) : (
-    <Flexbox p={20} testID="ticket-list">
-      <TicketListTemplate
-        error={error}
-        loading={loading}
-        meta={meta}
-        tickets={Array.from(response ?? [])}
-      />
-
-      <Container position="absolute" bottom={90} right={180}>
+  return (
+    <Flexbox testID="ticket-list">
+      {loading ? (
+        <Loading />
+      ) : (
+        <TicketListTemplate
+          error={error}
+          loading={loading}
+          meta={meta as ResponseGetTickets['meta']}
+          tickets={Array.from(response?.data ?? [])}
+          onRefresh={requestTickets}
+        />
+      )}
+      <Container position="absolute" bottom={90} right={155}>
         <AnimatedFAB
           extended={isExtended}
           icon="plus"

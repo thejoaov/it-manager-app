@@ -58,12 +58,39 @@
     }
   },
   "ticketlist": {
+    "title": "Todos os Tickets",
     "buttons": {
       "new": "Novo Ticket"
     },
     "emptyText": "Nenhum ticket encontrado"
   },
-  "newticket": {},
+  "searchProfile": {
+    "headerTitle": "Buscar perfil",
+    "searchPlaceholder": "Nome"
+  },
+  "newTicket": {
+    "title": "Novo Ticket",
+    "inputs": {
+      "titleLabel": "Título",
+      "titlePlaceholder": "Título",
+      "descriptionLabel": "Descrição",
+      "descriptionPlaceholder": "Descrição",
+      "assigneeLabel": "Responsável",
+      "assigneePlaceholder": "Responsável",
+      "priorityLabel": "Prioridade",
+      "priorityPlaceholder": "Selecione a prioridade",
+      "locationLabel": "Localização",
+      "locationPlaceholder": "Localização",
+      "priorityOptions": {
+        "low": "Baixa",
+        "medium": "Média",
+        "high": "Alta"
+      }
+    },
+    "buttons": {
+      "save": "Salvar"
+    }
+  },
   "profileEdit": {
     "title": "Editar Perfil",
     "inputs": {
@@ -82,7 +109,8 @@
       "save": "Salvar"
     },
     "messages": {
-      "success": "Perfil atualizado com sucesso!"
+      "success": "Perfil atualizado com sucesso!",
+      "error": "Erro ao atualizar perfil"
     }
   }
 }

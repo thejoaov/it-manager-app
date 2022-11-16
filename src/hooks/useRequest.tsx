@@ -4,11 +4,11 @@ import { useCallback, useState } from 'react';
 import { ResponseWithPagination } from '@services/api/types';
 import { AxiosPromise } from 'axios';
 
-export default function useRequest<Response = any>() {
+export default function useRequest<Response = any, Meta = any>() {
   const [response, setResponse] = useState<Response>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | ApiError | undefined>();
-  const [meta, setMeta] = useState<ResponseWithPagination<Response>>();
+  const [meta, setMeta] = useState<Meta | ResponseWithPagination<Response>>();
 
   const request = useCallback(async (apiCall: AxiosPromise) => {
     setLoading(true);
@@ -20,6 +20,7 @@ export default function useRequest<Response = any>() {
       }
     } catch (err: any) {
       setError(err);
+      throw err;
     } finally {
       setLoading(false);
     }

@@ -1,17 +1,25 @@
 import React, { useCallback } from 'react';
 import { Avatar, Button, Card, Chip, Divider } from 'react-native-paper';
+import { Linking, ScrollView } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { format } from 'date-fns';
+import { useFocusEffect } from '@react-navigation/native';
 import { useAuthContext } from '@contexts/auth';
 import Flexbox from '@components/atoms/Flexbox';
-import { AppStackScreenProps } from '@routes/types';
 import Container from '@components/atoms/Container';
-import { ScrollView } from 'react-native';
-import { format } from 'date-fns';
-import { useTranslation } from 'react-i18next';
+import { AppStackScreenProps } from '@routes/types';
 import { getFirstTwoLetters } from '@utils/string';
 
 const Profile: React.FC<AppStackScreenProps<'Profile'>> = ({ navigation }) => {
-  const { user, requestLogout } = useAuthContext();
+  const { user, requestLogout, requestUserInfo } = useAuthContext();
   const { t } = useTranslation('profile');
+
+  useFocusEffect(
+    useCallback(() => {
+      requestUserInfo();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+  );
 
   const onPressEdit = useCallback(() => {
     navigation.navigate('ProfileEdit');
@@ -92,6 +100,9 @@ const Profile: React.FC<AppStackScreenProps<'Profile'>> = ({ navigation }) => {
                   compact
                   icon="phone-outline"
                   testID="profile-info-chip-telephone"
+                  onPress={() => {
+                    Linking.openURL(`tel:${user?.profile?.telephone}`);
+                  }}
                 >
                   {user?.profile.telephone}
                 </Chip>

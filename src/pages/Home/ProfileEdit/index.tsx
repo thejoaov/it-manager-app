@@ -16,8 +16,11 @@ import DateInput from '@components/molecules/DateInput';
 const ProfileEdit: React.FC<AppStackScreenProps<'ProfileEdit'>> = ({
   navigation,
 }) => {
-  const { user, requestUserInfo } = useAuthContext();
+  const { t } = useTranslation('profileEdit');
+  const { loading, request } = useRequest<void>();
+  const { user } = useAuthContext();
   const { showToast } = useToastContext();
+
   const [name, setName] = useState(user?.profile?.name);
   const [jobTitle, setJobTitle] = useState(user?.profile?.job_title);
   const [telephone, setTelephone] = useState(user?.profile?.telephone);
@@ -28,37 +31,41 @@ const ProfileEdit: React.FC<AppStackScreenProps<'ProfileEdit'>> = ({
     user?.profile?.start_date ? new Date(user?.profile?.start_date) : undefined
   );
 
-  const { loading, request } = useRequest<void>();
-
-  const { t } = useTranslation('profileEdit');
-
   const handleSubmit = useCallback(async () => {
-    await request(
-      apiService.putProfileByUserId({
-        userId: String(user?.id),
-        body: {
-          name,
-          job_title: jobTitle,
-          telephone,
-          birthdate: birthdate ? new Date(birthdate).toISOString() : undefined,
-          start_date: startDate ? new Date(startDate).toISOString() : undefined,
-        },
-      })
-    );
-    await requestUserInfo();
+    try {
+      await request(
+        apiService.putProfileByUserId({
+          userId: String(user?.id),
+          body: {
+            name,
+            job_title: jobTitle,
+            telephone: formatPhone(telephone ?? ''),
+            birthdate: birthdate
+              ? new Date(birthdate).toISOString()
+              : undefined,
+            start_date: startDate
+              ? new Date(startDate).toISOString()
+              : undefined,
+          },
+        })
+      );
 
-    navigation.navigate('Profile');
-    showToast({
-      text: t('messages.success'),
-      type: 'success',
-    });
+      showToast({
+        text: t('messages.success'),
+        type: 'success',
+      });
+      navigation.navigate('Profile');
+    } catch (error: any) {
+      if (error.message) {
+        showToast({ text: t('messsages.error'), type: 'error' });
+      }
+    }
   }, [
     birthdate,
     jobTitle,
     name,
     navigation,
     request,
-    requestUserInfo,
     showToast,
     startDate,
     t,
@@ -112,6 +119,7 @@ const ProfileEdit: React.FC<AppStackScreenProps<'ProfileEdit'>> = ({
         value={birthdate}
         onChange={(date) => setBirthdate(date)}
         withDateFormatInLabel={false}
+        disabled={loading}
         validRange={{
           startDate: new Date(1850, 0, 1),
           endDate: new Date(),
@@ -125,13 +133,14 @@ const ProfileEdit: React.FC<AppStackScreenProps<'ProfileEdit'>> = ({
         value={startDate}
         onChange={(date) => setStartDate(date)}
         withDateFormatInLabel={false}
+        disabled={loading}
         validRange={{
           startDate: new Date(1850, 0, 1),
           endDate: new Date(),
         }}
       />
 
-      <Flexbox justifyContent="flex-end" marginBottom={60}>
+      <Flexbox justifyContent="flex-end" marginTop={50} marginBottom={60}>
         <Button
           loading={loading}
           disabled={loading}

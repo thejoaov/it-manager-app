@@ -1,3 +1,4 @@
+import { ProfileWithUser } from '@models/user';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type HomeTabParamList = {
@@ -13,7 +14,8 @@ export type AuthStackParamList = {
 
 export type AppStackParamList = {
   ProfileEdit: undefined;
-  NewTicket: undefined;
+  SearchProfile: undefined;
+  NewTicket: { assignee: ProfileWithUser } | undefined;
   Profile: undefined;
   TicketList: undefined;
   Dashboard: undefined;

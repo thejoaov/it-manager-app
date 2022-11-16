@@ -20,3 +20,5 @@ export type User = {
   updated_at: string;
   profile: Profile | null;
 };
+
+export type ProfileWithUser = Profile & { user: User };

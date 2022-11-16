@@ -1,3 +1,5 @@
+import { ProfileWithUser } from './user';
+
 export type Ticket = {
   id: number;
   title: string;
@@ -22,14 +24,6 @@ export type TicketFull = {
   priority: string;
   created_at: string;
   updated_at: string;
-  assignee: {
-    id: number;
-    email: string;
-    username: string;
-    profile: {
-      name: string;
-      role: string;
-      telephone: string;
-    };
-  };
+  assignee: ProfileWithUser;
+  opener: ProfileWithUser;
 };

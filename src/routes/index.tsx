@@ -14,6 +14,7 @@ import {
 } from './types';
 
 // Import screens
+import SearchProfile from '@pages/Tickets/SearchProfile';
 import ProfileEdit from '@pages/Home/ProfileEdit';
 import NewTicket from '@pages/Tickets/NewTicket';
 import Profile from '@pages/Home/Profile';
@@ -98,6 +99,7 @@ const AppRouter = () => {
           cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
         }}
       >
+        <AppStack.Screen name="SearchProfile" component={SearchProfile} />
         <AppStack.Screen name="ProfileEdit" component={ProfileEdit} />
         <AppStack.Screen name="NewTicket" component={NewTicket} />
       </AppStack.Group>

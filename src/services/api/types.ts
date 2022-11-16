@@ -1,5 +1,5 @@
-import { Profile, User } from '@models/user';
-import { Ticket } from '@models/tickets';
+import { Profile, ProfileWithUser, User } from '@models/user';
+import { Ticket, TicketFull } from '@models/tickets';
 
 export type ResponseWithPagination<T> = {
   meta: {
@@ -69,7 +69,7 @@ export type RequestGetTickets = RequestWithPagination<{
   status?: 'open' | 'closed' | 'solving';
   priority?: 'low' | 'medium' | 'high';
 }>;
-export type ResponseGetTickets = ResponseWithPagination<Ticket[]>;
+export type ResponseGetTickets = ResponseWithPagination<TicketFull[]>;
 
 export type RequestGetTicketById = {
   id: number;
@@ -97,7 +97,7 @@ export type RequestGetProfiles = RequestWithPagination<{
   username?: string;
   email?: string;
 }>;
-export type ResponseGetProfiles = ResponseWithPagination<Profile[]>;
+export type ResponseGetProfiles = ResponseWithPagination<ProfileWithUser[]>;
 
 export type RequestGetProfileByUserId = {
   userId: string;
