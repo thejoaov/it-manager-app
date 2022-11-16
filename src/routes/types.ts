@@ -14,8 +14,10 @@ export type AuthStackParamList = {
 
 export type AppStackParamList = {
   ProfileEdit: undefined;
-  SearchProfile: undefined;
-  NewTicket: { assignee: ProfileWithUser } | undefined;
+  SearchProfile: { type: 'opener' | 'assignee' };
+  NewTicket:
+    | { assignee?: ProfileWithUser; opener?: ProfileWithUser }
+    | undefined;
   Profile: undefined;
   TicketList: undefined;
   Dashboard: undefined;

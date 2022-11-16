@@ -8,7 +8,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   splash: {
     image: './assets/splash.png',
     resizeMode: 'cover',
-    backgroundColor: 'rgb(158, 42, 155)',
+    backgroundColor: '#9E2A9B',
   },
   ios: {
     bundleIdentifier: 'com.thejoaov.itmanager',
@@ -21,12 +21,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
       backgroundImage: './assets/icon.png',
-      backgroundColor: 'rgb(158,42,155)',
+      backgroundColor: '#9E2A9B',
     },
   },
   backgroundColor: '#000',
   jsEngine: 'hermes',
-  primaryColor: 'rgb(158,42,155)',
+  primaryColor: '#9E2A9B',
   entryPoint: './App.tsx',
   name: 'IT Manager',
   slug: 'it-manager',

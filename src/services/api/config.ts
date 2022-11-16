@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-
+import * as localStorage from '@services/localStorage';
 export const BASE_URL = 'http://192.168.18.8:3333';
 
 export const apiInstance = axios.create({
@@ -44,6 +44,10 @@ apiInstance.interceptors.response.use(
     apiLogger({
       error,
     });
+    if (error.response.status === 401) {
+      localStorage.removeItem('token');
+    }
+
     return Promise.reject(error.response.data);
   }
 );

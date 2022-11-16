@@ -1,5 +1,5 @@
-import React from 'react';
-import { ViewProps } from 'react-native';
+import React, { PropsWithChildren } from 'react';
+import { SafeAreaViewProps } from 'react-native-safe-area-context';
 
 import {
   SpaceProps,
@@ -19,16 +19,21 @@ export type SafeContainerProps = {
   FlexboxProps &
   BackgroundColorProps &
   BordersProps &
-  ViewProps;
+  SafeAreaViewProps;
 
-function SafeContainer({
+const SafeContainer: React.FC<PropsWithChildren<SafeContainerProps>> = ({
   centralize = false,
   flex = 1,
   ...otherProps
-}: SafeContainerProps) {
+}) => {
   return (
-    <SafeContainerStyled flex={flex} centralize={centralize} {...otherProps} />
+    <SafeContainerStyled
+      flex={flex}
+      centralize={centralize}
+      {...otherProps}
+      edges={['top', 'left', 'right']}
+    />
   );
-}
+};
 
 export default SafeContainer;

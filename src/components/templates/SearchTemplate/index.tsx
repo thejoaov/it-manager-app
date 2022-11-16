@@ -13,6 +13,7 @@ export type SearchTemplateProps = {
   loading?: boolean;
   onSubmit?: () => void;
   searchPlaceholder?: string;
+  onClear?: () => void;
 };
 
 const SearchTemplate: React.FC<PropsWithChildren<SearchTemplateProps>> = ({
@@ -33,7 +34,9 @@ const SearchTemplate: React.FC<PropsWithChildren<SearchTemplateProps>> = ({
           onChangeText={onSearch}
           onSubmitEditing={onSubmit}
           placeholder={searchPlaceholder}
+          autoCapitalize="none"
           autoFocus
+          keyboardType="email-address"
         />
         <Flexbox mt={20}>{loading ? <Loading /> : children}</Flexbox>
       </ModalTemplate>

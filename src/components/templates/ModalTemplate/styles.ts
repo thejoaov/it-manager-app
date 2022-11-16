@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { View } from 'react-native';
 
-export const ModalTemplateContainer = styled(ScrollView)`
+export const ModalTemplateContainer = styled(View)`
   flex: 1;
   padding-horizontal: 10px;
 `;

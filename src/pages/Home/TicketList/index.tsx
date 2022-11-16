@@ -10,6 +10,7 @@ import apiService from '@services/api';
 import Loading from '@components/organisms/Loading';
 import { useTranslation } from 'react-i18next';
 import { ResponseGetTickets } from '@services/api/types';
+import { useToastContext } from '@contexts/toast';
 
 const TicketList: React.FC<AppStackScreenProps<'TicketList'>> = () => {
   const { error, loading, request, response, meta } = useRequest<
@@ -18,14 +19,26 @@ const TicketList: React.FC<AppStackScreenProps<'TicketList'>> = () => {
   >();
   const navigation = useNavigation();
   const { t } = useTranslation('ticketlist');
+  const { showToast } = useToastContext();
 
   const [isExtended, setIsExtended] = useState(false);
 
-  const requestTickets = useCallback(() => {
-    request(apiService.getTickets());
-  }, [request]);
+  const requestTickets = useCallback(async () => {
+    try {
+      await request(apiService.getTickets());
+    } catch (err) {
+      showToast({
+        text: t('messages.error'),
+        type: 'error',
+      });
+    }
+  }, [request, showToast, t]);
 
-  useFocusEffect(requestTickets);
+  useFocusEffect(
+    useCallback(() => {
+      requestTickets();
+    }, [requestTickets])
+  );
 
   const handlePress = useCallback(() => {
     setIsExtended(!isExtended);

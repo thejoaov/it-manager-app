@@ -3,6 +3,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import useTheme from '@hooks/useTheme';
 import { TicketFull } from '@models/tickets';
 import React, { useCallback, useMemo } from 'react';
+import { useColorScheme } from 'react-native';
 import { Card, Paragraph, Text } from 'react-native-paper';
 import { TicketCardContainer } from './styles';
 
@@ -12,6 +13,7 @@ export type TicketCardProps = {
 
 const TicketCard: React.FC<TicketCardProps> = ({ item }) => {
   const { colors } = useTheme();
+  const scheme = useColorScheme();
 
   const getPriorityIcon = useMemo(() => {
     const iconByPriority: Record<typeof item['priority'], string> = {
@@ -48,7 +50,7 @@ const TicketCard: React.FC<TicketCardProps> = ({ item }) => {
 
   return (
     <TicketCardContainer testID="ticketCard-container">
-      <Card>
+      <Card mode={scheme === 'dark' ? 'contained' : 'elevated'}>
         <Card.Title
           title={item.title}
           subtitle={item.opener?.name ?? item.opener?.user.email}

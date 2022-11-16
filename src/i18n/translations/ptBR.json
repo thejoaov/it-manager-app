@@ -66,10 +66,21 @@
   },
   "searchProfile": {
     "headerTitle": "Buscar perfil",
-    "searchPlaceholder": "Nome"
+    "searchPlaceholder": "Usuário, email ou nome"
   },
   "newTicket": {
     "title": "Novo Ticket",
+    "errors": {
+      "default": "Erro ao criar ticket, tente novamente",
+      "title_required": "O título é obrigatório",
+      "description_required": "A descrição é obrigatória",
+      "location_required": "A localização é obrigatória",
+      "assignee_id_required": "O responsável é obrigatório",
+      "opener_id_required": "O criador é obrigatório"
+    },
+    "messages": {
+      "createSuccess": "Ticket criado com sucesso!"
+    },
     "inputs": {
       "titleLabel": "Título",
       "titlePlaceholder": "Título",
@@ -81,6 +92,8 @@
       "priorityPlaceholder": "Selecione a prioridade",
       "locationLabel": "Localização",
       "locationPlaceholder": "Localização",
+      "openerLabel": "Criador",
+      "openerPlaceholder": "Criador",
       "priorityOptions": {
         "low": "Baixa",
         "medium": "Média",

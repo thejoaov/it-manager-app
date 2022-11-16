@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { Dimensions, FlatList } from 'react-native';
 import TicketCard from '@components/molecules/TicketCard';
 import { ApiError } from '@models/errors';
 import { TicketFull } from '@models/tickets';
@@ -8,6 +8,7 @@ import { TicketListTemplateContainer } from './styles';
 import Empty from '@components/organisms/Empty';
 import { useTranslation } from 'react-i18next';
 import { Appbar } from 'react-native-paper';
+import Flexbox from '@components/atoms/Flexbox';
 
 export type TicketListTemplateProps = {
   tickets: TicketFull[];
@@ -34,7 +35,15 @@ const TicketListTemplate: React.FC<TicketListTemplateProps> = ({
 
       <FlatList
         data={tickets}
-        ListEmptyComponent={<Empty text={t('emptyText')} />}
+        ListEmptyComponent={
+          <Flexbox
+            alignItems="center"
+            justifyContent="center"
+            mt={Dimensions.get('screen').height / 7}
+          >
+            <Empty text={t('emptyText')} />
+          </Flexbox>
+        }
         keyExtractor={(item) => item.id.toString()}
         refreshing={loading}
         onRefresh={onRefresh}

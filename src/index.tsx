@@ -1,5 +1,6 @@
 import '@i18n';
 import * as React from 'react';
+import { StatusBar } from 'expo-status-bar';
 
 import Router from '@routes';
 import AppContextProvider from '@contexts/appContext';
@@ -11,6 +12,8 @@ const App = () => {
 
   return (
     <AppContextProvider>
+      <StatusBar style="auto" translucent />
+
       <SafeContainer backgroundColor={colors.background} testID="app-container">
         <Router />
       </SafeContainer>

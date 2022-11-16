@@ -7,10 +7,9 @@ import {
   backgroundColor,
   borders,
 } from 'styled-system';
+import { SafeContainerProps } from '.';
 
-export const SafeContainerStyled = styled(SafeAreaView)<{
-  centralize?: boolean;
-}>`
+export const SafeContainerStyled = styled(SafeAreaView)<SafeContainerProps>`
   ${({ centralize }) =>
     centralize &&
     `

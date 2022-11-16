@@ -14,17 +14,21 @@ import { ProfileWithUser } from '@models/user';
 
 const SearchProfile: React.FC<AppStackScreenProps<'SearchProfile'>> = ({
   navigation,
+  route,
 }) => {
   const { t } = useTranslation('searchProfile');
   const [searchText, setSearchText] = useState('');
   // const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
 
-  const { response, request, loading } = useRequest<ResponseGetProfiles>();
+  const { response, request, loading, clearResponse } =
+    useRequest<ResponseGetProfiles>();
 
   const handleSearch = useCallback(async (text: string) => {
-    request(
+    await request(
       apiService.getProfiles({
+        email: text,
         name: text,
+        username: text,
       })
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -36,8 +40,10 @@ const SearchProfile: React.FC<AppStackScreenProps<'SearchProfile'>> = ({
   );
 
   useEffect(() => {
-    if (searchText.length > 2) {
+    if (searchText.length) {
       debouncedSearch(searchText);
+    } else {
+      clearResponse();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText]);
@@ -54,11 +60,18 @@ const SearchProfile: React.FC<AppStackScreenProps<'SearchProfile'>> = ({
 
   const handleSelectProfile = useCallback(
     (profile: ProfileWithUser) => {
-      navigation.navigate('NewTicket', {
-        assignee: profile,
-      });
+      navigation.navigate(
+        'NewTicket',
+        route.params.type === 'assignee'
+          ? {
+              assignee: profile,
+            }
+          : {
+              opener: profile,
+            }
+      );
     },
-    [navigation]
+    [navigation, route.params.type]
   );
 
   return (
@@ -72,7 +85,10 @@ const SearchProfile: React.FC<AppStackScreenProps<'SearchProfile'>> = ({
       searchPlaceholder={t('searchPlaceholder') ?? ''}
     >
       <FlatList
+        testID="search-profile-list"
         data={response?.data}
+        keyExtractor={(item) => item.id.toString()}
+        scrollEnabled={false}
         renderItem={({ item }) => (
           <Surface>
             <List.Item

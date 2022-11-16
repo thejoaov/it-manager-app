@@ -2,6 +2,7 @@ import React from 'react';
 import { render, RenderAPI } from '@testing-library/react-native';
 import Profile from './index';
 import { navigationMock, routeMock } from '@utils/testUtils';
+import { NavigationContainer } from '@react-navigation/native';
 
 jest.mock('@contexts/auth', () => ({
   useAuthContext: () => ({
@@ -20,7 +21,28 @@ jest.mock('@contexts/auth', () => ({
       },
     },
     requestLogout: jest.fn(),
+    requestUserInfo: jest.fn(),
   }),
+}));
+
+jest.mock('@hooks/useRequest', () => () => ({
+  data: {
+    email: '',
+    username: '',
+    created_at: '',
+    updated_at: '',
+    profile: {
+      name: '',
+      job_title: '',
+      role: '',
+      birthdate: '',
+      start_date: '',
+      telephone: '',
+    },
+  },
+  loading: false,
+  error: null,
+  request: jest.fn(),
 }));
 
 let wrapper: RenderAPI;
@@ -28,9 +50,9 @@ let wrapper: RenderAPI;
 describe('Profile', () => {
   beforeEach(() => {
     wrapper = render(
-      <>
+      <NavigationContainer>
         <Profile navigation={navigationMock()} route={routeMock()} />
-      </>
+      </NavigationContainer>
     );
   });
 

@@ -1,4 +1,7 @@
-import { DefaultTheme } from '@react-navigation/native';
+import {
+  DefaultTheme as NavigationLightTheme,
+  DarkTheme as NavigationDarkTheme,
+} from '@react-navigation/native';
 import { darkTheme, lightTheme } from '@utils/theme';
 import { useColorScheme } from 'react-native';
 // import { DarkTheme } from 'react-native-paper';
@@ -13,11 +16,9 @@ export default function useTheme() {
 export const useNavigationTheme = () => {
   const scheme = useColorScheme();
   const { DarkTheme, LightTheme } = adaptNavigationTheme({
-    light: DefaultTheme,
-    dark: DefaultTheme,
+    light: NavigationLightTheme,
+    dark: NavigationDarkTheme,
   });
-
-  // const LightTheme = DefaultTheme;
 
   return scheme === 'dark' ? DarkTheme : LightTheme;
 };

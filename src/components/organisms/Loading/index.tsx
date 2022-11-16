@@ -9,7 +9,7 @@ export type LoadingProps = {
 const Loading: React.FC<LoadingProps> = () => {
   return (
     <LoadingContainer testID="loading-container">
-      <ActivityIndicator size={100} />
+      <ActivityIndicator size={60} />
     </LoadingContainer>
   );
 };

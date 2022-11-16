@@ -20,17 +20,16 @@ export default function useRequest<Response = any, Meta = any>() {
       }
     } catch (err: any) {
       setError(err);
+      setResponse(undefined);
       throw err;
     } finally {
       setLoading(false);
     }
   }, []);
 
-  return {
-    response,
-    loading,
-    error,
-    meta,
-    request,
-  };
+  const clearResponse = useCallback(() => {
+    setResponse(undefined);
+  }, []);
+
+  return { clearResponse, response, loading, error, meta, request };
 }

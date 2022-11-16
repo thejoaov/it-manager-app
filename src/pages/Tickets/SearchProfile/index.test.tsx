@@ -11,7 +11,15 @@ describe('SearchProfile', () => {
     await waitFor(() => {
       wrapper = render(
         <AppContextProvider>
-          <SearchProfile navigation={navigationMock()} route={routeMock()} />
+          <SearchProfile
+            navigation={navigationMock()}
+            route={{
+              ...routeMock(),
+              params: {
+                type: 'assignee',
+              },
+            }}
+          />
         </AppContextProvider>
       );
     });
@@ -20,6 +28,6 @@ describe('SearchProfile', () => {
   it('should render', () => {
     const { getByTestId } = wrapper;
 
-    expect(getByTestId('searchProfile')).toBeTruthy();
+    expect(getByTestId('search-profile-list')).toBeTruthy();
   });
 });

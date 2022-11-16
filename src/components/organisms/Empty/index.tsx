@@ -6,15 +6,16 @@ import { EmptyContainer, EmptyText } from './styles';
 
 export type EmptyProps = {
   text: string;
+  icon?: keyof typeof MaterialCommunityIcons.glyphMap;
 };
 
-const Empty: React.FC<EmptyProps> = ({ text }) => {
+const Empty: React.FC<EmptyProps> = ({ text, icon }) => {
   const { colors } = useTheme();
   return (
     <EmptyContainer testID="empty-container">
       <MaterialCommunityIcons
-        name="close-circle-outline"
-        size={200}
+        name={icon || 'emoticon-sad-outline'}
+        size={100}
         color={colors.backdrop}
         testID="empty-icon"
       />
