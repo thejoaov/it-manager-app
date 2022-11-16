@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as localStorage from '@services/localStorage';
-export const BASE_URL = 'http://192.168.18.8:3333';
+import { BASE_URL } from '@constants/api';
 
 export const apiInstance = axios.create({
   baseURL: BASE_URL,

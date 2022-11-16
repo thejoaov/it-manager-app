@@ -21,4 +21,4 @@ export type User = {
   profile: Profile | null;
 };
 
-export type ProfileWithUser = Profile & { user: User };
+export type ProfileWithUser = Profile & { user: Omit<User, 'profile'> };
