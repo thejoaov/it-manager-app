@@ -18,7 +18,6 @@ const SearchProfile: React.FC<AppStackScreenProps<'SearchProfile'>> = ({
 }) => {
   const { t } = useTranslation('searchProfile');
   const [searchText, setSearchText] = useState('');
-  // const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
 
   const { response, request, loading, clearResponse } =
     useRequest<ResponseGetProfiles>();
@@ -76,7 +75,7 @@ const SearchProfile: React.FC<AppStackScreenProps<'SearchProfile'>> = ({
 
   return (
     <SearchTemplate
-      headerTitle={t('headerTitle')}
+      headerTitle={route.params.headerTitle ?? t('headerTitle')}
       onBackPress={navigation.goBack}
       onSearch={setSearchText}
       query={searchText}

@@ -62,7 +62,10 @@
     "buttons": {
       "new": "Novo Ticket"
     },
-    "emptyText": "Nenhum ticket encontrado"
+    "emptyText": "Nenhum ticket encontrado",
+    "errors": {
+      "default": "Ocorreu um erro, tente novamente."
+    }
   },
   "searchProfile": {
     "headerTitle": "Buscar perfil",

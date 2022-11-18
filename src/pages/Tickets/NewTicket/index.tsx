@@ -191,7 +191,10 @@ const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = ({
         />
         <Pressable
           onPress={() => {
-            navigation.navigate('SearchProfile', { type: 'assignee' });
+            navigation.navigate('SearchProfile', {
+              type: 'assignee',
+              headerTitle: t('inputs.assigneeLabel') ?? '',
+            });
           }}
           disabled={loading}
         >
@@ -201,6 +204,12 @@ const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = ({
             editable={false}
             value={assignee?.name ?? assignee?.user.email}
             disabled={loading}
+            onPressIn={() => {
+              navigation.navigate('SearchProfile', {
+                type: 'assignee',
+                headerTitle: t('inputs.assigneeLabel') ?? '',
+              });
+            }}
             error={getInputError('assignee_id')}
             left={<TextInput.Icon icon="account-alert-outline" />}
           />
@@ -208,7 +217,10 @@ const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = ({
         {user?.profile?.role === 'admin' && (
           <Pressable
             onPress={() => {
-              navigation.navigate('SearchProfile', { type: 'opener' });
+              navigation.navigate('SearchProfile', {
+                type: 'opener',
+                headerTitle: t('inputs.openerLabel') ?? '',
+              });
             }}
             disabled={loading}
           >
@@ -223,6 +235,12 @@ const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = ({
                 user?.profile.name ??
                 user?.email
               }
+              onPressIn={() => {
+                navigation.navigate('SearchProfile', {
+                  type: 'opener',
+                  headerTitle: t('inputs.openerLabel') ?? '',
+                });
+              }}
               disabled={loading}
               error={getInputError('opener_id')}
             />
@@ -252,6 +270,9 @@ const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = ({
                 placeholder={t('inputs.priorityPlaceholder') ?? ''}
                 editable={false}
                 disabled={loading}
+                onPressIn={() =>
+                  setPriorityMenuVisible((prevState) => !prevState)
+                }
                 value={t(`inputs.priorityOptions.${priority}`) ?? ''}
                 error={getInputError('priority')}
               />

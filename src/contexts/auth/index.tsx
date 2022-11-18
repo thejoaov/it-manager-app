@@ -3,12 +3,13 @@ import apiService from '@services/api';
 import { User } from '@models/user';
 import * as localStorage from '@services/localStorage';
 import { apiInstance } from '@services/api/config';
+import { ApiError } from '@models/errors';
 
 export type AuthContextType = {
   user: User | null;
   token: string | null;
   loading: boolean;
-  error: string | null;
+  error: Error | ApiError | ApiError[] | null;
   requestLogin: (data: { login: string; password: string }) => Promise<void>;
   requestLogout: () => Promise<void>;
   requestUserInfo: () => Promise<void>;
@@ -20,7 +21,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<Error | ApiError | null>(null);
 
   const loadStorageData = useCallback(async () => {
     setLoading(true);
@@ -43,18 +44,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const requestUserInfo = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await apiService.getProfileByUserId({
+      const { data } = await apiService.getProfileByUserId({
         userId: String(user?.id),
       });
 
       const newUser = {
         ...user,
-        profile: response.data,
+        profile: data,
       };
       setUser(newUser as User);
       await localStorage.setItem('user', JSON.stringify(newUser));
     } catch (err: any) {
       setError(err.message);
+      console.log(err);
     } finally {
       setLoading(false);
     }
@@ -78,6 +80,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser(signedUser);
       } catch (err: any) {
         setError(err.message);
+        console.log(err);
       } finally {
         setLoading(false);
       }

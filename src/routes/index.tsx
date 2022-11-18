@@ -123,7 +123,11 @@ const Router = () => {
         <Snackbar
           visible={isToastVisible}
           onDismiss={closeToast}
-          style={{ backgroundColor: getToastColor(toast.type) }}
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{
+            backgroundColor: getToastColor(toast.type),
+            marginBottom: 85,
+          }}
           action={toast?.action}
         >
           {toast?.text}

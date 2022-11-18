@@ -1,5 +1,5 @@
 import { useToastContext } from '@contexts/toast';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Button } from 'react-native-paper';
 import Container from '@components/atoms/Container';
 import Input from '@components/atoms/Input';
@@ -12,9 +12,10 @@ const Login: React.FC<AuthStackScreenProps<'Login'>> = ({
   navigation,
   route,
 }) => {
-  const [login, setLogin] = useState(route.params?.login || '');
-  const [password, setPassword] = useState(route.params?.password || '');
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
   const { showToast } = useToastContext();
   const { requestLogin } = useAuthContext();
   const { t } = useTranslation('login');
@@ -27,22 +28,23 @@ const Login: React.FC<AuthStackScreenProps<'Login'>> = ({
         login,
         password,
       });
-    } catch (error: any) {
-      if (__DEV__ && error.errors[0].message) {
-        showToast({
-          text: error.errors[0].message,
-          type: 'error',
-        });
-      } else {
-        showToast({
-          text: t('error.default'),
-          type: 'error',
-        });
-      }
+    } catch (err: any) {
+      console.log(err);
+      showToast({
+        text: t('errors.default'),
+        type: 'error',
+      });
     } finally {
       setLoading(false);
     }
   }, [login, password, requestLogin, showToast, t]);
+
+  useEffect(() => {
+    if (route.params?.login && route.params?.password) {
+      setLogin(route.params?.login);
+      setPassword(route.params?.password);
+    }
+  }, [route.params?.login, route.params?.password]);
 
   const navigateToRegister = useCallback(() => {
     navigation.navigate('Register');

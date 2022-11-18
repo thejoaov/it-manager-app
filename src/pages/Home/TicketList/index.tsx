@@ -28,7 +28,7 @@ const TicketList: React.FC<AppStackScreenProps<'TicketList'>> = () => {
       await request(apiService.getTickets());
     } catch (err) {
       showToast({
-        text: t('messages.error'),
+        text: t('errors.default'),
         type: 'error',
       });
     }
