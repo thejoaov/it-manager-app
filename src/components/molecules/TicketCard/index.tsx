@@ -1,10 +1,13 @@
 import Container from '@components/atoms/Container';
+import { useAuthContext } from '@contexts/auth';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import useTheme from '@hooks/useTheme';
 import { TicketFull } from '@models/tickets';
+import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 // import { useColorScheme } from 'react-native';
-import { Card, Paragraph, Text } from 'react-native-paper';
+import { Button, Card, Paragraph, Text } from 'react-native-paper';
 import { TicketCardContainer } from './styles';
 
 export type TicketCardProps = {
@@ -12,8 +15,10 @@ export type TicketCardProps = {
 };
 
 const TicketCard: React.FC<TicketCardProps> = ({ item }) => {
-  const { colors } = useTheme();
-  // const scheme = useColorScheme();
+  const { colors, roundness } = useTheme();
+  const { t } = useTranslation('ticketCard');
+  const navigation = useNavigation();
+  const { user } = useAuthContext();
 
   const getPriorityIcon = useMemo(() => {
     const iconByPriority: Record<typeof item['priority'], string> = {
@@ -48,9 +53,16 @@ const TicketCard: React.FC<TicketCardProps> = ({ item }) => {
     [getPriorityIcon, getPriorityColor]
   );
 
+  const handlePress = useCallback(() => {
+    navigation.navigate('Ticket', {
+      type: 'edit',
+      ticket: item,
+    });
+  }, [item, navigation]);
+
   return (
     <TicketCardContainer testID="ticketCard-container">
-      <Card>
+      <Card style={{ borderRadius: roundness * 3 }}>
         <Card.Title
           title={item.title}
           subtitle={item.opener?.name ?? item.opener?.user.email}
@@ -80,10 +92,23 @@ const TicketCard: React.FC<TicketCardProps> = ({ item }) => {
               />
             </Container>
             <Text numberOfLines={1} variant="labelSmall">
-              {item.assignee?.name ?? item.assignee?.user.email}
+              {item.assignee?.name ?? (
+                <Text
+                  numberOfLines={1}
+                  variant="labelSmall"
+                  style={{ color: colors.error }}
+                >
+                  {t('unassigned')}
+                </Text>
+              )}
             </Text>
           </Container>
         </Card.Content>
+        <Card.Actions>
+          {['manager', 'admin'].includes(String(user?.profile?.role)) && (
+            <Button onPress={handlePress}>{t('common:buttons.edit')}</Button>
+          )}
+        </Card.Actions>
       </Card>
     </TicketCardContainer>
   );

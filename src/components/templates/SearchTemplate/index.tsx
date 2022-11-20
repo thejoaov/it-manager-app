@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import { Searchbar } from 'react-native-paper';
 import Flexbox from '@components/atoms/Flexbox';
 import Loading from '@components/organisms/Loading';
-import ModalTemplate from '@components/templates/ModalTemplate';
+import PageTemplate from '@components/templates/PageTemplate';
 import { SearchTemplateContainer } from './styles';
 
 export type SearchTemplateProps = {
@@ -28,7 +28,7 @@ const SearchTemplate: React.FC<PropsWithChildren<SearchTemplateProps>> = ({
 }) => {
   return (
     <SearchTemplateContainer testID="searchTemplate-container">
-      <ModalTemplate onBackPress={onBackPress} title={headerTitle}>
+      <PageTemplate onBackPress={onBackPress} title={headerTitle}>
         <Searchbar
           value={query}
           onChangeText={onSearch}
@@ -39,7 +39,7 @@ const SearchTemplate: React.FC<PropsWithChildren<SearchTemplateProps>> = ({
           keyboardType="email-address"
         />
         <Flexbox mt={20}>{loading ? <Loading /> : children}</Flexbox>
-      </ModalTemplate>
+      </PageTemplate>
     </SearchTemplateContainer>
   );
 };

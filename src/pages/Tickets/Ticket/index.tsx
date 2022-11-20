@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { AppStackScreenProps } from '@routes/types';
-import ModalTemplate from '@components/templates/ModalTemplate';
+import PageTemplate from '@components/templates/PageTemplate';
 import Input from '@components/atoms/Input';
 import { useTranslation } from 'react-i18next';
 import useRequest from '@hooks/useRequest';
@@ -15,7 +15,7 @@ import { useToastContext } from '@contexts/toast';
 import { ApiError } from '@models/errors';
 import { ProfileWithUser } from '@models/user';
 
-const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = ({
+const Ticket: React.FC<AppStackScreenProps<'Ticket'>> = ({
   navigation,
   route,
 }) => {
@@ -24,10 +24,17 @@ const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = ({
   const { showToast } = useToastContext();
   const { user } = useAuthContext();
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('');
-  const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('medium');
+  const [id, setId] = useState(route.params?.ticket?.id);
+  const [title, setTitle] = useState(route.params?.ticket?.title || '');
+  const [description, setDescription] = useState(
+    route.params?.ticket?.description || ''
+  );
+  const [location, setLocation] = useState(
+    route.params?.ticket?.location || ''
+  );
+  const [priority, setPriority] = useState<'low' | 'medium' | 'high'>(
+    route.params?.ticket?.priority || 'medium'
+  );
   const [assignee, setAssignee] = useState<ProfileWithUser>();
   const [opener, setOpener] = useState<ProfileWithUser>();
   const [priorityMenuVisible, setPriorityMenuVisible] = useState(false);
@@ -40,17 +47,39 @@ const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = ({
     priority: undefined,
   });
 
-  useEffect(() => {
-    if (route.params?.assignee) {
-      setAssignee(route.params.assignee);
+  const loadTicketDetails = async () => {
+    try {
+      const response = await request(apiService.getTicketById({ id: id! }));
+      setTitle(response.title);
+      setDescription(response.description);
+      setLocation(response.location);
+      setPriority(response.priority);
+      setAssignee(response?.assignee ?? undefined);
+      setOpener(response.opener);
+      setId(response.id);
+    } catch (error: any) {
+      showToast({ text: error.message, type: 'error' });
     }
-  }, [route.params?.assignee]);
+  };
 
   useEffect(() => {
-    if (route.params?.opener) {
-      setOpener(route.params?.opener);
+    if (['details'].includes(route.params?.type)) {
+      loadTicketDetails();
     }
-  }, [route.params?.opener]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (route.params?.ticket?.assignee) {
+      setAssignee(route.params?.ticket?.assignee);
+    }
+  }, [route.params?.ticket?.assignee]);
+
+  useEffect(() => {
+    if (route.params?.ticket?.opener) {
+      setOpener(route.params?.ticket?.opener);
+    }
+  }, [route.params?.ticket?.opener]);
 
   useEffect(() => {
     if (title) {
@@ -111,9 +140,9 @@ const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = ({
         apiService.postTicket({
           title,
           description,
-          assignee_id: toNumber(assignee?.user.id),
+          assignee_id: toNumber(assignee?.id),
           location,
-          opener_id: toNumber(opener?.user.id ?? user?.id),
+          opener_id: toNumber(opener?.id ?? user?.profile?.id),
           priority,
           status: 'open',
         })
@@ -142,17 +171,77 @@ const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = ({
       });
     }
   }, [
+    assignee?.id,
     description,
     location,
     navigation,
+    opener?.id,
     priority,
     request,
-    assignee?.user.id,
-    opener?.user.id,
     showToast,
     t,
     title,
-    user?.id,
+    user?.profile?.id,
+  ]);
+
+  const handleEdit = useCallback(async () => {
+    try {
+      setErrors({
+        title: undefined,
+        description: undefined,
+        location: undefined,
+        assignee_id: undefined,
+        opener_id: undefined,
+        priority: undefined,
+      });
+      await request(
+        apiService.putTicketById({
+          id: id!,
+          title,
+          description,
+          assignee_id: toNumber(assignee?.id),
+          location,
+          opener_id: toNumber(opener?.id ?? user?.profile?.id),
+          priority,
+          status: 'open',
+        })
+      );
+      showToast({
+        text: t('messages.createSuccess'),
+        type: 'success',
+      });
+      navigation.navigate('TicketList');
+    } catch (error: any) {
+      console.log(JSON.stringify(error));
+      showToast({ text: error.message, type: 'error' });
+      if (error.errors[0].message) {
+        const apiError = error.errors as ApiError[];
+        setErrors({
+          title: apiError.find((e) => e.field === 'title'),
+          description: apiError.find((e) => e.field === 'description'),
+          location: apiError.find((e) => e.field === 'location'),
+          opener_id: apiError.find((e) => e.field === 'opener_id'),
+          assignee_id: apiError.find((e) => e.field === 'assignee_id'),
+        });
+      }
+      showToast({
+        text: t('errors.default'),
+        type: 'error',
+      });
+    }
+  }, [
+    assignee?.id,
+    description,
+    id,
+    location,
+    navigation,
+    opener?.id,
+    priority,
+    request,
+    showToast,
+    t,
+    title,
+    user?.profile?.id,
   ]);
 
   const getPriorityIcon = useCallback((p: 'low' | 'medium' | 'high') => {
@@ -165,8 +254,42 @@ const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = ({
     return iconByPriority[p];
   }, []);
 
+  const getSubmitButton = useMemo(() => {
+    if (route.params.type === 'new') {
+      return (
+        <Button
+          loading={loading}
+          disabled={loading}
+          onPress={handleSubmit}
+          mode="contained"
+        >
+          {t('common:buttons.save') ?? ''}
+        </Button>
+      );
+    }
+
+    if (route.params.type === 'edit') {
+      return (
+        <Button
+          loading={loading}
+          disabled={loading}
+          onPress={handleEdit}
+          mode="contained"
+        >
+          {t('common:buttons.edit') ?? ''}
+        </Button>
+      );
+    }
+
+    return null;
+  }, [handleEdit, handleSubmit, loading, route.params.type, t]);
+
   return (
-    <ModalTemplate title={t('title') ?? ''} onBackPress={navigation.goBack}>
+    <PageTemplate
+      testID="ticket-container"
+      title={t('title') ?? ''}
+      onBackPress={navigation.goBack}
+    >
       <ScrollView>
         <Input
           label={t('inputs.titleLabel') ?? ''}
@@ -194,6 +317,7 @@ const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = ({
             navigation.navigate('SearchProfile', {
               type: 'assignee',
               headerTitle: t('inputs.assigneeLabel') ?? '',
+              backType: route.params.type,
             });
           }}
           disabled={loading}
@@ -208,6 +332,7 @@ const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = ({
               navigation.navigate('SearchProfile', {
                 type: 'assignee',
                 headerTitle: t('inputs.assigneeLabel') ?? '',
+                backType: route.params.type,
               });
             }}
             error={getInputError('assignee_id')}
@@ -220,6 +345,7 @@ const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = ({
               navigation.navigate('SearchProfile', {
                 type: 'opener',
                 headerTitle: t('inputs.openerLabel') ?? '',
+                backType: route.params.type,
               });
             }}
             disabled={loading}
@@ -239,6 +365,7 @@ const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = ({
                 navigation.navigate('SearchProfile', {
                   type: 'opener',
                   headerTitle: t('inputs.openerLabel') ?? '',
+                  backType: route.params.type,
                 });
               }}
               disabled={loading}
@@ -304,19 +431,10 @@ const NewTicket: React.FC<AppStackScreenProps<'NewTicket'>> = ({
             />
           </Menu>
         </Pressable>
-        <Container mt={60}>
-          <Button
-            loading={loading}
-            disabled={loading}
-            onPress={handleSubmit}
-            mode="contained"
-          >
-            {t('buttons.save') ?? ''}
-          </Button>
-        </Container>
+        <Container mt={60}>{getSubmitButton}</Container>
       </ScrollView>
-    </ModalTemplate>
+    </PageTemplate>
   );
 };
 
-export default NewTicket;
+export default Ticket;

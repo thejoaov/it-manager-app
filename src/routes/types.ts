@@ -1,4 +1,4 @@
-import { ProfileWithUser } from '@models/user';
+import { TicketFull } from '@models/tickets';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type HomeTabParamList = {
@@ -13,11 +13,16 @@ export type AuthStackParamList = {
 };
 
 export type AppStackParamList = {
+  Ticket: {
+    type: 'edit' | 'new' | 'details';
+    ticket?: Partial<TicketFull>;
+  };
   ProfileEdit: undefined;
-  SearchProfile: { type: 'opener' | 'assignee'; headerTitle?: string };
-  NewTicket:
-    | { assignee?: ProfileWithUser; opener?: ProfileWithUser }
-    | undefined;
+  SearchProfile: {
+    type: 'opener' | 'assignee';
+    backType: 'edit' | 'new' | 'details';
+    headerTitle?: string;
+  };
   Profile: undefined;
   TicketList: undefined;
   Dashboard: undefined;

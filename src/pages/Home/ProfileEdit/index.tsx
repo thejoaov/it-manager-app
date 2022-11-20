@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuthContext } from '@contexts/auth';
 import { AppStackScreenProps } from '@routes/types';
-import ModalTemplate from '@components/templates/ModalTemplate';
+import PageTemplate from '@components/templates/PageTemplate';
 import Input from '@components/atoms/Input';
 import Flexbox from '@components/atoms/Flexbox';
 import { Avatar, Button } from 'react-native-paper';
@@ -74,7 +74,7 @@ const ProfileEdit: React.FC<AppStackScreenProps<'ProfileEdit'>> = ({
   ]);
 
   return (
-    <ModalTemplate onBackPress={navigation.goBack} testID="profileEdit">
+    <PageTemplate onBackPress={navigation.goBack} testID="profileEdit">
       <Container width="100%" p={20} centralize>
         <Avatar.Text
           size={100}
@@ -150,7 +150,7 @@ const ProfileEdit: React.FC<AppStackScreenProps<'ProfileEdit'>> = ({
           {t('buttons.save')}
         </Button>
       </Flexbox>
-    </ModalTemplate>
+    </PageTemplate>
   );
 };
 

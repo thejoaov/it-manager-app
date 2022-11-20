@@ -74,7 +74,7 @@ export type ResponseGetTickets = ResponseWithPagination<TicketFull[]>;
 export type RequestGetTicketById = {
   id: number;
 };
-export type ResponseGetTicketById = Ticket;
+export type ResponseGetTicketById = TicketFull;
 
 export type RequestPutTicketById = Partial<
   Omit<Ticket, 'id' | 'created_at' | 'updated_at'>
@@ -83,7 +83,7 @@ export type ResponsePutTicketById = Ticket;
 
 export type RequestPostTicket = Omit<
   Ticket,
-  'id' | 'created_at' | 'updated_at'
+  'id' | 'created_at' | 'updated_at' | 'opener' | 'assignee'
 >;
 export type ResponsePostTicket = Ticket;
 

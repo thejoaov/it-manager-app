@@ -6,6 +6,10 @@ import { getToastColor } from '@utils/colors';
 import { Snackbar, useTheme } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { useNavigationTheme } from '@hooks/useTheme';
+// import {
+//   CardStyleInterpolators,
+//   createStackNavigator,
+// } from '@react-navigation/stack';
 
 import {
   AppStackParamList,
@@ -16,16 +20,12 @@ import {
 // Import screens
 import SearchProfile from '@pages/Tickets/SearchProfile';
 import ProfileEdit from '@pages/Home/ProfileEdit';
-import NewTicket from '@pages/Tickets/NewTicket';
+import Ticket from '@pages/Tickets/Ticket';
 import Profile from '@pages/Home/Profile';
 import TicketList from '@pages/Home/TicketList';
 import Dashboard from '@pages/Home/Dashboard';
 import Login from '@pages/Auth/Login';
 import Register from '@pages/Auth/Register';
-import {
-  CardStyleInterpolators,
-  createStackNavigator,
-} from '@react-navigation/stack';
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 const AuthRouter = () => {
@@ -59,7 +59,6 @@ const HomeBottomTabRouter = () => {
         component={TicketList}
         options={{
           tabBarIcon: 'format-list-bulleted',
-          // tabBarColor: theme.colors.secondary,
         }}
       />
       <HomeBottomTab.Screen
@@ -67,7 +66,6 @@ const HomeBottomTabRouter = () => {
         component={Dashboard}
         options={{
           tabBarIcon: 'home',
-          // tabBarColor: theme.colors.primary,
         }}
       />
       <HomeBottomTab.Screen
@@ -75,14 +73,13 @@ const HomeBottomTabRouter = () => {
         component={Profile}
         options={{
           tabBarIcon: 'account',
-          // tabBarColor: theme.colors.tertiary,
         }}
       />
     </HomeBottomTab.Navigator>
   );
 };
 
-const AppStack = createStackNavigator<AppStackParamList>();
+const AppStack = createNativeStackNavigator<AppStackParamList>();
 const AppRouter = () => {
   return (
     <AppStack.Navigator
@@ -94,14 +91,13 @@ const AppRouter = () => {
       {/* App Routes */}
       <AppStack.Group
         screenOptions={{
-          // presentation: 'modal',
-          animationEnabled: true,
-          cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
+          presentation: 'modal',
+          // cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
         }}
       >
         <AppStack.Screen name="SearchProfile" component={SearchProfile} />
         <AppStack.Screen name="ProfileEdit" component={ProfileEdit} />
-        <AppStack.Screen name="NewTicket" component={NewTicket} />
+        <AppStack.Screen name="Ticket" component={Ticket} />
       </AppStack.Group>
       <AppStack.Group>
         <AppStack.Screen name="Home" component={HomeBottomTabRouter} />

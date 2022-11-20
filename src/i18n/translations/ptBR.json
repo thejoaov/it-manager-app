@@ -1,6 +1,18 @@
 {
   "common": {
-    "buttons": {},
+    "buttons": {
+      "cancel": "Cancelar",
+      "save": "Salvar",
+      "edit": "Editar",
+      "close": "Sair",
+      "delete": "Excluir",
+      "add": "Adicionar",
+      "new": "Novo",
+      "back": "Voltar",
+      "yes": "Sim",
+      "no": "Não",
+      "ok": "Ok"
+    },
     "datePicker": {
       "sabeLabel": "Salvar"
     }
@@ -56,6 +68,21 @@
       "logout": "Sair",
       "edit": "Editar"
     }
+  },
+  "ticketDetails": {
+    "title": "Detalhes do chamado",
+    "buttons": {
+      "close": "Fechar",
+      "edit": "Editar",
+      "delete": "Excluir"
+    },
+    "messages": {
+      "deleteSuccess": "Chamado excluído com sucesso!"
+    }
+  },
+  "ticketCard": {
+    "unassigned": "Não atribuído",
+    "details": "Detalhes"
   },
   "ticketlist": {
     "title": "Todos os Tickets",

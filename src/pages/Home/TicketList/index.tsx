@@ -43,7 +43,9 @@ const TicketList: React.FC<AppStackScreenProps<'TicketList'>> = () => {
   const handlePress = useCallback(() => {
     setIsExtended(!isExtended);
     if (isExtended) {
-      navigation.navigate('NewTicket');
+      navigation.navigate('Ticket', {
+        type: 'new',
+      });
     }
   }, [isExtended, navigation]);
 

@@ -76,7 +76,7 @@ const apiService = {
   putProfileByUserId: async (
     data: RequestPutProfileByUserId
   ): Promise<AxiosResponse<ResponsePutProfileByUserId>> => {
-    const body = lodash.omit(data.body, ['id', 'created_at', 'updated_at']);
+    const body = lodash.omit(data.body, ['created_at', 'updated_at']);
     return apiInstance.put(
       `profile/${data.userId}`,
       lodash.pickBy(body, (value) => value !== undefined || value !== null)
@@ -95,8 +95,11 @@ const apiService = {
   putTicketById: async (
     data: RequestPutTicketById
   ): Promise<AxiosResponse<ResponseGetTicketById>> => {
-    const body = lodash.omit(data, ['id', 'created_at', 'updated_at']);
-    return apiInstance.put(`tickets/${data.id}`, body);
+    const body = lodash.omit(data, ['created_at', 'updated_at']);
+    return apiInstance.put(
+      `tickets/${data.id}`,
+      lodash.pickBy(body, (value) => value !== undefined || value !== null)
+    );
   },
   postTicket: async (
     data: RequestPostTicket

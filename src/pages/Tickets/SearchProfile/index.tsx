@@ -59,18 +59,19 @@ const SearchProfile: React.FC<AppStackScreenProps<'SearchProfile'>> = ({
 
   const handleSelectProfile = useCallback(
     (profile: ProfileWithUser) => {
-      navigation.navigate(
-        'NewTicket',
-        route.params.type === 'assignee'
-          ? {
-              assignee: profile,
-            }
-          : {
-              opener: profile,
-            }
-      );
+      navigation.navigate('Ticket', {
+        type: route.params.backType,
+        ticket:
+          route.params.type === 'assignee'
+            ? {
+                assignee: profile,
+              }
+            : {
+                opener: profile,
+              },
+      });
     },
-    [navigation, route.params.type]
+    [navigation, route.params.backType, route.params.type]
   );
 
   return (

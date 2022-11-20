@@ -10,22 +10,28 @@ export default function useRequest<Response = any, Meta = any>() {
   const [error, setError] = useState<Error | ApiError | undefined>();
   const [meta, setMeta] = useState<Meta | ResponseWithPagination<Response>>();
 
-  const request = useCallback(async (apiCall: AxiosPromise) => {
-    setLoading(true);
-    try {
-      const res = await apiCall;
-      if (res.data) setResponse(res.data as Response);
-      if ((res.data as any).meta) {
-        setMeta((res.data as any).meta);
+  const request = useCallback(
+    async (apiCall: AxiosPromise): Promise<Response> => {
+      try {
+        setLoading(true);
+        const res = await apiCall;
+        if (res.data) setResponse(res.data as Response);
+
+        if ((res.data as any).meta) {
+          setMeta((res.data as any).meta);
+        }
+
+        return res.data as Response;
+      } catch (err: any) {
+        setError(err);
+        setResponse(undefined);
+        throw err;
+      } finally {
+        setLoading(false);
       }
-    } catch (err: any) {
-      setError(err);
-      setResponse(undefined);
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+    },
+    []
+  );
 
   const clearResponse = useCallback(() => {
     setResponse(undefined);
