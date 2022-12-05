@@ -99,6 +99,7 @@
     "searchPlaceholder": "Usuário, email ou nome"
   },
   "newTicket": {
+    "edit": "Editar Ticket",
     "title": "Novo Ticket",
     "errors": {
       "default": "Erro ao criar ticket, tente novamente",
@@ -109,6 +110,7 @@
       "opener_id_required": "O criador é obrigatório"
     },
     "messages": {
+      "deleteSuccess": "Ticket excluído com sucesso!",
       "createSuccess": "Ticket criado com sucesso!"
     },
     "inputs": {

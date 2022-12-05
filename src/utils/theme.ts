@@ -9,7 +9,15 @@ import {
 // const MD3DarkTheme = DefaultTheme;
 // const MD3LightTheme = DefaultTheme;
 
-export type ITheme = MD3Theme;
+export type ITheme = MD3Theme & {
+  colors: {
+    semantic: {
+      high: string;
+      medium: string;
+      low: string;
+    };
+  };
+};
 // export type ITheme = Theme;
 
 export const theme: ITheme = {
@@ -17,6 +25,11 @@ export const theme: ITheme = {
   roundness: 3,
   colors: {
     ...DefaultTheme.colors,
+    semantic: {
+      high: '#FF0000',
+      medium: '#FFC107',
+      low: '#0099FF',
+    },
   },
 };
 
@@ -25,6 +38,11 @@ export const lightTheme: ITheme = {
   roundness: 3,
   colors: {
     ...MD3LightTheme.colors,
+    semantic: {
+      high: '#FF0000',
+      medium: '#FFC107',
+      low: '#0099FF',
+    },
   },
 };
 
@@ -33,5 +51,10 @@ export const darkTheme: ITheme = {
   roundness: 3,
   colors: {
     ...MD3DarkTheme.colors,
+    semantic: {
+      high: '#FF0000',
+      medium: '#FFC107',
+      low: '#0099FF',
+    },
   },
 };

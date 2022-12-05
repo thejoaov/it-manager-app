@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { AppStackScreenProps } from '@routes/types';
 import Flexbox from '@components/atoms/Flexbox';
 import TicketListTemplate from '@components/templates/TicketListTemplate';
-import { AnimatedFAB } from 'react-native-paper';
+import { AnimatedFAB, Appbar } from 'react-native-paper';
 import Container from '@components/atoms/Container';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import useRequest from '@hooks/useRequest';
@@ -51,6 +51,12 @@ const TicketList: React.FC<AppStackScreenProps<'TicketList'>> = () => {
 
   return (
     <Flexbox testID="ticket-list">
+      <Appbar.Header>
+        <Appbar.Content title={t('title')} />
+        <Appbar.Action icon="magnify" />
+        <Appbar.Action icon="filter-outline" />
+      </Appbar.Header>
+
       {loading ? (
         <Loading />
       ) : (

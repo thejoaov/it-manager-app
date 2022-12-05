@@ -32,13 +32,18 @@ const TicketCard: React.FC<TicketCardProps> = ({ item }) => {
 
   const getPriorityColor = useMemo(() => {
     const colorByPriority: Record<typeof item['priority'], string> = {
-      low: colors.secondaryContainer,
-      medium: colors.onPrimaryContainer,
-      high: colors.error,
+      high: colors.semantic.high,
+      medium: colors.semantic.medium,
+      low: colors.semantic.low,
     };
 
     return colorByPriority[item.priority];
-  }, [colors, item.priority]);
+  }, [
+    colors.semantic.high,
+    colors.semantic.low,
+    colors.semantic.medium,
+    item.priority,
+  ]);
 
   const getRightContent = useCallback(
     () => (
