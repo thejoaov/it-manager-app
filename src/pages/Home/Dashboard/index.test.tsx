@@ -3,6 +3,7 @@ import { render, waitFor, RenderAPI } from '@testing-library/react-native';
 import Dashboard from './index';
 import AppContextProvider from '@contexts/appContext';
 import { navigationMock, routeMock } from '@utils/testUtils';
+import { NavigationContainer } from '@react-navigation/native';
 
 let wrapper: RenderAPI;
 
@@ -10,9 +11,11 @@ describe('Dashboard', () => {
   beforeEach(async () => {
     await waitFor(() => {
       wrapper = render(
-        <AppContextProvider>
-          <Dashboard navigation={navigationMock()} route={routeMock()} />
-        </AppContextProvider>
+        <NavigationContainer>
+          <AppContextProvider>
+            <Dashboard navigation={navigationMock()} route={routeMock()} />
+          </AppContextProvider>
+        </NavigationContainer>
       );
     });
   });

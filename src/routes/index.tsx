@@ -44,6 +44,8 @@ const AuthRouter = () => {
 const HomeBottomTab = createMaterialBottomTabNavigator<HomeTabParamList>();
 const HomeBottomTabRouter = () => {
   const theme = useTheme();
+  const { user } = useAuthContext();
+
   return (
     <HomeBottomTab.Navigator
       initialRouteName="Dashboard"
@@ -54,13 +56,17 @@ const HomeBottomTabRouter = () => {
         backgroundColor: theme.colors.inverseOnSurface,
       }}
     >
-      <HomeBottomTab.Screen
-        name="TicketList"
-        component={TicketList}
-        options={{
-          tabBarIcon: 'format-list-bulleted',
-        }}
-      />
+      {['admin', 'manager', 'technician', 'support'].includes(
+        user?.profile?.role || ''
+      ) && (
+        <HomeBottomTab.Screen
+          name="TicketList"
+          component={TicketList}
+          options={{
+            tabBarIcon: 'format-list-bulleted',
+          }}
+        />
+      )}
       <HomeBottomTab.Screen
         name="Dashboard"
         component={Dashboard}
@@ -68,6 +74,7 @@ const HomeBottomTabRouter = () => {
           tabBarIcon: 'home',
         }}
       />
+
       <HomeBottomTab.Screen
         name="Profile"
         component={Profile}

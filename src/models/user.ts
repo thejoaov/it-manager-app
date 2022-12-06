@@ -3,7 +3,7 @@ export type Profile = {
   user_id: number;
   name: string;
   birthdate: string;
-  role: string;
+  role: 'admin' | 'user' | 'guest' | 'support' | 'manager' | 'technician';
   telephone: string;
   job_title: string;
   start_date: string;

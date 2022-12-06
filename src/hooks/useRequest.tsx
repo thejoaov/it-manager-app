@@ -1,14 +1,14 @@
 import { ApiError } from '@models/errors';
 
 import { useCallback, useState } from 'react';
-import { ResponseWithPagination } from '@services/api/types';
+import { Meta } from '@services/api/types';
 import { AxiosPromise } from 'axios';
 
-export default function useRequest<Response = any, Meta = any>() {
+export default function useRequest<Response = any, MetaData = Meta>() {
   const [response, setResponse] = useState<Response>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | ApiError | undefined>();
-  const [meta, setMeta] = useState<Meta | ResponseWithPagination<Response>>();
+  const [meta, setMeta] = useState<MetaData>();
 
   const request = useCallback(
     async (apiCall: AxiosPromise): Promise<Response> => {

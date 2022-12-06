@@ -19,7 +19,7 @@ const PageTemplate: React.FC<PropsWithChildren<PageTemplateProps>> = ({
 }) => {
   return (
     <PageTemplateContainer testID={testID}>
-      <Appbar.Header testID="page-header">
+      <Appbar.Header mode="small" testID="page-header">
         <Appbar.BackAction
           onPress={onBackPress}
           testID="page-header-backbutton"

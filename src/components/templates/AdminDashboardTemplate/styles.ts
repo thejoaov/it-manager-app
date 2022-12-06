@@ -1,6 +1,4 @@
 import styled from 'styled-components/native';
 import { View } from 'react-native';
 
-export const TicketListTemplateContainer = styled(View)`
-  flex: 1;
-`;
+export const AdminDashboardTemplateContainer = styled(View)``;

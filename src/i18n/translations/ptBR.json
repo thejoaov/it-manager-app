@@ -59,7 +59,7 @@
     }
   },
   "dashboard": {
-    "title": "Dashboard"
+    "title": "Meus chamados"
   },
   "profile": {
     "username": "Nome de usuário",
@@ -85,11 +85,11 @@
     "details": "Detalhes"
   },
   "ticketlist": {
-    "title": "Todos os Tickets",
+    "title": "Chamados",
     "buttons": {
-      "new": "Novo Ticket"
+      "new": "Novo Chamado"
     },
-    "emptyText": "Nenhum ticket encontrado",
+    "emptyText": "Nenhum chamado encontrado",
     "errors": {
       "default": "Ocorreu um erro, tente novamente."
     }
@@ -99,10 +99,10 @@
     "searchPlaceholder": "Usuário, email ou nome"
   },
   "newTicket": {
-    "edit": "Editar Ticket",
-    "title": "Novo Ticket",
+    "edit": "Editar Chamado",
+    "title": "Novo Chamado",
     "errors": {
-      "default": "Erro ao criar ticket, tente novamente",
+      "default": "Erro ao criar chamado, tente novamente",
       "title_required": "O título é obrigatório",
       "description_required": "A descrição é obrigatória",
       "location_required": "A localização é obrigatória",
@@ -110,8 +110,8 @@
       "opener_id_required": "O criador é obrigatório"
     },
     "messages": {
-      "deleteSuccess": "Ticket excluído com sucesso!",
-      "createSuccess": "Ticket criado com sucesso!"
+      "deleteSuccess": "Chamado excluído com sucesso!",
+      "createSuccess": "Chamado criado com sucesso!"
     },
     "inputs": {
       "titleLabel": "Título",
@@ -157,5 +157,10 @@
       "success": "Perfil atualizado com sucesso!",
       "error": "Erro ao atualizar perfil"
     }
+  },
+  "userDashboard": {
+    "solvingTitle": "Em andamento",
+    "openTitle": "Em Aberto",
+    "closedTitle": "Fechados"
   }
 }

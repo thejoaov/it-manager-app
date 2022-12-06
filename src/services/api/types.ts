@@ -1,18 +1,20 @@
 import { Profile, ProfileWithUser, User } from '@models/user';
 import { Ticket, TicketFull } from '@models/tickets';
 
+export type Meta = {
+  total: number;
+  per_page: number;
+  current_page: number | null;
+  last_page: number;
+  first_page: number;
+  first_page_url: string;
+  last_page_url: string;
+  next_page_url: string | null;
+  previous_page_url: string | null;
+};
+
 export type ResponseWithPagination<T> = {
-  meta: {
-    total: number;
-    per_page: number;
-    current_page: number | null;
-    last_page: number;
-    first_page: number;
-    first_page_url: string;
-    last_page_url: string;
-    next_page_url: string | null;
-    previous_page_url: string | null;
-  };
+  meta: Meta;
   data: T;
 };
 
@@ -115,3 +117,14 @@ export type RequestPutProfileByUserId = {
   body: Partial<Omit<Profile, 'id' | 'created_at' | 'updated_at'>>;
 };
 export type ResponsePutProfileByUserId = Profile;
+
+export type ResponseGetDashboard = {
+  open: TicketFull[] | null;
+  solving: TicketFull[] | null;
+};
+
+export type ResponseGetTicketsCount = {
+  open: number;
+  total: number;
+  solving: number;
+};

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, FlatList, useColorScheme } from 'react-native';
+import { Dimensions, FlatList } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import TicketCard from '@components/molecules/TicketCard';
 import { ApiError } from '@models/errors';
@@ -7,7 +7,7 @@ import { TicketFull } from '@models/tickets';
 import { ResponseGetTickets } from '@services/api/types';
 import Empty from '@components/organisms/Empty';
 import Flexbox from '@components/atoms/Flexbox';
-import useTheme from '@hooks/useTheme';
+
 import { TicketListTemplateContainer } from './styles';
 
 export type TicketListTemplateProps = {
@@ -26,15 +26,9 @@ const TicketListTemplate: React.FC<TicketListTemplateProps> = ({
   onEndReached,
 }) => {
   const { t } = useTranslation('ticketlist');
-  const theme = useTheme();
-  const colorScheme = useColorScheme();
 
   return (
-    <TicketListTemplateContainer
-      testID="ticketListTemplate-container"
-      theme={theme}
-      isDark={colorScheme === 'dark'}
-    >
+    <TicketListTemplateContainer testID="ticketListTemplate-container">
       <FlatList
         data={tickets}
         ListEmptyComponent={

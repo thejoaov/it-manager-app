@@ -6,7 +6,7 @@ import { TicketFull } from '@models/tickets';
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-// import { useColorScheme } from 'react-native';
+
 import { Button, Card, Paragraph, Text } from 'react-native-paper';
 import { TicketCardContainer } from './styles';
 
@@ -20,42 +20,69 @@ const TicketCard: React.FC<TicketCardProps> = ({ item }) => {
   const navigation = useNavigation();
   const { user } = useAuthContext();
 
-  const getPriorityIcon = useMemo(() => {
-    const iconByPriority: Record<typeof item['priority'], string> = {
+  const getPriority = useMemo(() => {
+    const iconByPriority: Record<
+      typeof item['priority'],
+      keyof typeof MaterialCommunityIcons.glyphMap
+    > = {
       low: 'arrow-down',
       medium: 'minus',
       high: 'arrow-up',
     };
 
-    return iconByPriority[item.priority];
-  }, [item.priority]);
-
-  const getPriorityColor = useMemo(() => {
     const colorByPriority: Record<typeof item['priority'], string> = {
       high: colors.semantic.high,
       medium: colors.semantic.medium,
       low: colors.semantic.low,
     };
 
-    return colorByPriority[item.priority];
-  }, [
-    colors.semantic.high,
-    colors.semantic.low,
-    colors.semantic.medium,
-    item.priority,
-  ]);
+    return {
+      icon: iconByPriority[item.priority],
+      color: colorByPriority[item.priority],
+    };
+  }, [colors, item.priority]);
+
+  const getStatus = useMemo(() => {
+    const iconByStatus: Record<
+      typeof item['status'],
+      keyof typeof MaterialCommunityIcons.glyphMap
+    > = {
+      open: 'alert-circle',
+      solving: 'circle-double',
+      closed: 'check-circle',
+    };
+
+    const colorByStatus: Record<typeof item['status'], string> = {
+      open: colors.status.open,
+      solving: colors.status.solving,
+      closed: colors.status.closed,
+    };
+
+    return {
+      icon: iconByStatus[item.status],
+      color: colorByStatus[item.status],
+    };
+  }, [colors, item.status]);
 
   const getRightContent = useCallback(
     () => (
       <Container mr={10}>
         <MaterialCommunityIcons
           size={20}
-          name={getPriorityIcon as keyof typeof MaterialCommunityIcons.glyphMap}
-          color={getPriorityColor}
+          name={
+            getPriority.icon as keyof typeof MaterialCommunityIcons.glyphMap
+          }
+          color={getPriority.color}
+        />
+
+        <MaterialCommunityIcons
+          size={20}
+          name={getStatus.icon as keyof typeof MaterialCommunityIcons.glyphMap}
+          color={getStatus.color}
         />
       </Container>
     ),
-    [getPriorityIcon, getPriorityColor]
+    [getPriority.color, getPriority.icon, getStatus.color, getStatus.icon]
   );
 
   const handlePress = useCallback(() => {
@@ -72,6 +99,7 @@ const TicketCard: React.FC<TicketCardProps> = ({ item }) => {
           title={item.title}
           subtitle={item.opener?.name ?? item.opener?.user.email}
           right={getRightContent}
+          // left={getLeftContent}
         />
 
         <Card.Content>
@@ -110,7 +138,10 @@ const TicketCard: React.FC<TicketCardProps> = ({ item }) => {
           </Container>
         </Card.Content>
         <Card.Actions>
-          {['manager', 'admin'].includes(String(user?.profile?.role)) && (
+          {(item.status === 'open' ||
+            ['admin', 'manager', 'support'].includes(
+              user?.profile?.role || ''
+            )) && (
             <Button onPress={handlePress}>{t('common:buttons.edit')}</Button>
           )}
         </Card.Actions>

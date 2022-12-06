@@ -18,10 +18,12 @@ import {
   RequestPutUserById,
   ResponseDeleteTicketById,
   ResponseDeleteUserById,
+  ResponseGetDashboard,
   ResponseGetProfileByUserId,
   ResponseGetProfiles,
   ResponseGetTicketById,
   ResponseGetTickets,
+  ResponseGetTicketsCount,
   ResponseGetUserById,
   ResponsePostLogin,
   ResponsePostProfileByUserId,
@@ -110,6 +112,14 @@ const apiService = {
     data: RequestDeleteTicketById
   ): Promise<AxiosResponse<ResponseDeleteTicketById>> => {
     return apiInstance.delete(`tickets/${data.id}`);
+  },
+  getDashboard: async (): Promise<AxiosResponse<ResponseGetDashboard>> => {
+    return apiInstance.get('dashboard');
+  },
+  getTicketsCount: async (): Promise<
+    AxiosResponse<ResponseGetTicketsCount>
+  > => {
+    return apiInstance.get('tickets/count');
   },
 };
 

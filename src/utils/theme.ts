@@ -16,6 +16,11 @@ export type ITheme = MD3Theme & {
       medium: string;
       low: string;
     };
+    status: {
+      open: string;
+      closed: string;
+      solving: string;
+    };
   };
 };
 // export type ITheme = Theme;
@@ -26,9 +31,14 @@ export const theme: ITheme = {
   colors: {
     ...DefaultTheme.colors,
     semantic: {
-      high: '#FF0000',
+      high: '#FF2200',
       medium: '#FFC107',
       low: '#0099FF',
+    },
+    status: {
+      open: '#FFFF00',
+      closed: '#0099FF',
+      solving: '#00FF00',
     },
   },
 };
@@ -39,9 +49,14 @@ export const lightTheme: ITheme = {
   colors: {
     ...MD3LightTheme.colors,
     semantic: {
-      high: '#FF0000',
+      high: '#FF2200',
       medium: '#FFC107',
       low: '#0099FF',
+    },
+    status: {
+      open: '#FFFF00',
+      closed: '#0099FF',
+      solving: '#00FF00',
     },
   },
 };
@@ -52,9 +67,14 @@ export const darkTheme: ITheme = {
   colors: {
     ...MD3DarkTheme.colors,
     semantic: {
-      high: '#FF0000',
+      high: '#FF2200',
       medium: '#FFC107',
       low: '#0099FF',
+    },
+    status: {
+      open: '#FFFF00',
+      closed: '#0099FF',
+      solving: '#00FF00',
     },
   },
 };

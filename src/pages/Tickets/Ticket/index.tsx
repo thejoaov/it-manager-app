@@ -212,7 +212,7 @@ const Ticket: React.FC<AppStackScreenProps<'Ticket'>> = ({
         text: t('messages.createSuccess'),
         type: 'success',
       });
-      navigation.navigate('TicketList');
+      navigation.goBack();
     } catch (error: any) {
       console.log(JSON.stringify(error));
       showToast({ text: error.message, type: 'error' });
@@ -295,7 +295,7 @@ const Ticket: React.FC<AppStackScreenProps<'Ticket'>> = ({
         text: t('messages.deleteSuccess'),
         type: 'success',
       });
-      navigation.navigate('TicketList');
+      navigation.goBack();
     } catch (error: any) {
       console.log(JSON.stringify(error));
       showToast({
@@ -343,33 +343,42 @@ const Ticket: React.FC<AppStackScreenProps<'Ticket'>> = ({
             maxLength={255}
             error={getInputError('description')}
           />
-          <Pressable
-            onPress={() => {
-              navigation.navigate('SearchProfile', {
-                type: 'assignee',
-                headerTitle: t('inputs.assigneeLabel') ?? '',
-                backType: route.params.type,
-              });
-            }}
-            disabled={loading}
-          >
-            <Input
-              label={t('inputs.assigneeLabel') ?? ''}
-              placeholder={t('inputs.assigneePlaceholder') ?? ''}
-              editable={false}
-              value={assignee?.name ?? assignee?.user.email}
-              disabled={loading}
-              onPressIn={() => {
+          {['admin', 'manager', 'support', 'technician'].includes(
+            user?.profile?.role || ''
+          ) && (
+            <Pressable
+              onPress={() => {
                 navigation.navigate('SearchProfile', {
                   type: 'assignee',
                   headerTitle: t('inputs.assigneeLabel') ?? '',
                   backType: route.params.type,
                 });
               }}
-              error={getInputError('assignee_id')}
-              left={<TextInput.Icon icon="account-alert-outline" />}
-            />
-          </Pressable>
+              disabled={
+                loading || ['user', 'guest'].includes(user?.profile?.role || '')
+              }
+            >
+              <Input
+                label={t('inputs.assigneeLabel') ?? ''}
+                placeholder={t('inputs.assigneePlaceholder') ?? ''}
+                editable={false}
+                value={assignee?.name ?? assignee?.user.email}
+                disabled={
+                  loading ||
+                  ['user', 'guest'].includes(user?.profile?.role || '')
+                }
+                onPressIn={() => {
+                  navigation.navigate('SearchProfile', {
+                    type: 'assignee',
+                    headerTitle: t('inputs.assigneeLabel') ?? '',
+                    backType: route.params.type,
+                  });
+                }}
+                error={getInputError('assignee_id')}
+                left={<TextInput.Icon icon="account-alert-outline" />}
+              />
+            </Pressable>
+          )}
           {user?.profile?.role === 'admin' && (
             <Pressable
               onPress={() => {
@@ -414,63 +423,76 @@ const Ticket: React.FC<AppStackScreenProps<'Ticket'>> = ({
             error={getInputError('location')}
             left={<TextInput.Icon icon="map-marker-outline" />}
           />
-          <Pressable
-            disabled={loading}
-            onPress={() => {
-              setPriorityMenuVisible(true);
-            }}
-          >
-            <Menu
-              visible={priorityMenuVisible}
-              onDismiss={() => setPriorityMenuVisible(false)}
-              anchor={
-                <Input
-                  left={
-                    <TextInput.Icon
-                      icon={getPriorityIcon(priority)}
-                      onPress={() => {
-                        setPriorityMenuVisible(true);
-                      }}
-                    />
-                  }
-                  label={t('inputs.priorityLabel') ?? ''}
-                  placeholder={t('inputs.priorityPlaceholder') ?? ''}
-                  editable={false}
-                  disabled={loading}
-                  onPressIn={() => {
-                    setPriorityMenuVisible(true);
-                  }}
-                  value={t(`inputs.priorityOptions.${priority}`) ?? ''}
-                  error={getInputError('priority')}
-                />
+          {['admin', 'manager', 'support', 'technician'].includes(
+            user?.profile?.role || ''
+          ) && (
+            <Pressable
+              disabled={
+                loading || ['user', 'guest'].includes(user?.profile?.role || '')
               }
+              onPress={() => {
+                setPriorityMenuVisible(true);
+              }}
             >
-              <Menu.Item
-                leadingIcon="arrow-up"
-                onPress={() => {
-                  setPriority('high');
-                  setPriorityMenuVisible(false);
-                }}
-                title={t('inputs.priorityOptions.high') ?? ''}
-              />
-              <Menu.Item
-                leadingIcon="minus"
-                onPress={() => {
-                  setPriority('medium');
-                  setPriorityMenuVisible(false);
-                }}
-                title={t('inputs.priorityOptions.medium') ?? ''}
-              />
-              <Menu.Item
-                leadingIcon="arrow-down"
-                onPress={() => {
-                  setPriority('low');
-                  setPriorityMenuVisible(false);
-                }}
-                title={t('inputs.priorityOptions.low') ?? ''}
-              />
-            </Menu>
-          </Pressable>
+              <Menu
+                visible={priorityMenuVisible}
+                onDismiss={() => setPriorityMenuVisible(false)}
+                anchor={
+                  <Input
+                    left={
+                      <TextInput.Icon
+                        icon={getPriorityIcon(priority)}
+                        onPress={() => {
+                          setPriorityMenuVisible(true);
+                        }}
+                        disabled={
+                          loading ||
+                          ['user', 'guest'].includes(user?.profile?.role || '')
+                        }
+                      />
+                    }
+                    label={t('inputs.priorityLabel') ?? ''}
+                    placeholder={t('inputs.priorityPlaceholder') ?? ''}
+                    editable={false}
+                    disabled={
+                      loading ||
+                      ['user', 'guest'].includes(user?.profile?.role || '')
+                    }
+                    onPressIn={() => {
+                      setPriorityMenuVisible(true);
+                    }}
+                    value={t(`inputs.priorityOptions.${priority}`) ?? ''}
+                    error={getInputError('priority')}
+                  />
+                }
+              >
+                <Menu.Item
+                  leadingIcon="arrow-up"
+                  onPress={() => {
+                    setPriority('high');
+                    setPriorityMenuVisible(false);
+                  }}
+                  title={t('inputs.priorityOptions.high') ?? ''}
+                />
+                <Menu.Item
+                  leadingIcon="minus"
+                  onPress={() => {
+                    setPriority('medium');
+                    setPriorityMenuVisible(false);
+                  }}
+                  title={t('inputs.priorityOptions.medium') ?? ''}
+                />
+                <Menu.Item
+                  leadingIcon="arrow-down"
+                  onPress={() => {
+                    setPriority('low');
+                    setPriorityMenuVisible(false);
+                  }}
+                  title={t('inputs.priorityOptions.low') ?? ''}
+                />
+              </Menu>
+            </Pressable>
+          )}
           <Container mt={60}>{getSubmitButton}</Container>
         </ScrollView>
       </PageTemplate>
