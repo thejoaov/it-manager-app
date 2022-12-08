@@ -1,5 +1,7 @@
 import { TicketFull } from '@models/tickets';
+import { ProfileWithUser } from '@models/user';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RoleFilter } from '@services/api/types';
 
 export type HomeTabParamList = {
   Dashboard: undefined;
@@ -19,9 +21,9 @@ export type AppStackParamList = {
   };
   ProfileEdit: undefined;
   SearchProfile: {
-    type: 'opener' | 'assignee';
-    backType: 'edit' | 'new' | 'details';
+    roleFilter?: RoleFilter;
     headerTitle?: string;
+    handleSelect: (profile: ProfileWithUser) => void;
   };
   Profile: undefined;
   TicketList: undefined;

@@ -149,11 +149,11 @@ const Ticket: React.FC<AppStackScreenProps<'Ticket'>> = ({
           status: 'open',
         })
       );
+      navigation.goBack();
       showToast({
         text: t('messages.createSuccess'),
         type: 'success',
       });
-      navigation.navigate('TicketList');
     } catch (error: any) {
       console.log(JSON.stringify(error));
       showToast({ text: error.message, type: 'error' });
@@ -349,9 +349,11 @@ const Ticket: React.FC<AppStackScreenProps<'Ticket'>> = ({
             <Pressable
               onPress={() => {
                 navigation.navigate('SearchProfile', {
-                  type: 'assignee',
                   headerTitle: t('inputs.assigneeLabel') ?? '',
-                  backType: route.params.type,
+                  roleFilter: 'admin-personel',
+                  handleSelect: (profile) => {
+                    setAssignee(profile);
+                  },
                 });
               }}
               disabled={
@@ -369,9 +371,11 @@ const Ticket: React.FC<AppStackScreenProps<'Ticket'>> = ({
                 }
                 onPressIn={() => {
                   navigation.navigate('SearchProfile', {
-                    type: 'assignee',
                     headerTitle: t('inputs.assigneeLabel') ?? '',
-                    backType: route.params.type,
+                    roleFilter: 'admin-personel',
+                    handleSelect: (profile) => {
+                      setAssignee(profile);
+                    },
                   });
                 }}
                 error={getInputError('assignee_id')}
@@ -383,9 +387,11 @@ const Ticket: React.FC<AppStackScreenProps<'Ticket'>> = ({
             <Pressable
               onPress={() => {
                 navigation.navigate('SearchProfile', {
-                  type: 'opener',
                   headerTitle: t('inputs.openerLabel') ?? '',
-                  backType: route.params.type,
+                  roleFilter: 'except-guest',
+                  handleSelect: (profile) => {
+                    setOpener(profile);
+                  },
                 });
               }}
               disabled={loading}
@@ -403,9 +409,11 @@ const Ticket: React.FC<AppStackScreenProps<'Ticket'>> = ({
                 }
                 onPressIn={() => {
                   navigation.navigate('SearchProfile', {
-                    type: 'opener',
                     headerTitle: t('inputs.openerLabel') ?? '',
-                    backType: route.params.type,
+                    roleFilter: 'except-guest',
+                    handleSelect: (profile) => {
+                      setOpener(profile);
+                    },
                   });
                 }}
                 disabled={loading}

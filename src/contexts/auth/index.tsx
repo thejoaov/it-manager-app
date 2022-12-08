@@ -93,6 +93,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setLoading(true);
       await localStorage.removeItem('token');
       await localStorage.removeItem('user');
+      apiInstance.defaults.headers.common.authorization = false;
 
       setToken(null);
       setUser(null);

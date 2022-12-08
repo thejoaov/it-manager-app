@@ -28,6 +28,7 @@ const SearchProfile: React.FC<AppStackScreenProps<'SearchProfile'>> = ({
         email: text,
         name: text,
         username: text,
+        filterByRole: route.params.roleFilter || 'all',
       })
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,19 +60,10 @@ const SearchProfile: React.FC<AppStackScreenProps<'SearchProfile'>> = ({
 
   const handleSelectProfile = useCallback(
     (profile: ProfileWithUser) => {
-      navigation.navigate('Ticket', {
-        type: route.params.backType,
-        ticket:
-          route.params.type === 'assignee'
-            ? {
-                assignee: profile,
-              }
-            : {
-                opener: profile,
-              },
-      });
+      route.params.handleSelect(profile);
+      navigation.goBack();
     },
-    [navigation, route.params.backType, route.params.type]
+    [navigation, route.params]
   );
 
   return (

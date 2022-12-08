@@ -1,1 +1,8 @@
-export const BASE_URL = 'http://192.168.18.8:3333';
+// PRODUCTION
+// export const BASE_URL = 'https://it-manager-server-production.up.railway.app';
+
+// STAGING
+// export const BASE_URL = 'https://it-manager-server.onrender.com';
+
+// DEVELOPMENT
+export const BASE_URL = 'http://localhost:3333';

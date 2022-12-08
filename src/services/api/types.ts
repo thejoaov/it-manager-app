@@ -1,6 +1,17 @@
 import { Profile, ProfileWithUser, User } from '@models/user';
 import { Ticket, TicketFull } from '@models/tickets';
 
+export type RoleFilter =
+  | 'except-guest'
+  | 'admin-personel'
+  | 'all'
+  | 'admin'
+  | 'guest'
+  | 'manager'
+  | 'support'
+  | 'technician'
+  | 'user';
+
 export type Meta = {
   total: number;
   per_page: number;
@@ -98,6 +109,7 @@ export type RequestGetProfiles = RequestWithPagination<{
   name?: string;
   username?: string;
   email?: string;
+  filterByRole?: RoleFilter;
 }>;
 export type ResponseGetProfiles = ResponseWithPagination<ProfileWithUser[]>;
 

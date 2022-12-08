@@ -50,11 +50,11 @@ export const lightTheme: ITheme = {
     ...MD3LightTheme.colors,
     semantic: {
       high: '#FF2200',
-      medium: '#FFC107',
+      medium: '#FFA100',
       low: '#0099FF',
     },
     status: {
-      open: '#FFFF00',
+      open: '#FFA100',
       closed: '#0099FF',
       solving: '#00FF00',
     },
@@ -72,7 +72,7 @@ export const darkTheme: ITheme = {
       low: '#0099FF',
     },
     status: {
-      open: '#FFFF00',
+      open: '#FFC107',
       closed: '#0099FF',
       solving: '#00FF00',
     },

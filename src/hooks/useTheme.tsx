@@ -16,8 +16,10 @@ export default function useTheme() {
 export const useNavigationTheme = () => {
   const scheme = useColorScheme();
   const { DarkTheme, LightTheme } = adaptNavigationTheme({
-    light: NavigationLightTheme,
-    dark: NavigationDarkTheme,
+    reactNavigationDark: NavigationDarkTheme,
+    materialDark: darkTheme,
+    reactNavigationLight: NavigationLightTheme,
+    materialLight: lightTheme,
   });
 
   return scheme === 'dark' ? DarkTheme : LightTheme;

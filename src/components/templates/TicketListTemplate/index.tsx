@@ -9,6 +9,7 @@ import Empty from '@components/organisms/Empty';
 import Flexbox from '@components/atoms/Flexbox';
 
 import { TicketListTemplateContainer } from './styles';
+import Container from '@components/atoms/Container';
 
 export type TicketListTemplateProps = {
   tickets: TicketFull[];
@@ -43,9 +44,11 @@ const TicketListTemplate: React.FC<TicketListTemplateProps> = ({
         keyExtractor={(item) => item.id.toString()}
         refreshing={loading}
         onRefresh={onRefresh}
-        renderItem={({ item }) => <TicketCard item={item} />}
-        // eslint-disable-next-line react-native/no-inline-styles
-        style={{ paddingHorizontal: 10 }}
+        renderItem={({ item }) => (
+          <Container px="5px" py="2px">
+            <TicketCard item={item} />
+          </Container>
+        )}
         onEndReachedThreshold={0.5}
         onEndReached={onEndReached}
       />
