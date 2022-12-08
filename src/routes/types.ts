@@ -12,9 +12,11 @@ export type HomeTabParamList = {
 export type AuthStackParamList = {
   Login: { login: string; password: string } | undefined;
   Register: undefined;
+  EasterEgg: undefined;
 };
 
 export type AppStackParamList = {
+  EasterEgg: undefined;
   Ticket: {
     type: 'edit' | 'new' | 'details';
     ticket?: Partial<TicketFull>;

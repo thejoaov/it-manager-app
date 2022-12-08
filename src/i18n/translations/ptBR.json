@@ -162,5 +162,17 @@
     "solvingTitle": "Em andamento",
     "openTitle": "Em Aberto",
     "closedTitle": "Fechados"
+  },
+  "easterEgg": {
+    "title": "Easter Egg 🗿🍷",
+    "apiUrlLabel": "Base Url",
+    "apiUrlPlaceholder": "Base Url",
+    "apiUrlDev": "Dev - Local",
+    "apiUrlProd": "Produção - Railway",
+    "apiUrlStg": "Staging - Render",
+    "toast": {
+      "success": "Url alterada com sucesso!",
+      "error": "Erro ao alterar url"
+    }
   }
 }

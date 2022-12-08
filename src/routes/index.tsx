@@ -6,10 +6,11 @@ import { getToastColor } from '@utils/colors';
 import { Snackbar, useTheme } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { useNavigationTheme } from '@hooks/useTheme';
-// import {
-//   CardStyleInterpolators,
-//   createStackNavigator,
-// } from '@react-navigation/stack';
+
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack';
 
 import {
   AppStackParamList,
@@ -18,6 +19,7 @@ import {
 } from './types';
 
 // Import screens
+import EasterEgg from '@pages/Auth/EasterEgg';
 import SearchProfile from '@pages/Tickets/SearchProfile';
 import ProfileEdit from '@pages/Home/ProfileEdit';
 import Ticket from '@pages/Tickets/Ticket';
@@ -27,14 +29,23 @@ import Dashboard from '@pages/Home/Dashboard';
 import Login from '@pages/Auth/Login';
 import Register from '@pages/Auth/Register';
 
-const AuthStack = createNativeStackNavigator<AuthStackParamList>();
+const AuthStack = createStackNavigator<AuthStackParamList>();
 const AuthRouter = () => {
   return (
     <AuthStack.Navigator
       screenOptions={{
         headerShown: false,
       }}
+      initialRouteName="Login"
     >
+      <AuthStack.Group
+        screenOptions={{
+          presentation: 'modal',
+          cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
+        }}
+      >
+        <AuthStack.Screen name="EasterEgg" component={EasterEgg} />
+      </AuthStack.Group>
       <AuthStack.Screen name="Login" component={Login} />
       <AuthStack.Screen name="Register" component={Register} />
     </AuthStack.Navigator>
@@ -105,6 +116,7 @@ const AppRouter = () => {
         <AppStack.Screen name="SearchProfile" component={SearchProfile} />
         <AppStack.Screen name="ProfileEdit" component={ProfileEdit} />
         <AppStack.Screen name="Ticket" component={Ticket} />
+        <AppStack.Screen name="EasterEgg" component={EasterEgg} />
       </AppStack.Group>
       <AppStack.Group>
         <AppStack.Screen name="Home" component={HomeBottomTabRouter} />

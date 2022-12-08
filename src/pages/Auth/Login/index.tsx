@@ -24,6 +24,11 @@ const Login: React.FC<AuthStackScreenProps<'Login'>> = ({
     try {
       setLoading(true);
 
+      if (login === 'maguila' && password === '123456') {
+        navigation.navigate('EasterEgg');
+        return;
+      }
+
       await requestLogin({
         login,
         password,
@@ -37,7 +42,7 @@ const Login: React.FC<AuthStackScreenProps<'Login'>> = ({
     } finally {
       setLoading(false);
     }
-  }, [login, password, requestLogin, showToast, t]);
+  }, [login, navigation, password, requestLogin, showToast, t]);
 
   useEffect(() => {
     if (route.params?.login && route.params?.password) {

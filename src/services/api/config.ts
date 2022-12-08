@@ -1,9 +1,19 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as localStorage from '@services/localStorage';
-import { BASE_URL } from '@constants/api';
+import { DEV_URL } from '@constants/api';
 
 export const apiInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: DEV_URL,
+});
+
+localStorage.getItem('url').then((res) => {
+  if (res) {
+    console.log('[AXIOS] BASE_URL:', res);
+    apiInstance.defaults.baseURL = res;
+  } else {
+    console.log('[AXIOS] BASE_URL:', DEV_URL);
+    apiInstance.defaults.baseURL = DEV_URL;
+  }
 });
 
 export const apiLogger = (config: {
