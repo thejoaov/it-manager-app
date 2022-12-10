@@ -49,7 +49,11 @@ const EasterEgg: React.FC<AppStackScreenProps<'EasterEgg'>> = ({
   }, [baseUrl, showToast, t]);
 
   return (
-    <PageTemplate onBackPress={navigation.goBack} title={t('title') ?? ''}>
+    <PageTemplate
+      onBackPress={navigation.goBack}
+      title={t('title') ?? ''}
+      testID="easterEgg"
+    >
       <Flexbox>
         <Container
           flexDirection="row"

@@ -10,10 +10,11 @@ import {
   BordersProps,
 } from 'styled-system';
 
-import { PageStyled } from './styles';
+import { PageStyled, SafePageStyled } from './styles';
 
 export type PageProps = {
   as?: React.ElementType;
+  safe?: boolean;
 } & SpaceProps &
   LayoutProps &
   FlexboxProps &
@@ -24,7 +25,7 @@ export type PageProps = {
 const Page: React.FC<PropsWithChildren<PageProps>> = ({
   flex = 1,
   backgroundColor,
-
+  safe,
   ...otherProps
 }: PageProps) => {
   const { colors } = useTheme();
@@ -37,7 +38,15 @@ const Page: React.FC<PropsWithChildren<PageProps>> = ({
     return colorScheme === 'dark' ? '#000' : colors.background;
   }, [backgroundColor, colorScheme, colors.background]);
 
-  return (
+  return safe ? (
+    <SafePageStyled flex={1}>
+      <PageStyled
+        flex={flex}
+        backgroundColor={getBackgroundColor}
+        {...otherProps}
+      />
+    </SafePageStyled>
+  ) : (
     <PageStyled
       flex={flex}
       backgroundColor={getBackgroundColor}
