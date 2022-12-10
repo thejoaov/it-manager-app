@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import apiService from '@services/api';
 import { User } from '@models/user';
-import * as localStorage from '@services/localStorage';
+import localStorage from '@services/localStorage';
 import { apiInstance } from '@services/api/config';
 import { ApiError } from '@models/errors';
 
