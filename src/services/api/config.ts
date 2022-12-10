@@ -1,13 +1,14 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import * as localStorage from '@services/localStorage';
+import localStorage from '@services/localStorage';
 import { DEV_URL } from '@constants/api';
+import { AXIOS_URL } from '@constants/storage';
 
 export const apiInstance = axios.create({
   baseURL: DEV_URL,
 });
 
 export const loadBaseUrl = () => {
-  localStorage.getItem('url').then((res) => {
+  localStorage.getItem(AXIOS_URL).then((res) => {
     if (res) {
       console.log('[AXIOS] BASE_URL:', res);
       apiInstance.defaults.baseURL = res;

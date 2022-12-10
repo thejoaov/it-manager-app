@@ -8,8 +8,9 @@ import { DEV_URL, PROD_URL, STG_URL } from '@constants/api';
 import { apiInstance } from '@services/api/config';
 import { useTranslation } from 'react-i18next';
 import Flexbox from '@components/atoms/Flexbox';
-import { setItem } from '@services/localStorage';
+import localStorage from '@services/localStorage';
 import { useToastContext } from '@contexts/toast';
+import { AXIOS_URL } from '@constants/storage';
 
 const EasterEgg: React.FC<AppStackScreenProps<'EasterEgg'>> = ({
   navigation,
@@ -31,7 +32,7 @@ const EasterEgg: React.FC<AppStackScreenProps<'EasterEgg'>> = ({
   const handleSubmit = useCallback(async () => {
     try {
       setLoading(true);
-      await setItem('BASE_URL', baseUrl);
+      await localStorage.setItem(AXIOS_URL, baseUrl);
       apiInstance.defaults.baseURL = baseUrl;
       showToast({
         text: t('toast.success') ?? '',
