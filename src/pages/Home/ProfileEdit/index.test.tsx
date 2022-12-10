@@ -2,6 +2,7 @@ import React from 'react';
 import { render, waitFor, RenderAPI } from '@testing-library/react-native';
 import ProfileEdit from './index';
 import { navigationMock, routeMock } from '@utils/testUtils';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 let wrapper: RenderAPI;
 
@@ -28,7 +29,9 @@ describe('ProfileEdit', () => {
   beforeEach(async () => {
     await waitFor(() => {
       wrapper = render(
-        <ProfileEdit navigation={navigationMock()} route={routeMock()} />
+        <SafeAreaProvider>
+          <ProfileEdit navigation={navigationMock()} route={routeMock()} />
+        </SafeAreaProvider>
       );
     });
   });

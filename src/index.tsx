@@ -1,22 +1,20 @@
 import '@i18n';
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 
 import Router from '@routes';
 import AppContextProvider from '@contexts/appContext';
-import SafeContainer from '@components/atoms/SafeContainer';
-import useTheme from '@hooks/useTheme';
+import { loadBaseUrl } from '@services/api/config';
 
 const App = () => {
-  const { colors } = useTheme();
+  useEffect(() => {
+    loadBaseUrl();
+  }, []);
 
   return (
     <AppContextProvider>
       <StatusBar style="auto" translucent />
-
-      <SafeContainer backgroundColor={colors.background} testID="app-container">
-        <Router />
-      </SafeContainer>
+      <Router />
     </AppContextProvider>
   );
 };

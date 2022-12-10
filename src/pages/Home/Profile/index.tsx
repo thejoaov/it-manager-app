@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Avatar, Button, Card, Chip } from 'react-native-paper';
-import { Linking, ScrollView } from 'react-native';
+import { Linking } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
 import { useFocusEffect } from '@react-navigation/native';
@@ -8,8 +8,9 @@ import { useAuthContext } from '@contexts/auth';
 import Container from '@components/atoms/Container';
 import { AppStackScreenProps } from '@routes/types';
 import { getFirstTwoLetters } from '@utils/string';
-import Page from '@components/atoms/Page';
+
 import useTheme from '@hooks/useTheme';
+import SafeContainer from '@components/atoms/SafeContainer';
 
 const Profile: React.FC<AppStackScreenProps<'Profile'>> = ({ navigation }) => {
   const { user, requestLogout, requestUserInfo } = useAuthContext();
@@ -28,7 +29,7 @@ const Profile: React.FC<AppStackScreenProps<'Profile'>> = ({ navigation }) => {
   }, [navigation]);
 
   return (
-    <Page as={ScrollView} testID="profile">
+    <SafeContainer testID="profile">
       <Container backgroundColor={colors.background}>
         <Container width="100%" p={20}>
           <Avatar.Text
@@ -146,7 +147,7 @@ const Profile: React.FC<AppStackScreenProps<'Profile'>> = ({ navigation }) => {
           {t('buttons.edit')}
         </Button>
       </Card.Actions>
-    </Page>
+    </SafeContainer>
   );
 };
 
