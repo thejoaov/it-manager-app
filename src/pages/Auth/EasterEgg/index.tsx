@@ -66,6 +66,7 @@ const EasterEgg: React.FC<AppStackScreenProps<'EasterEgg'>> = ({
               label={t('apiUrlLabel') ?? ''}
               placeholder={t('apiUrlPlaceholder') ?? ''}
               value={baseUrl}
+              onChangeText={setBaseUrl}
               disabled={loading}
             />
           </Flexbox>

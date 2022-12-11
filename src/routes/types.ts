@@ -1,4 +1,4 @@
-import { TicketFull } from '@models/tickets';
+import { Ticket } from '@models/tickets';
 import { ProfileWithUser } from '@models/user';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RoleFilter } from '@services/api/types';
@@ -19,7 +19,7 @@ export type AppStackParamList = {
   EasterEgg: undefined;
   Ticket: {
     type: 'edit' | 'new' | 'details';
-    ticket?: Partial<TicketFull>;
+    ticket?: Partial<Ticket>;
   };
   ProfileEdit: undefined;
   SearchProfile: {

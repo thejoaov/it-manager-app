@@ -1,7 +1,7 @@
 import Container from '@components/atoms/Container';
 import TicketCard from '@components/molecules/TicketCard';
 import useRequest from '@hooks/useRequest';
-import { TicketFull } from '@models/tickets';
+import { Ticket } from '@models/tickets';
 import apiService from '@services/api';
 import { ResponseGetTickets } from '@services/api/types';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -11,8 +11,8 @@ import { ActivityIndicator, Badge, Text } from 'react-native-paper';
 import { Carousel } from 'react-native-snap-carousel';
 
 export type UserDashboardTemplateProps = {
-  open: TicketFull[];
-  solving: TicketFull[];
+  open: Ticket[];
+  solving: Ticket[];
   reload: () => void;
   reloading: boolean;
 };
@@ -23,10 +23,12 @@ const UserDashboardTemplate: React.FC<UserDashboardTemplateProps> = ({
   reload,
   reloading,
 }) => {
-  const [closedTickets, setClosedTickets] = useState<TicketFull[]>([]);
-  const [closedTicketsPage, setClosedTicketsPage] = useState(1);
-
+  const { width } = useWindowDimensions();
+  const { t } = useTranslation('dashboard');
   const { request, meta, loading } = useRequest<ResponseGetTickets>();
+
+  const [closedTickets, setClosedTickets] = useState<Ticket[]>([]);
+  const [closedTicketsPage, setClosedTicketsPage] = useState(1);
 
   const getClosedTicketsPaginated = useCallback(async () => {
     try {
@@ -50,9 +52,6 @@ const UserDashboardTemplate: React.FC<UserDashboardTemplateProps> = ({
       setClosedTicketsPage((old) => old + 1);
     }
   }, [meta?.current_page, meta?.last_page]);
-
-  const { width } = useWindowDimensions();
-  const { t } = useTranslation('userDashboard');
 
   useEffect(() => {
     getClosedTicketsPaginated();

@@ -20,14 +20,14 @@ import {
 
 // Import screens
 import EasterEgg from '@pages/Auth/EasterEgg';
-import SearchProfile from '@pages/Tickets/SearchProfile';
-import ProfileEdit from '@pages/Home/ProfileEdit';
-import Ticket from '@pages/Tickets/Ticket';
-import Profile from '@pages/Home/Profile';
-import TicketList from '@pages/Home/TicketList';
-import Dashboard from '@pages/Home/Dashboard';
 import Login from '@pages/Auth/Login';
 import Register from '@pages/Auth/Register';
+import Dashboard from '@pages/Home/Dashboard';
+import ProfileEdit from '@pages/Profile/ProfileEdit';
+import Profile from '@pages/Profile/Profile';
+import SearchProfile from '@pages/Profile/SearchProfile';
+import Ticket from '@pages/Ticket/Ticket';
+import TicketList from '@pages/Ticket/TicketList';
 
 const AuthStack = createStackNavigator<AuthStackParamList>();
 const AuthRouter = () => {

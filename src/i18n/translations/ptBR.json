@@ -11,7 +11,20 @@
       "back": "Voltar",
       "yes": "Sim",
       "no": "Não",
-      "ok": "Ok"
+      "ok": "Ok",
+      "search": "Buscar",
+      "clear": "Limpar",
+      "login": "Entrar",
+      "register": "Cadastrar",
+      "logout": "Sair",
+      "details": "Detalhes",
+      "saveChanges": "Salvar alterações",
+      "create": "Criar",
+      "saveAndClose": "Salvar e sair",
+      "closeTicket": "Fechar",
+      "reopenTicket": "Reabrir",
+      "assignTicket": "Atribuir",
+      "assignToMe": "Atribuir a mim"
     },
     "datePicker": {
       "sabeLabel": "Salvar"
@@ -59,7 +72,15 @@
     }
   },
   "dashboard": {
-    "title": "Meus chamados"
+    "title": "Dashboard",
+    "solvingTitle": "Em andamento",
+    "openTitle": "Em Aberto",
+    "closedTitle": "Fechados",
+    "unassignedTitle": "Não atribuídos",
+    "noSolvingTickets": "Nenhum chamado em andamento",
+    "noOpenTickets": "Nenhum chamado em aberto",
+    "noClosedTickets": "Nenhum chamado fechado",
+    "noUnassignedTickets": "Nenhum chamado não atribuído"
   },
   "profile": {
     "username": "Nome de usuário",
@@ -130,6 +151,13 @@
         "low": "Baixa",
         "medium": "Média",
         "high": "Alta"
+      },
+      "statusLabel": "Status",
+      "statusPlaceholder": "Status",
+      "statusOptions": {
+        "open": "Aberto",
+        "solving": "Em andamento",
+        "closed": "Fechado"
       }
     },
     "buttons": {
@@ -158,11 +186,7 @@
       "error": "Erro ao atualizar perfil"
     }
   },
-  "userDashboard": {
-    "solvingTitle": "Em andamento",
-    "openTitle": "Em Aberto",
-    "closedTitle": "Fechados"
-  },
+
   "easterEgg": {
     "title": "Easter Egg 🗿🍷",
     "apiUrlLabel": "Base Url",

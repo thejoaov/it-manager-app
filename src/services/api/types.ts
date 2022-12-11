@@ -1,5 +1,5 @@
 import { Profile, ProfileWithUser, User } from '@models/user';
-import { Ticket, TicketFull } from '@models/tickets';
+import { Ticket, Ticket } from '@models/tickets';
 
 export type RoleFilter =
   | 'except-guest'
@@ -82,12 +82,12 @@ export type RequestGetTickets = RequestWithPagination<{
   status?: 'open' | 'closed' | 'solving';
   priority?: 'low' | 'medium' | 'high';
 }>;
-export type ResponseGetTickets = ResponseWithPagination<TicketFull[]>;
+export type ResponseGetTickets = ResponseWithPagination<Ticket[]>;
 
 export type RequestGetTicketById = {
   id: number;
 };
-export type ResponseGetTicketById = TicketFull;
+export type ResponseGetTicketById = Ticket;
 
 export type RequestPutTicketById = Partial<
   Omit<Ticket, 'id' | 'created_at' | 'updated_at'>
@@ -109,7 +109,7 @@ export type RequestGetProfiles = RequestWithPagination<{
   name?: string;
   username?: string;
   email?: string;
-  filterByRole?: RoleFilter;
+  roleFilter?: RoleFilter;
 }>;
 export type ResponseGetProfiles = ResponseWithPagination<ProfileWithUser[]>;
 
@@ -131,8 +131,8 @@ export type RequestPutProfileByUserId = {
 export type ResponsePutProfileByUserId = Profile;
 
 export type ResponseGetDashboard = {
-  open: TicketFull[] | null;
-  solving: TicketFull[] | null;
+  open: Ticket[] | null;
+  solving: Ticket[] | null;
 };
 
 export type ResponseGetTicketsCount = {

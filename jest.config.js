@@ -3,9 +3,8 @@ module.exports = {
     __DEV__: false,
   },
   silent: true,
+  testEnvironment: 'node',
   preset: 'jest-expo',
-  // timers: 'fake',
-  // testEnvironment: 'jsdom',
   setupFilesAfterEnv: [
     '@testing-library/jest-native/extend-expect',
     './jest.setup.js',
