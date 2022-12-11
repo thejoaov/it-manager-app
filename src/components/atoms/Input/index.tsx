@@ -1,3 +1,4 @@
+import { IconName } from '@utils/icons';
 import React, {
   forwardRef,
   useCallback,
@@ -13,18 +14,27 @@ import {
   TextInputProps,
   MD3Theme,
 } from 'react-native-paper';
-import { IconSource } from 'react-native-paper/lib/typescript/components/Icon';
 
 export type InputProps = {
   theme?: Partial<MD3Theme>;
   showSecureButton?: boolean;
   error?: string;
-} & Omit<Omit<TextInputProps, 'theme'>, 'error'>;
+  leftIcon?: IconName;
+  rightIcon?: IconName;
+} & Omit<TextInputProps, 'theme' | 'error'>;
 
 export type InputRefProps = RNTextInput;
 
 const Input: React.ForwardRefRenderFunction<unknown, InputProps> = (
-  { showSecureButton = false, error, ...props },
+  {
+    showSecureButton = false,
+    error,
+    leftIcon,
+    rightIcon,
+    left,
+    right,
+    ...props
+  },
   ref
 ) => {
   const [securePassword, setSecurePassword] = useState(showSecureButton);
@@ -40,12 +50,9 @@ const Input: React.ForwardRefRenderFunction<unknown, InputProps> = (
     setSecurePassword(!securePassword);
   }, [securePassword]);
 
-  const getRigthIcon = useMemo((): IconSource => {
-    if (showSecureButton) {
-      return securePassword ? 'eye-off' : 'eye';
-    }
-    return '';
-  }, [securePassword, showSecureButton]);
+  const getSecureIcon = useMemo((): IconName => {
+    return securePassword ? 'eye-off' : 'eye';
+  }, [securePassword]);
 
   return (
     <>
@@ -56,13 +63,16 @@ const Input: React.ForwardRefRenderFunction<unknown, InputProps> = (
         {...props}
         error={!!error}
         secureTextEntry={securePassword}
+        left={left || (leftIcon ? <TextInput.Icon icon={leftIcon} /> : null)}
         right={
-          showSecureButton && (
+          right ||
+          (showSecureButton && (
             <TextInput.Icon
-              icon={getRigthIcon}
+              icon={getSecureIcon}
               onPress={handlePasswordVisibility}
             />
-          )
+          )) ||
+          (rightIcon ? <TextInput.Icon icon={rightIcon} /> : null)
         }
       />
       {error && (

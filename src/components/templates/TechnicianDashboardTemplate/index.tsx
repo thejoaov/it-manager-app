@@ -1,10 +1,10 @@
-import { TicketFull } from '@models/tickets';
+import { Ticket } from '@models/tickets';
 import React from 'react';
 import { TechnicianDashboardTemplateContainer } from './styles';
 
 export type TechnicianDashboardTemplateProps = {
-  open: TicketFull[];
-  solving: TicketFull[];
+  open: Ticket[];
+  solving: Ticket[];
   reload: () => void;
   reloading: boolean;
 };

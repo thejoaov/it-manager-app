@@ -1,9 +1,11 @@
 import Container from '@components/atoms/Container';
 import { useAuthContext } from '@contexts/auth';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import useRequest from '@hooks/useRequest';
 import useTheme from '@hooks/useTheme';
-import { TicketFull } from '@models/tickets';
+import { Ticket } from '@models/tickets';
 import { useNavigation } from '@react-navigation/native';
+import apiService from '@services/api';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -11,14 +13,18 @@ import { Button, Card, Paragraph, Text } from 'react-native-paper';
 import { TicketCardContainer } from './styles';
 
 export type TicketCardProps = {
-  item: TicketFull;
+  item: Ticket;
+  refreshList?: () => void;
 };
 
-const TicketCard: React.FC<TicketCardProps> = ({ item }) => {
+const TicketCard: React.FC<TicketCardProps> = ({ item, refreshList }) => {
   const { colors, roundness } = useTheme();
   const { t } = useTranslation('ticketCard');
   const navigation = useNavigation();
   const { user } = useAuthContext();
+
+  const { request: requestAssign, loading: loadingAssign } = useRequest();
+  const { request: requestClose, loading: loadingClose } = useRequest();
 
   const getPriority = useMemo(() => {
     const iconByPriority: Record<
@@ -85,12 +91,51 @@ const TicketCard: React.FC<TicketCardProps> = ({ item }) => {
     [getPriority.color, getPriority.icon, getStatus.color, getStatus.icon]
   );
 
-  const handlePress = useCallback(() => {
+  const handleEdit = useCallback(() => {
     navigation.navigate('Ticket', {
       type: 'edit',
       ticket: item,
     });
   }, [item, navigation]);
+
+  const assignTo = useCallback(
+    async (profileId: number) => {
+      try {
+        await requestAssign(
+          apiService.putTicketById({
+            id: item.id,
+            assignee_id: profileId,
+          })
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [item.id, requestAssign]
+  );
+
+  const handleAssign = useCallback(() => {
+    navigation.navigate('SearchProfile', {
+      roleFilter: 'admin-personel',
+      handleSelect: async (profile) => {
+        await assignTo(profile.user_id);
+      },
+    });
+  }, [assignTo, navigation]);
+
+  const handleClose = useCallback(async () => {
+    try {
+      await requestClose(
+        apiService.putTicketById({
+          id: item.id,
+          status: 'closed',
+        })
+      );
+      refreshList?.();
+    } catch (error) {
+      console.log(error);
+    }
+  }, [item.id, refreshList, requestClose]);
 
   return (
     <TicketCardContainer testID="ticketCard-container">
@@ -103,7 +148,9 @@ const TicketCard: React.FC<TicketCardProps> = ({ item }) => {
         />
 
         <Card.Content>
-          <Paragraph numberOfLines={2}>{item.description}</Paragraph>
+          {item.description && (
+            <Paragraph numberOfLines={2}>{item.description}</Paragraph>
+          )}
           <Container flexDirection="row" alignItems="center" marginTop={10}>
             <Container marginRight={2}>
               <MaterialCommunityIcons
@@ -138,12 +185,28 @@ const TicketCard: React.FC<TicketCardProps> = ({ item }) => {
           </Container>
         </Card.Content>
         <Card.Actions>
-          {(item.status === 'open' ||
-            ['admin', 'manager', 'support'].includes(
+          <>
+            {['admin', 'manager', 'support'].includes(
               user?.profile?.role || ''
-            )) && (
-            <Button onPress={handlePress}>{t('common:buttons.edit')}</Button>
-          )}
+            ) &&
+              !item.assignee_id && (
+                <Button onPress={handleAssign} loading={loadingAssign}>
+                  {t('common:buttons.assignTicket')}
+                </Button>
+              )}
+
+            {(item.status === 'open' ||
+              ['admin', 'manager', 'support'].includes(
+                user?.profile?.role || ''
+              )) && (
+              <Button onPress={handleEdit}>{t('common:buttons.edit')}</Button>
+            )}
+            {item.status === 'solving' && (
+              <Button onPress={handleClose} loading={loadingClose}>
+                {t('common:buttons.closeTicket')}
+              </Button>
+            )}
+          </>
         </Card.Actions>
       </Card>
     </TicketCardContainer>

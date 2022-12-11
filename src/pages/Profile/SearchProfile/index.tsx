@@ -28,7 +28,7 @@ const SearchProfile: React.FC<AppStackScreenProps<'SearchProfile'>> = ({
         email: text,
         name: text,
         username: text,
-        filterByRole: route.params.roleFilter || 'all',
+        roleFilter: route.params.roleFilter || 'all',
       })
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps

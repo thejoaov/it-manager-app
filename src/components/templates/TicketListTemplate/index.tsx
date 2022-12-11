@@ -3,7 +3,7 @@ import { Dimensions, FlatList } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import TicketCard from '@components/molecules/TicketCard';
 import { ApiError } from '@models/errors';
-import { TicketFull } from '@models/tickets';
+import { Ticket } from '@models/tickets';
 import { ResponseGetTickets } from '@services/api/types';
 import Empty from '@components/organisms/Empty';
 import Flexbox from '@components/atoms/Flexbox';
@@ -12,7 +12,7 @@ import { TicketListTemplateContainer } from './styles';
 import Container from '@components/atoms/Container';
 
 export type TicketListTemplateProps = {
-  tickets: TicketFull[];
+  tickets: Ticket[];
   loading: boolean;
   error?: Error | ApiError | null;
   meta?: ResponseGetTickets['meta'];
