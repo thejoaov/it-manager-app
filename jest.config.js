@@ -3,6 +3,7 @@ module.exports = {
     __DEV__: false,
   },
   silent: true,
+  testEnvironment: 'node',
   preset: 'jest-expo',
   setupFilesAfterEnv: [
     '@testing-library/jest-native/extend-expect',

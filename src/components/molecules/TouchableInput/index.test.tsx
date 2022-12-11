@@ -1,5 +1,3 @@
-/* eslint-disable jest/no-disabled-tests */
-/* eslint-disable jest/no-test-prefixes */
 import React from 'react';
 import { render, waitFor, RenderAPI } from '@testing-library/react-native';
 import TouchableInput from './index';
@@ -7,7 +5,7 @@ import AppContextProvider from '@contexts/appContext';
 
 let wrapper: RenderAPI;
 
-xdescribe('TouchableInput', () => {
+describe('TouchableInput', () => {
   beforeEach(async () => {
     await waitFor(() => {
       wrapper = render(

@@ -1,12 +1,10 @@
-/* eslint-disable jest/no-test-prefixes */
-/* eslint-disable jest/no-disabled-tests */
 import React from 'react';
 import { render, waitFor, RenderAPI } from '@testing-library/react-native';
 import SelectInput from './index';
 
 let wrapper: RenderAPI;
 
-xdescribe('SelectInput', () => {
+describe('SelectInput', () => {
   beforeEach(async () => {
     await waitFor(() => {
       wrapper = render(
