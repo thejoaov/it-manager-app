@@ -1,16 +1,18 @@
+/* eslint-disable jest/no-disabled-tests */
+/* eslint-disable jest/no-test-prefixes */
 import React from 'react';
 import { render, waitFor, RenderAPI } from '@testing-library/react-native';
-import PressableInput from './index';
+import TouchableInput from './index';
 import AppContextProvider from '@contexts/appContext';
 
 let wrapper: RenderAPI;
 
-describe('PressableInput', () => {
+xdescribe('TouchableInput', () => {
   beforeEach(async () => {
     await waitFor(() => {
       wrapper = render(
         <AppContextProvider>
-          <PressableInput />
+          <TouchableInput onPress={jest.fn()} />
         </AppContextProvider>
       );
     });
@@ -19,6 +21,6 @@ describe('PressableInput', () => {
   it('should render', () => {
     const { getByTestId } = wrapper;
 
-    expect(getByTestId('pressableInput-container')).toBeTruthy();
+    expect(getByTestId('TouchableInput-container')).toBeTruthy();
   });
 });

@@ -2,7 +2,7 @@ import Input from '@components/atoms/Input';
 import { IconName } from '@utils/icons';
 import { ITheme } from '@utils/theme';
 import React, { useState } from 'react';
-import { PressableProps } from 'react-native';
+import { TouchableOpacityProps } from 'react-native';
 import { Menu, MenuItemProps, TextInput } from 'react-native-paper';
 import { SelectInputContainer } from './styles';
 
@@ -19,6 +19,7 @@ export type SelectInputProps = {
   onDismiss?: () => void;
   inputIcon?: IconName;
   onIconPress?: () => void;
+  disabled?: boolean;
   inputOnPressIn?: () => void;
   inputDisabled?: boolean;
   inputValue?: string;
@@ -26,7 +27,7 @@ export type SelectInputProps = {
   inputLabel?: string;
   inputPlaceholder?: string;
   inputRight?: React.ReactNode;
-} & PressableProps;
+} & TouchableOpacityProps;
 
 const SelectInput: React.FC<SelectInputProps> = ({
   anchor,
@@ -48,6 +49,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
   return (
     <SelectInputContainer
       testID="selectInput-container"
+      activeOpacity={0.5}
       {...props}
       onPress={() => {
         setMenuVisible(true);

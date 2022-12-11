@@ -10,7 +10,12 @@ describe('AdminDashboardTemplate', () => {
     await waitFor(() => {
       wrapper = render(
         <AppContextProvider>
-          <AdminDashboardTemplate />
+          <AdminDashboardTemplate
+            open={[]}
+            reload={jest.fn()}
+            reloading={false}
+            solving={[]}
+          />
         </AppContextProvider>
       );
     });

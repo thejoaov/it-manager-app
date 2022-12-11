@@ -19,7 +19,7 @@ import SelectInput, {
   SelectInputProps,
 } from '@components/molecules/SelectInput';
 import { IconName } from '@utils/icons';
-import PressableInput from '@components/molecules/PressableInput';
+import TouchableInput from '@components/molecules/TouchableInput';
 
 const Ticket: React.FC<AppStackScreenProps<'Ticket'>> = ({
   navigation,
@@ -418,7 +418,7 @@ const Ticket: React.FC<AppStackScreenProps<'Ticket'>> = ({
           />
 
           {user?.profile?.role === 'admin' && (
-            <PressableInput
+            <TouchableInput
               onPress={() => {
                 navigation.navigate('SearchProfile', {
                   headerTitle: t('inputs.openerLabel') ?? '',
@@ -447,7 +447,7 @@ const Ticket: React.FC<AppStackScreenProps<'Ticket'>> = ({
             user?.profile?.role || ''
           ) && (
             <>
-              <PressableInput
+              <TouchableInput
                 onPress={() => {
                   navigation.navigate('SearchProfile', {
                     headerTitle: t('inputs.assigneeLabel') ?? '',

@@ -70,7 +70,7 @@ const AdminDashboardTemplate: React.FC<AdminDashboardTemplateProps> = ({
 
   return (
     <FlatList
-      testID="AdminDashboardTemplate-container"
+      testID="adminDashboardTemplate-container"
       refreshing={reloading}
       onRefresh={reload}
       data={
