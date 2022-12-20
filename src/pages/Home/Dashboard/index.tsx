@@ -39,11 +39,15 @@ const Dashboard: React.FC<AppStackScreenProps<'Dashboard'>> = ({
     }, [requestDashboard])
   );
 
+  const getDashboardTitleByRole = useMemo(() => {
+    return t(`${user?.profile?.role}DashboardTitle`);
+  }, [t, user?.profile?.role]);
+
   const getDashboardByRole = useMemo(() => {
     const open = response?.open || [];
     const solving = response?.solving || [];
 
-    const componetByRole: Record<Profile['role'], JSX.Element> = {
+    const componentByRole: Record<Profile['role'], JSX.Element> = {
       admin: (
         <AdminDashboardTemplate
           open={open}
@@ -87,7 +91,7 @@ const Dashboard: React.FC<AppStackScreenProps<'Dashboard'>> = ({
       guest: <></>,
     };
 
-    return componetByRole[user?.profile?.role || 'user'];
+    return componentByRole[user?.profile?.role || 'user'];
   }, [
     loading,
     requestDashboard,
@@ -99,7 +103,7 @@ const Dashboard: React.FC<AppStackScreenProps<'Dashboard'>> = ({
   return (
     <Page testID="dashboard">
       <Appbar.Header mode="small">
-        <Appbar.Content title={t('title')} />
+        <Appbar.Content title={getDashboardTitleByRole} />
         <Appbar.Action icon="magnify" />
         <Appbar.Action
           icon="plus"
