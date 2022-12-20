@@ -80,7 +80,14 @@
     "noSolvingTickets": "Nenhum chamado em andamento",
     "noOpenTickets": "Nenhum chamado em aberto",
     "noClosedTickets": "Nenhum chamado fechado",
-    "noUnassignedTickets": "Nenhum chamado não atribuído"
+    "noUnassignedTickets": "Nenhum chamado não atribuído",
+    "currentlySolvingTitle": "Estou resolvendo",
+    "technicianDashboardTitle": "Dashboard Técnico",
+    "adminDashboardTitle": "Dashboard Admin",
+    "userDashboardTitle": "Dashboard",
+    "managerDashboardTitle": "Dashboard Gerente",
+    "supportDashboardTitle": "Dashboard Suporte",
+    "guestDashboardTitle": "Dashboard Visitante"
   },
   "profile": {
     "username": "Nome de usuário",

@@ -10,7 +10,12 @@ describe('TechnicianDashboardTemplate', () => {
     await waitFor(() => {
       wrapper = render(
         <AppContextProvider>
-          <TechnicianDashboardTemplate />
+          <TechnicianDashboardTemplate
+            open={[]}
+            reload={jest.fn()}
+            reloading={false}
+            solving={[]}
+          />
         </AppContextProvider>
       );
     });
