@@ -24,7 +24,8 @@
       "closeTicket": "Fechar",
       "reopenTicket": "Reabrir",
       "assignTicket": "Atribuir",
-      "assignToMe": "Atribuir a mim"
+      "assignToMe": "Atribuir a mim",
+      "progressToSolving": "Iniciar resolução"
     },
     "datePicker": {
       "sabeLabel": "Salvar"
@@ -78,6 +79,7 @@
     "closedTitle": "Fechados",
     "unassignedTitle": "Não atribuídos",
     "noSolvingTickets": "Nenhum chamado em andamento",
+    "assignedToMeTitle": "Atribuídos a mim",
     "noOpenTickets": "Nenhum chamado em aberto",
     "noClosedTickets": "Nenhum chamado fechado",
     "noUnassignedTickets": "Nenhum chamado não atribuído",

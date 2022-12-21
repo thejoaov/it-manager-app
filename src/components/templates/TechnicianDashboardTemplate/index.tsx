@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Container from '@components/atoms/Container';
 import TicketCard from '@components/molecules/TicketCard';
 import { Ticket } from '@models/tickets';
@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { FlatList, useWindowDimensions } from 'react-native';
 import { Badge, Text } from 'react-native-paper';
 import { Carousel } from 'react-native-snap-carousel';
+import { useAuthContext } from '@contexts/auth';
 
 export type TechnicianDashboardTemplateProps = {
   open: Ticket[];
@@ -19,6 +20,11 @@ const TechnicianDashboardTemplate: React.FC<
 > = ({ open, solving, reload, reloading }) => {
   const { width } = useWindowDimensions();
   const { t } = useTranslation('dashboard');
+  const { user } = useAuthContext();
+
+  const assignedToMe = useMemo(() => {
+    return open.filter((ticket) => ticket.assignee_id === user?.id);
+  }, [open, user?.id]);
 
   return (
     <FlatList
@@ -29,7 +35,13 @@ const TechnicianDashboardTemplate: React.FC<
       keyExtractor={(item) => item.id.toString()}
       ListHeaderComponent={
         <>
-          <Container ml={20} my={1} alignItems="center" flexDirection="row">
+          <Container
+            ml={20}
+            mb={1}
+            mt={20}
+            alignItems="center"
+            flexDirection="row"
+          >
             <Text variant="headlineSmall">{t('currentlySolvingTitle')}</Text>
             <Container ml={2}>
               <Badge>{solving.length}</Badge>
@@ -39,7 +51,32 @@ const TechnicianDashboardTemplate: React.FC<
             data={solving}
             itemWidth={width * 0.93}
             vertical={false}
-            renderItem={({ item }) => <TicketCard item={item} />}
+            renderItem={({ item }) => (
+              <TicketCard refreshList={reload} item={item} />
+            )}
+            sliderWidth={width}
+            inactiveSlideScale={0.97}
+          />
+
+          <Container
+            ml={20}
+            mb={1}
+            mt={20}
+            alignItems="center"
+            flexDirection="row"
+          >
+            <Text variant="headlineSmall">{t('assignedToMeTitle')}</Text>
+            <Container ml={2}>
+              <Badge>{assignedToMe.length}</Badge>
+            </Container>
+          </Container>
+          <Carousel
+            data={assignedToMe}
+            itemWidth={width * 0.93}
+            vertical={false}
+            renderItem={({ item }) => (
+              <TicketCard refreshList={reload} item={item} />
+            )}
             sliderWidth={width}
             inactiveSlideScale={0.97}
           />
@@ -60,7 +97,7 @@ const TechnicianDashboardTemplate: React.FC<
       }
       renderItem={({ item, index }) => (
         <Container key={item.id} mx={1} mb={index === open.length - 1 ? 10 : 0}>
-          <TicketCard item={item} />
+          <TicketCard item={item} refreshList={reload} />
         </Container>
       )}
     />
