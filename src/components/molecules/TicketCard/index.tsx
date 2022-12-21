@@ -25,6 +25,7 @@ const TicketCard: React.FC<TicketCardProps> = ({ item, refreshList }) => {
 
   const { request: requestAssign, loading: loadingAssign } = useRequest();
   const { request: requestClose, loading: loadingClose } = useRequest();
+  const { request: requestProgress, loading: loadingProgress } = useRequest();
 
   const getPriority = useMemo(() => {
     const iconByPriority: Record<
@@ -137,6 +138,21 @@ const TicketCard: React.FC<TicketCardProps> = ({ item, refreshList }) => {
     }
   }, [item.id, refreshList, requestClose]);
 
+  const handleProgressToSolving = useCallback(async () => {
+    try {
+      await requestProgress(
+        apiService.putTicketById({
+          id: item.id,
+          status: 'solving',
+          assignee_id: user?.profile?.id,
+        })
+      );
+      refreshList?.();
+    } catch (error) {
+      console.log(error);
+    }
+  }, [item.id, refreshList, requestProgress, user?.profile?.id]);
+
   return (
     <TicketCardContainer testID="ticketCard-container">
       <Card style={{ borderRadius: roundness * 3 }}>
@@ -201,8 +217,24 @@ const TicketCard: React.FC<TicketCardProps> = ({ item, refreshList }) => {
               )) && (
               <Button onPress={handleEdit}>{t('common:buttons.edit')}</Button>
             )}
+
+            {item.status === 'open' &&
+              ['technician'].includes(user?.profile?.role as string) && (
+                <Button
+                  onPress={handleProgressToSolving}
+                  loading={loadingProgress}
+                  mode="contained"
+                >
+                  {t('common:buttons.progressToSolving')}
+                </Button>
+              )}
+
             {item.status === 'solving' && (
-              <Button onPress={handleClose} loading={loadingClose}>
+              <Button
+                onPress={handleClose}
+                loading={loadingClose}
+                mode="outlined"
+              >
                 {t('common:buttons.closeTicket')}
               </Button>
             )}
