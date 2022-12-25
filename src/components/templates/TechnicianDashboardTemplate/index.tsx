@@ -52,7 +52,9 @@ const TechnicianDashboardTemplate: React.FC<
             itemWidth={width * 0.93}
             vertical={false}
             renderItem={({ item }) => (
-              <TicketCard refreshList={reload} item={item} />
+              <Container py={1}>
+                <TicketCard refreshList={reload} item={item} />
+              </Container>
             )}
             sliderWidth={width}
             inactiveSlideScale={0.97}

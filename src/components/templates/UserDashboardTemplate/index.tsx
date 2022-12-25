@@ -85,7 +85,11 @@ const UserDashboardTemplate: React.FC<UserDashboardTemplateProps> = ({
             data={solving}
             itemWidth={width * 0.93}
             vertical={false}
-            renderItem={({ item }) => <TicketCard item={item} />}
+            renderItem={({ item }) => (
+              <Container py={1}>
+                <TicketCard item={item} />
+              </Container>
+            )}
             sliderWidth={width}
             inactiveSlideScale={0.97}
           />
@@ -106,7 +110,11 @@ const UserDashboardTemplate: React.FC<UserDashboardTemplateProps> = ({
             data={open}
             itemWidth={width * 0.93}
             vertical={false}
-            renderItem={({ item }) => <TicketCard item={item} />}
+            renderItem={({ item }) => (
+              <Container py={1}>
+                <TicketCard item={item} />
+              </Container>
+            )}
             sliderWidth={width}
             inactiveSlideScale={0.97}
           />
