@@ -103,13 +103,15 @@ const AdminDashboardTemplate: React.FC<AdminDashboardTemplateProps> = ({
                 itemWidth={width * 0.93}
                 vertical={false}
                 renderItem={({ item }) => (
-                  <TicketCard
-                    item={item}
-                    refreshList={() => {
-                      reload();
-                      getClosedTicketsPaginated();
-                    }}
-                  />
+                  <Container py={1}>
+                    <TicketCard
+                      item={item}
+                      refreshList={() => {
+                        reload();
+                        getClosedTicketsPaginated();
+                      }}
+                    />
+                  </Container>
                 )}
                 sliderWidth={width}
                 inactiveSlideScale={0.97}
@@ -136,13 +138,15 @@ const AdminDashboardTemplate: React.FC<AdminDashboardTemplateProps> = ({
                 itemWidth={width * 0.93}
                 vertical={false}
                 renderItem={({ item }) => (
-                  <TicketCard
-                    item={item}
-                    refreshList={() => {
-                      reload();
-                      getClosedTicketsPaginated();
-                    }}
-                  />
+                  <Container py={1}>
+                    <TicketCard
+                      item={item}
+                      refreshList={() => {
+                        reload();
+                        getClosedTicketsPaginated();
+                      }}
+                    />
+                  </Container>
                 )}
                 sliderWidth={width}
                 inactiveSlideScale={0.97}
@@ -169,13 +173,15 @@ const AdminDashboardTemplate: React.FC<AdminDashboardTemplateProps> = ({
                 itemWidth={width * 0.93}
                 vertical={false}
                 renderItem={({ item }) => (
-                  <TicketCard
-                    item={item}
-                    refreshList={() => {
-                      reload();
-                      getClosedTicketsPaginated();
-                    }}
-                  />
+                  <Container py={1}>
+                    <TicketCard
+                      item={item}
+                      refreshList={() => {
+                        reload();
+                        getClosedTicketsPaginated();
+                      }}
+                    />
+                  </Container>
                 )}
                 sliderWidth={width}
                 inactiveSlideScale={0.97}
