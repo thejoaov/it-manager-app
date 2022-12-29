@@ -43,7 +43,7 @@ i18n
       pt,
     },
     lng: Localization.locale,
-    fallbackLng: 'pt-BR',
+    fallbackLng: 'en',
     interpolation: {
       escapeValue: false, // react already safes from xss
     },

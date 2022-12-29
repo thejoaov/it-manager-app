@@ -1,1 +1,211 @@
-{}
+{
+  "common": {
+    "buttons": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "edit": "Edit",
+      "close": "Exit",
+      "delete": "Delete",
+      "add": "Add",
+      "new": "New",
+      "back": "Back",
+      "yes": "Yes",
+      "no": "No",
+      "ok": "Ok",
+      "search": "Search",
+      "clear": "Clear",
+      "login": "Enter",
+      "register": "Register",
+      "logout": "Logout",
+      "details": "Details",
+      "saveChanges": "Save changes",
+      "create": "Create",
+      "saveAndClose": "Save and close",
+      "closeTicket": "Close",
+      "reopenTicket": "Reopen",
+      "assignTicket": "Assign",
+      "assignToMe": "Assign to me",
+      "progressToSolving": "Start solving"
+    },
+    "datePicker": {
+      "sabeLabel": "Save"
+    }
+  },
+  "login": {
+    "errors": {
+      "default": "Error while trying to login, check your credentials and try again"
+    },
+    "inputs": {
+      "loginLabel": "Email or username",
+      "loginPlaceholder": "Email or username",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Password"
+    },
+    "buttons": {
+      "login": "Login",
+      "register": "Register"
+    }
+  },
+  "register": {
+    "errors": {
+      "default": "Error while trying to register, check your credentials and try again",
+      "password_min_length": "The password must have at least 8 characters",
+      "email_email": "The email is invalid",
+      "username_unique": "The username is already in use",
+      "email_unique": "The email is already in use"
+    },
+    "inputs": {
+      "emailLabel": "Email",
+      "emailPlaceholder": "Email",
+      "usernameLabel": "Username",
+      "usernamePlaceholder": "Username",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Password",
+      "confirmPasswordLabel": "Confirm password",
+      "confirmPasswordPlaceholder": "Confirm password"
+    },
+    "buttons": {
+      "register": "Create account",
+      "login": "Login"
+    },
+    "messages": {
+      "registerSuccess": "Account created successfully!"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "solvingTitle": "Solving",
+    "openTitle": "Open",
+    "closedTitle": "Closed",
+    "unassignedTitle": "Unasigned",
+    "noSolvingTickets": "No tickets solving",
+    "assignedToMeTitle": "Assigned to me",
+    "noOpenTickets": "No open tickets",
+    "noClosedTickets": "No closed tickets",
+    "noUnassignedTickets": "No unassigned tickets",
+    "currentlySolvingTitle": "Currently solving",
+    "technicianDashboardTitle": "Technician Dashboard",
+    "adminDashboardTitle": "Admin Dashboard",
+    "userDashboardTitle": "Dashboard",
+    "managerDashboardTitle": "Manager Dashboard",
+    "supportDashboardTitle": "Support Dashboard",
+    "guestDashboardTitle": "Guest Dashboard"
+  },
+  "profile": {
+    "username": "Username",
+    "email": "Email",
+    "buttons": {
+      "logout": "Logout",
+      "edit": "Edit"
+    }
+  },
+  "ticketDetails": {
+    "title": "Ticket details",
+    "buttons": {
+      "close": "Close",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "messages": {
+      "deleteSuccess": "Ticket deleted successfully!"
+    }
+  },
+  "ticketCard": {
+    "unassigned": "Unassigned",
+    "details": "Details"
+  },
+  "ticketlist": {
+    "title": "Tickets",
+    "buttons": {
+      "new": "New Ticket"
+    },
+    "emptyText": "No tickets found",
+    "errors": {
+      "default": "Error while trying to get tickets, try again"
+    }
+  },
+  "searchProfile": {
+    "headerTitle": "Search profile",
+    "searchPlaceholder": "Username, email or name"
+  },
+  "newTicket": {
+    "edit": "Edit Ticket",
+    "title": "New Ticket",
+    "errors": {
+      "default": "Error while trying to create ticket, try again",
+      "title_required": "The title is required",
+      "description_required": "The description is required",
+      "location_required": "The location is required",
+      "assignee_id_required": "The assignee is required",
+      "opener_id_required": "The opener is required"
+    },
+    "messages": {
+      "deleteSuccess": "Ticket deleted successfully!",
+      "createSuccess": "Ticket created successfully!"
+    },
+    "inputs": {
+      "titleLabel": "Title",
+      "titlePlaceholder": "Title",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Description",
+      "assigneeLabel": "Assignee",
+      "assigneePlaceholder": "Assignee",
+      "priorityLabel": "Priority",
+      "priorityPlaceholder": "Select priority",
+      "locationLabel": "Location",
+      "locationPlaceholder": "Location",
+      "openerLabel": "Opener",
+      "openerPlaceholder": "Opener",
+      "priorityOptions": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      },
+      "statusLabel": "Status",
+      "statusPlaceholder": "Status",
+      "statusOptions": {
+        "open": "Open",
+        "solving": "Solving",
+        "closed": "Closed"
+      }
+    },
+    "buttons": {
+      "save": "Save"
+    }
+  },
+  "profileEdit": {
+    "title": "Edit Profile",
+    "inputs": {
+      "nameLabel": "Name",
+      "namePlaceholder": "Name",
+      "birthdateLabel": "Birthdate",
+      "birthdatePlaceholder": "Birthdate",
+      "telephoneLabel": "Phone",
+      "telephonePlaceholder": "Phone",
+      "jobTitleLabel": "Job title",
+      "jobTitlePlaceholder": "Job title",
+      "startDateLabel": "Job start date",
+      "startDatePlaceholder": "Job start date"
+    },
+    "buttons": {
+      "save": "Save"
+    },
+    "messages": {
+      "success": "Profile updated successfully!",
+      "error": "Error while trying to update profile, try again"
+    }
+  },
+
+  "easterEgg": {
+    "title": "Easter Egg 🗿🍷",
+    "apiUrlLabel": "Base Url",
+    "apiUrlPlaceholder": "Base Url",
+    "apiUrlDev": "Dev - Local",
+    "apiUrlProd": "Production - Railway",
+    "apiUrlStg": "Staging - Render",
+    "toast": {
+      "success": "Url changed successfully!",
+      "error": "Error while trying to change url, try again"
+    }
+  }
+}
