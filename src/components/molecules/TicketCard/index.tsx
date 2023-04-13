@@ -29,7 +29,7 @@ const TicketCard: React.FC<TicketCardProps> = ({ item, refreshList }) => {
 
   const getPriority = useMemo(() => {
     const iconByPriority: Record<
-      typeof item['priority'],
+      (typeof item)['priority'],
       keyof typeof MaterialCommunityIcons.glyphMap
     > = {
       low: 'arrow-down',
@@ -37,7 +37,7 @@ const TicketCard: React.FC<TicketCardProps> = ({ item, refreshList }) => {
       high: 'arrow-up',
     };
 
-    const colorByPriority: Record<typeof item['priority'], string> = {
+    const colorByPriority: Record<(typeof item)['priority'], string> = {
       high: colors.semantic.high,
       medium: colors.semantic.medium,
       low: colors.semantic.low,
@@ -51,7 +51,7 @@ const TicketCard: React.FC<TicketCardProps> = ({ item, refreshList }) => {
 
   const getStatus = useMemo(() => {
     const iconByStatus: Record<
-      typeof item['status'],
+      (typeof item)['status'],
       keyof typeof MaterialCommunityIcons.glyphMap
     > = {
       open: 'alert-circle',
@@ -59,7 +59,7 @@ const TicketCard: React.FC<TicketCardProps> = ({ item, refreshList }) => {
       closed: 'check-circle',
     };
 
-    const colorByStatus: Record<typeof item['status'], string> = {
+    const colorByStatus: Record<(typeof item)['status'], string> = {
       open: colors.status.open,
       solving: colors.status.solving,
       closed: colors.status.closed,

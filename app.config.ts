@@ -27,7 +27,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   backgroundColor: '#000',
   jsEngine: 'hermes',
   primaryColor: '#9E2A9B',
-  entryPoint: './App.tsx',
+  // entryPoint: './App.tsx',
   name: 'IT Manager',
   slug: 'it-manager',
   version,
